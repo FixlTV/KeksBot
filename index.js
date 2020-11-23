@@ -7,8 +7,7 @@ const ext1    = require('./extern1')
 const ext2    = require('./extern2')
 
 client.on('ready', () => {
-    console.log(`[${client.user.username}]: Lade Kekse...`)
-    console.log(`[${client.user.username}]: Kekse geladen!`)
+    console.log(`[${client.user.username}]: Kekse wurden geladen.`)
 })
 
 
@@ -119,7 +118,7 @@ function cmd_eval(msg, args) {
         } catch(err) {
             embeds.error(msg, ":x: Fehler", `\`\`\`${err}\`\`\``)
         }
-    } else {console.log('error')}
+    }
 }
 
 function ext_badge(msg) {
