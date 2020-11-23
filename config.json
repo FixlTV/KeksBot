@@ -1,0 +1,15 @@
+{
+    "token": "Nzc0ODg1NzAzOTI5NTYxMDg5.X6eSjA.RMe8Ca-0Lts2HFvMbWu0tz4qA-g",
+    "prefix": "-",
+    "mods": ["514089658833960963","762979498438164541"],
+    "devs": ["514089658833960963","762979498438164541"],
+    "version": "Alpha 1.0",
+    "max": 128,
+    "maxVIP": 256,
+    "maxlv1": 512,
+    "maxlv2": 1024,
+    "maxlv3": 2048,
+    "maxlv4": 4096,
+    "maxlv5": 8192,
+    "maxPartner": 10000
+}
