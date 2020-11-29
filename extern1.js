@@ -6,7 +6,7 @@ const emotes  = require('./emotes.json')
 const cmdx    = require('./cmds.json')
 const embeds = require('./embeds')
 
-//content: extras
+//content: extras: badge, help, ping, partner
 
 const color = {
     red: 0xff0000,
