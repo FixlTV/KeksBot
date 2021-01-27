@@ -25,7 +25,7 @@ module.exports = {
         var message
         var embed = new discord.MessageEmbed()
             .setColor(color.red)
-            .setTitle(':x: Zugriff verweigert!')
+            .setTitle(`${emotes.denied} Zugriff verweigert!`)
             .setDescription(`Um diesen Befehl auszuführen, benötigst du \`\`${permission}\`\`.`)
         msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 })).then((msg) => {
             message = msg
@@ -56,7 +56,6 @@ module.exports = {
         return Promise.resolve(message)
     },
     syntaxerror(msg, syntax) {
-        const serverdata = require('./serverdata.json')
         var message
         var embed = new discord.MessageEmbed()
             .setColor(color.red)

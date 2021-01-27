@@ -8,7 +8,9 @@ module.exports = {
     type: 'user',
     callback: (msg, args, client, serverdata, userdata, config, emotes, color) => {
         msg.delete()
-        var team = msg.member.roles.cache.has('779991897880002561')
+        var guild = client.guilds.cache.get('775001585541185546')
+        var member = guild.member(msg.author)
+        var team = member.roles.cache.has('779991897880002561')
         const VIP = require('../VIP.json')
         if(msg.author.id in userdata) {
         } else {

@@ -29,7 +29,9 @@ module.exports = {
         var id = member.id
         var roles = member.roles.cache.array()
         var temp = new Array()
-        var team = msg.member.roles.cache.has('779991897880002561')
+        var guild = client.guilds.cache.get('775001585541185546')
+        var member = guild.member(msg.author)
+        var team = member.roles.cache.has('779991897880002561')
         var embed = new discord.MessageEmbed()
             .setColor(color.normal)
             .setTitle(`Userinfo für ${user.displayName}`)
