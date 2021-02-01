@@ -30,7 +30,7 @@ module.exports = {
             .addField(':information_source: Informationsbefehle', 'Befehle, die den Nutzer über diverse Dinge informieren (z.B.: serverinfo)', true)
             .addField(':busts_in_silhouette: Nutzerbefehle', 'Befehle für jeden, die nicht der Information dienen.', true)
             .addField(`${emotes.cookie} Keks Befehle`, 'Diese Befehle geben dir Kekse. Oder auch nicht.', true)
-        if(serverdata[msg.guild.id].mod) {
+        if(serverdata[msg.guild.id].mod == 1) {
             embedhome.addField(':hammer: Moderationsbefehle', 'Diese Befehle dienen der Moderierung eures Servers.', true)
         }
         embedhome.addField(':gear: Administrationsbefehle', 'Diese Befehle können nur Serveradmins verwenden.', true)
@@ -132,11 +132,12 @@ module.exports = {
         await message.react('ℹ️')
         await message.react('👥')
         await message.react('776460440477630465')
-        await message.react('⚙️')
-        await message.react('775004095056052225')
-        if(serverdata[msg.guild.id].mod) {
+        if(serverdata[msg.guild.id].mod == 1) {
             await message.react('🔨')
         }
+        await message.react('⚙️')
+        await message.react('775004095056052225')
+
 
         setTimeout(deletereactions, 120000, message)
     }

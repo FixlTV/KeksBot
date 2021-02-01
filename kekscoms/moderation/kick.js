@@ -7,7 +7,7 @@ module.exports = {
     minArgs: 1,
     maxArgs: 1,
     permissions: 'MANAGE_MESSAGES',
-    description: 'Löscht bis zu 100 Nachrichten.',
+    description: 'Kickt aktuell noch keinen [WIP]',
     type: 'mod',
     addon: 'mod',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color, embeds) => {

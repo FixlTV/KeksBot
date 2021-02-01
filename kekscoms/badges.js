@@ -6,11 +6,13 @@ module.exports = {
     commands: ['badges', 'badge'],
     description: 'Zeigt die Abzeichen des Nutzers an.',
     type: 'user',
-    callback: (msg, args, client, serverdata, userdata, config, emotes, color) => {
+    callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
         msg.delete()
-        var guild = client.guilds.cache.get('775001585541185546')
-        var member = guild.member(msg.author)
-        var team = member.roles.cache.has('779991897880002561')
+        var guild = await client.guilds.fetch('775001585541185546')
+        if(guild.members.cache.has(msg.author.id)) {
+            var member = guild.member(msg.author)
+            var team = member.roles.cache.has('779991897880002561')
+        }
         const VIP = require('../VIP.json')
         if(msg.author.id in userdata) {
         } else {

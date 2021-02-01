@@ -56,7 +56,9 @@ module.exports = {
             }
         }
         id = user.id
-        userdata[id].cookies = Number(userdata[id].cookies) + count
+        var cookies = Number(userdata[id].cookies)
+        console.log(cookies)
+        userdata[id].cookies = cookies + count
         if(userdata[id].cookies < 0) userdata[id].cookies = 0
         fs.writeFileSync('./userdata.json', JSON.stringify(userdata, null, 2))
         var embed = new discord.MessageEmbed()

@@ -7,7 +7,7 @@ module.exports = {
     description: 'Zeigt Informationen zu einem Nutzer an.',
     expectedArgs: '[@Nutzer]',
     type: 'info',
-    callback: (msg, args, client, serverdata, userdata, config, emotes, color) => {
+    callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
         const VIP = require('../VIP.json')
         msg.delete()
         var user = 0
@@ -29,9 +29,10 @@ module.exports = {
         var id = member.id
         var roles = member.roles.cache.array()
         var temp = new Array()
-        var guild = client.guilds.cache.get('775001585541185546')
-        var member = guild.member(msg.author)
-        var team = member.roles.cache.has('779991897880002561')
+        var guild = await client.guilds.fetch('775001585541185546')
+        if(guild.members.cache.has(member.id)) {
+            var team = member.roles.cache.has('779991897880002561')
+        }
         var embed = new discord.MessageEmbed()
             .setColor(color.normal)
             .setTitle(`Userinfo für ${user.displayName}`)

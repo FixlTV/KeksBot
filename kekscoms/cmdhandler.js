@@ -111,7 +111,7 @@ module.exports = (client, commandOptions) => {
             prefix = serverdata[msg.guild.id].prefix
         }
         for(const alias of commands) {
-            if(msg.content.split(' ')[0] === `${prefix.toLowerCase()}${alias.toLowerCase()}`) {
+            if(msg.content.split(' ')[0].toLowerCase() === `${prefix.toLowerCase()}${alias.toLowerCase()}` || (msg.content.split(' ')[0].toLowerCase() === `<@!774885703929561089>` && msg.content.split(' ')[1] &&msg.content.split(' ')[1].toLowerCase() === `${alias.toLowerCase()}`)) {
                 //Ein Befehl wurde detektiert.
 
                 //Überprüfe Permissions
@@ -149,6 +149,8 @@ module.exports = (client, commandOptions) => {
                 //Füge Arguments zu einem Array hinzu
                 const args = msg.content.split(/[ ]+/)
                 args.shift()
+                if(args[0].toLowerCase() === alias.toLowerCase()) {
+                    args.shift()}
 
                 //Überprüfe Argument Anzahl
                 if(args.length < minArgs || (

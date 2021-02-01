@@ -34,13 +34,10 @@ module.exports = {
         var messages = await msg.channel.messages.fetch({ limit: 100 })
         var message = await msg.channel.send(embed)
         messages = await msg.channel.messages.cache.filter(m => m.id !== message.id && !m.pinned && m.id !== msg.id).first(count)
-        console.log(messages)
-        messages.forEach(message => {
-            message.delete({reason: 'Bulk Delete'})
-        })
+        var deleted = await msg.channel.bulkDelete(messages)
         embed.setColor(color.lime)
         embed.setTitle(`${emotes.accept} Nachrichten gelöscht`)
-        embed.setDescription(`${count} Nachrichten wurden erfolgreich gelöscht.`)
+        embed.setDescription(`${deleted.size} Nachrichten wurden erfolgreich gelöscht.`)
         message.edit(embed).then(msg => msg.delete({ timeout: 5000 }))
     }
 }
