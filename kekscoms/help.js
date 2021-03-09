@@ -1,11 +1,8 @@
 const fs = require('fs')
 const embeds = require('../embeds')
 const discord = require('discord.js')
+const delay = require('delay')
 const loadCommands = require('./cmdloader')
-
-const deletereactions = (msg) => {
-    msg.reactions.removeAll()
-}
 
 module.exports = {
     description: 'Zeigt das da an. Wow',
@@ -33,7 +30,7 @@ module.exports = {
         if(serverdata[msg.guild.id].mod == 1) {
             embedhome.addField(':hammer: Moderationsbefehle', 'Diese Befehle dienen der Moderierung eures Servers.', true)
         }
-        embedhome.addField(':gear: Administrationsbefehle', 'Diese Befehle können nur Serveradmins verwenden.', true)
+        embedhome.addField(':gear: Einstellungen', 'Diese Befehle können nur Serveradmins verwenden.', true)
         embedhome.addField(`${emotes.denied} Menü schließen`, 'Schließt dieses Hilfemenü (Löscht die Nachricht und alle Reactions).', true)
         embedhome.setFooter(`© KeksBot ${config.version} | Dieses Formular läuft nach 2 Minuten ab.`, client.user.avatarURL())
 
@@ -42,22 +39,27 @@ module.exports = {
             .setColor(color.normal)
             .setTitle(`${emotes.cookie} KeksBot Hilfe | :information_source:`)
             .setFooter(`© KeksBot ${config.version} | Dieses Formular läuft nach 2 Minuten ab.`, client.user.avatarURL())
+            .setDescription('Mögliche Argumente:\n`<> Benötigt. Ohne dieses Argument funktioniert der Command nicht.\n[] Optional. Dieses Argument kann weggelassen werden`')
         var embeduser = new discord.MessageEmbed()
             .setColor(color.normal)
             .setTitle(`${emotes.cookie} KeksBot Hilfe | :busts_in_silhouette:`)
             .setFooter(`© KeksBot ${config.version} | Dieses Formular läuft nach 2 Minuten ab.`, client.user.avatarURL())
+            .setDescription('Mögliche Argumente:\n`<> Benötigt. Ohne dieses Argument funktioniert der Command nicht.\n[] Optional. Dieses Argument kann weggelassen werden`')
         var embedcookies = new discord.MessageEmbed()
             .setColor(color.normal)
             .setTitle(`${emotes.cookie} KeksBot Hilfe | ${emotes.cookie}`)
             .setFooter(`© KeksBot ${config.version} | Dieses Formular läuft nach 2 Minuten ab.`, client.user.avatarURL())
+            .setDescription('Mögliche Argumente:\n`<> Benötigt. Ohne dieses Argument funktioniert der Command nicht.\n[] Optional. Dieses Argument kann weggelassen werden`')
         var embedadmin = new discord.MessageEmbed()
             .setColor(color.normal)
             .setTitle(`${emotes.cookie} KeksBot Hilfe | :gear:`)
             .setFooter(`© KeksBot ${config.version} | Dieses Formular läuft nach 2 Minuten ab.`, client.user.avatarURL())
+            .setDescription('Mögliche Argumente:\n`<> Benötigt. Ohne dieses Argument funktioniert der Command nicht.\n[] Optional. Dieses Argument kann weggelassen werden`')
         var embedmod = new discord.MessageEmbed()
             .setColor(color.normal)
             .setTitle(`${emotes.cookie} KeksBot Hilfe | :hammer:`)
             .setFooter(`© KeksBot ${config.version} | Dieses Formular läuft nach 2 Minuten ab.`, client.user.avatarURL())
+            .setDescription('Mögliche Argumente:\n`<> Benötigt. Ohne dieses Argument funktioniert der Command nicht.\n[] Optional. Dieses Argument kann weggelassen werden`')
         const commands = loadCommands()
         for(const command of commands) {
             const mainCommand = 
@@ -124,21 +126,24 @@ module.exports = {
             r.users.remove(r.users.cache.filter(u => u.id === msg.author.id).first())
         })
         embedx.on('collect', r =>{
-            message.delete()
+            message.delete().catch()
             return
         })
 
-        await message.react('🏡')
-        await message.react('ℹ️')
-        await message.react('👥')
-        await message.react('776460440477630465')
+        await message.react('🏡').catch(err => {return})
+        await message.react('ℹ️').catch(err => {return})
+        await message.react('👥').catch(err => {return})
+        await message.react('776460440477630465').catch(err => {return})
         if(serverdata[msg.guild.id].mod == 1) {
-            await message.react('🔨')
+            await message.react('🔨').catch(err => {return})
         }
-        await message.react('⚙️')
-        await message.react('775004095056052225')
+        await message.react('⚙️').catch(err => {return})
+        await message.react('775004095056052225').catch(err => {return})
 
 
-        setTimeout(deletereactions, 120000, message)
+        await delay(120000)
+        if(message.deleted) return
+        await message.reactions.removeAll()
+        return
     }
 }

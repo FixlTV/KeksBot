@@ -90,8 +90,7 @@ if(msg.author.id in userdata) {
             fs.writeFileSync('./userdata.json', JSON.stringify(userdata, null, 2))
             embeds.success(msg, "Happa Happa", `Du hast erfolgreich ${args} Kekse gegsessen.\nDu hast noch **${userdata[msg.author.id].cookies} Kekse** in deinem Lager frei zur Verfügung.\nAufgrund deiner **${userdata[msg.author.id].xp} Erfahrungspunkten** bist du Level **${userdata[msg.author.id].lv}**.`)
         } else {
-            embeds.error(msg, "Fehler", `Du hast nicht genügend Kekse.
-            Dir fehlen ${userdata[msg.author.id].cookies - args} Stück.`)
+            embeds.error(msg, "Fehler", `Du hast nicht genügend Kekse.\nDir fehlen ${userdata[msg.author.id].cookies - args} Stück.`)
         }
     } else {
         if(arg == 'all') {

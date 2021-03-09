@@ -3,14 +3,6 @@ const embeds     = require('../embeds.js')
 const config = require('../config.json')
 const fs = require('fs')
 
-const color = {
-    red: 0xff0000,
-    lightblue: 0x3498db,
-    lime: 0x2ecc71,
-    yellow: 0xf1c40f,
-    normal: 0x00b99b
-}
-
 const validatePermissions = (permissions) => {
     const validPermissions = [
         'ADMINISTRATOR',
@@ -59,8 +51,9 @@ module.exports = (client, commandOptions) => {
         minArgs = 0,
         maxArgs = null,
         permissions = [],
-        modonly = 0,
-        callback,
+        modonly = false,
+        devonly = false,
+        callback = () => {},
         addon = false, 
         description,
         type,
@@ -71,7 +64,7 @@ module.exports = (client, commandOptions) => {
         commands = [commands]
     }
 
-    console.log(`[${client.user.username}]: Lade Befehl "${commands[0]}"`)
+    if(commands && commands[0]) console.log(`[${client.user.username}]: Lade Befehl "${commands[0]}"`)
 
     //Überprüfung der Permissions
     if(permissions.length) {
@@ -85,6 +78,14 @@ module.exports = (client, commandOptions) => {
         const serverdata = require('../serverdata.json')
         const userdata   = require('../userdata.json')
         const emotes     = require('../emotes.json')
+
+        const color = {
+            red: 0xff0000,
+            lightblue: 0x3498db,
+            lime: 0x2ecc71,
+            yellow: 0xf1c40f,
+            normal: 0x00b99b
+        }
 
         //Überprüfe ob der Autor ein Bot ist.
         if(msg.author.bot == true) return
@@ -101,7 +102,7 @@ module.exports = (client, commandOptions) => {
 
         //Überprüfe, ob der Autor gebannt ist.
         if(userdata[msg.author.id]) {
-            if(userdata[msg.author.id].banned == 1) {
+            if(userdata[msg.author.id].banned) {
                 return
             }
         }
@@ -109,9 +110,25 @@ module.exports = (client, commandOptions) => {
         //Lege Prefix fest
         if(serverdata[msg.guild.id]) {
             prefix = serverdata[msg.guild.id].prefix
+            if(serverdata[msg.guild.id].color) {
+                if(serverdata[msg.guild.id].color === 'role') color.normal = msg.guild.me.displayHexColor()
+                else color.normal = serverdata[msg.guild.id].color
+            }
         }
+
+        if(serverdata[msg.guild.id] && serverdata[msg.guild.id].ic) {
+            if(serverdata[msg.guild.id].ic.includes(msg.channel.id)) return
+        }
+
+        var text = msg.content
+        if(text.toLowerCase().startsWith(prefix.toLowerCase())) text = text.substring(prefix.length)
+        else if(text.startsWith('<@774885703929561089>')) text = text.substring(21)
+        else if(text.startsWith('<@!774885703929561089>')) text = text.substring(22)
+        else return
+        text = text.trimStart()
+
         for(const alias of commands) {
-            if(msg.content.split(' ')[0].toLowerCase() === `${prefix.toLowerCase()}${alias.toLowerCase()}` || (msg.content.split(' ')[0].toLowerCase() === `<@!774885703929561089>` && msg.content.split(' ')[1] &&msg.content.split(' ')[1].toLowerCase() === `${alias.toLowerCase()}`)) {
+            if(text.split(' ')[0].toLowerCase() === alias.toLowerCase()) {
                 //Ein Befehl wurde detektiert.
 
                 //Überprüfe Permissions
@@ -134,23 +151,30 @@ module.exports = (client, commandOptions) => {
                             return
                         }
                     } else {
-                        console.log
+                        console.log(`Unbekanntes Plugin ${addon} benötigt!`)
                     }
                 }
 
                 //Überprüfe Mod
-                if(modonly == 1) {
+                if(modonly) {
                     if(mods.includes(msg.author.id)) {} else {
                         msg.delete()
                         embeds.needperms(msg, 'KeksBot-Moderator')
                         return
                     }
                 }
+
+                //Überprüfe Dev
+                if(devonly) {
+                    if(!config.devs.includes(msg.author.id)) {
+                        msg.delete()
+                        return embeds.needperms(msg, 'KeksBot-Developer')
+                    }
+                }
+
                 //Füge Arguments zu einem Array hinzu
-                const args = msg.content.split(/[ ]+/)
+                const args = text.split(/[ ]+/)
                 args.shift()
-                if(args[0].toLowerCase() === alias.toLowerCase()) {
-                    args.shift()}
 
                 //Überprüfe Argument Anzahl
                 if(args.length < minArgs || (
@@ -161,10 +185,11 @@ module.exports = (client, commandOptions) => {
                     return
                 }
 	
-				console.log(`Command ${alias} wird ausgeführt.`)
+				console.log(`${msg.author.tag}: ${alias} | ${args} | ${msg.content}`)
                 //Führt den Command aus
                 callback(msg, args, client, serverdata, userdata, config, emotes, color, embeds) 
-
+                delete text
+                delete args
                 return
             }
         }

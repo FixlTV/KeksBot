@@ -11,11 +11,11 @@ module.exports = {
     description: 'Entzieht einem Nutzer den VIP Status.',
     type: 'unlisted',
     callback: (msg, args, client, serverdata, userdata, config, color) => {
+        msg.delete()
         if(!isNaN(args)) { 
             const VIPs = require('../VIP.json')
             delete VIPs[args]
             fs.writeFileSync('./VIP.json',JSON.stringify(VIPs, null, 2))
-            msg.delete()
             embeds.success(msg, 'Daten gespeichert!', `<@${args}> ist kein VIP mehr.`)
             console.log(`${msg.author.username}: ${args} ist kein VIP mehr.`)
             try {
@@ -32,7 +32,6 @@ module.exports = {
                 })
             } catch (err) {console.log(err)}
         } else {
-            msg.delete()
             embeds.error(msg, "Fehler", `\`${args.join(' ')}\` ist keine gültige ID.`)
         }
     }

@@ -35,8 +35,12 @@ module.exports = {
                         }
                     }
                 }
-                resultmsg.edit('',embed).then(msg => {msg.delete({ timeout: 30000 })
-            message = msg})
+                resultmsg.edit('',embed).then(resultmsg =>        
+                    setTimeout(msg => {
+                        if(!msg.deleted) {msg.delete()}
+                    }, 10000, resultmsg)
+                )
+                message = msg
             })
             return Promise.resolve(message)
     }

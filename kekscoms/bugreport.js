@@ -11,6 +11,7 @@ module.exports = {
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
         const data = require('../data.json')
         var embed = new discord.MessageEmbed()
+            .setAuthor(msg.member.displayName, msg.author.avatarURL())
             .setColor(color.yellow)
             .setTitle(`${emotes.pinging} Sende Bug.`)
             .setDescription('Dies kann einige Zeit dauern.')
@@ -29,6 +30,10 @@ module.exports = {
         embed.setDescription(`Dein Bug (#${data.case}) wurde erfolgreich gemeldet.\nVielen Dank!`)
         data.case ++
         fs.writeFileSync('./data.json', JSON.stringify(data, null, 4))
-        message.edit(embed).then(msg => msg.delete({timeout: 10000}))
+        message.edit(embed).then(msg =>         
+            setTimeout(msg => {
+                if(!msg.deleted) {msg.delete()}
+            }, 7500, msg)
+        )
     }
 }

@@ -29,8 +29,11 @@ module.exports = {
                 level = 5
             }
             embed.addField('Level', level, true)
-            msg.channel.send(embed).then(msg => {msg.delete({ timeout: 15000 })
-            message = msg})
+            msg.channel.send(embed).then(msg =>         
+                setTimeout(msg => {
+                    if(!msg.deleted) {msg.delete()}
+                }, 10000, msg)
+            )
         } catch (err) {
             embeds.error(msg, "Fehler", "Ein Fehler ist aufgetreten. \nWahrscheinlich ist das Keks System auf eurem Server noch nicht aktiviert.\nUm das nachzuholen, muss ein Administrator ``-activate`` eingeben.")
         }

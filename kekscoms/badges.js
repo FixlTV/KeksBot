@@ -57,6 +57,10 @@ module.exports = {
             .setDescription(temp.join(' '))
             .setThumbnail(msg.author.avatarURL())
             .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
-        msg.channel.send(embed).then(msg => msg.delete({ timeout: 10000 }))
+        msg.channel.send(embed).then(msg =>         
+            setTimeout(msg => {
+                if(!msg.deleted) {msg.delete()}
+            }, 10000, msg)
+        )
     }
 }

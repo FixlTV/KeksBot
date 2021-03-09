@@ -1,31 +1,21 @@
 const fs = require('fs')
 const embeds = require('../embeds')
 const discord = require('discord.js')
+const searchmembers = require('../subcommands/searchmembers')
+const delay = require('delay')
 
 module.exports = {
-    commands: ['userinfo'],
+    commands: ['userinfo', 'uinfo'],
     description: 'Zeigt Informationen zu einem Nutzer an.',
     expectedArgs: '[@Nutzer]',
     type: 'info',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
         const VIP = require('../VIP.json')
         msg.delete()
-        var user = 0
         var member
-        if(args[0]) {
-            if(msg.mentions.members.first()) {
-                user = msg.mentions.members.first()
-            } else if(msg.guild.members.cache.find(u => u.user.username == args.join(' ')) != undefined) {
-                user = msg.guild.members.cache.find(u => u.user.username == args.join(' '))
-            } else if(msg.guild.members.cache.find(u => u.nickname == args.join(' ')) != undefined) {
-                user = msg.guild.members.cache.find(u => u.nickname == args.join(' '))
-            } else {
-                user = msg.member
-            }
-        } else {
-            user = msg.member
-        }
-        member = user
+        var result = await searchmembers(msg, args, args.join(' '))
+        if(result[0][0]) member = result[0][0]
+        else member = msg.member 
         var id = member.id
         var roles = member.roles.cache.array()
         var temp = new Array()
@@ -35,8 +25,8 @@ module.exports = {
         }
         var embed = new discord.MessageEmbed()
             .setColor(color.normal)
-            .setTitle(`Userinfo für ${user.displayName}`)
-            .setDescription(`Hier sind ein paar Informationen über **${member.user.username}**`)
+            .setTitle(`Userinfo für ${member.user.username}`)
+            .setDescription(`Hier sind ein paar Informationen über **${member}**`)
             .setThumbnail(member.user.avatarURL({ dynamic: true }))
             .setAuthor(msg.author.tag, msg.author.avatarURL({ dynamic: true }))
             .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
@@ -73,7 +63,9 @@ module.exports = {
             } else {
                 embed.addField('Keine Daten', 'Für den Nutzer gibt es keine KeksBot Daten.')
             }
-        msg.channel.send(embed)
+        var message = await msg.channel.send(embed)
+        await delay(45000)
+        if(!message.deleted) message.delete()
         return
     }
 }

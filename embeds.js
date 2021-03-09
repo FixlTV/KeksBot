@@ -13,10 +13,11 @@ module.exports = {
     error(msg, title, text) {
         var message
         var embed = new discord.MessageEmbed()
+            .setAuthor(msg.author.tag, msg.author.avatarURL({dynamic: true}))
             .setColor(color.red)
             .setTitle(`${emotes.denied} ${title}`)
             .setDescription(text)
-        msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 })).then((msg) => {
+        msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 }).catch()).then((msg) => {
             message = msg
         })
         return Promise.resolve(message)
@@ -24,10 +25,11 @@ module.exports = {
     needperms(msg, permission) {
         var message
         var embed = new discord.MessageEmbed()
+            .setAuthor(msg.author.tag, msg.author.avatarURL({dynamic: true}))
             .setColor(color.red)
             .setTitle(`${emotes.denied} Zugriff verweigert!`)
             .setDescription(`Um diesen Befehl auszuführen, benötigst du \`\`${permission}\`\`.`)
-        msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 })).then((msg) => {
+        msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 }).catch()).then((msg) => {
             message = msg
         })
         return Promise.resolve(message)
@@ -35,10 +37,11 @@ module.exports = {
     success(msg, title, text) {
         var message
         var embed = new discord.MessageEmbed()
+            .setAuthor(msg.author.tag, msg.author.avatarURL({dynamic: true}))
             .setColor(color.lime)
             .setTitle(`${emotes.accept} ${title}`)
             .setDescription(text)
-        msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 })).then((msg) => {
+        msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 }).catch()).then((msg) => {
             message = msg
         })
         return Promise.resolve(message)
@@ -50,7 +53,7 @@ module.exports = {
             .setTitle(`${emotes.cookie} Kekse ausgeliefert.`)
             .setDescription(`${args} Kekse wurden in deinem Lager zwischengespeichert.\nDu hast aktuell ${data} Kekse.`)
             .setFooter(`© KeksBot ${config.version}`, msg.author.avatarURL())
-        msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 })).then((msg) => {
+        msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 }).catch()).then((msg) => {
             message = msg
         })
         return Promise.resolve(message)
@@ -61,7 +64,7 @@ module.exports = {
             .setColor(color.red)
             .setTitle(`${emotes.denied} Syntaxfehler`)
             .setDescription(`Bitte verwende diese Syntax:\n\`${syntax}\``)
-        msg.channel.send(embed).then(msg => msg.delete({ timeout: 7500 })).then(msg => {
+        msg.channel.send(embed).then(msg => msg.delete({ timeout: 7500 }).catch()).then(msg => {
             message = msg
         })
         return Promise.resolve(message)

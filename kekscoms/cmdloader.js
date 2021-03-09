@@ -4,7 +4,7 @@ const path = require('path')
 module.exports = (client) => {
     const handler = 'cmdhandler.js'
     const commandBase = require(`./${handler}`)
-    const commands = []
+    const commands = new Array()
 
     const readCommands = dir => {
         const files = fs.readdirSync(path.join(__dirname, dir))
@@ -22,8 +22,8 @@ module.exports = (client) => {
         }
     }
 
-    if (client) console.log(`[KeksBot]: Lade Commands...`)
+    if (client) console.log(`[${client.user.username}]: Lade Commands...`)
     readCommands('.')
-    if (client) console.log(`[KeksBot]: System aktiviert!...`)
+    if (client) console.log(`[${client.user.username}]: System aktiviert!...`)
     return commands
 }

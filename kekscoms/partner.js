@@ -2,21 +2,19 @@ const fs = require('fs')
 const embeds = require('../embeds')
 const discord = require('discord.js')
 const bild = 'https://cdn.discordapp.com/attachments/780008420785782784/782596008466186240/partnerserver.png'
+const delay = require('delay')
 
-const applicationcancel = (msg, temp, embed, color, emotes) => {
+const applicationcancel = async (msg, temp, embed, color, emotes) => {
     if(temp == 1) {
         return
     } else {
         embed.setColor(color.red)
         embed.addField('Anfrage abgebrochen', 'Zeitüberschreitung der Verbindung\nDu hast keine Eingabe gegeben.')
         msg.reactions.removeAll()
-        msg.edit(embed).then(msg => msg.delete({timeout: 40000}))
+        var message = await msg.edit(embed)       
+        await delay(40000)
+        if(!message.deleted) message.delete()
     }
-}
-
-const infocancel = (msg) => {
-    msg.reactions.removeAll()
-    return
 }
 
 module.exports = {
@@ -98,7 +96,11 @@ module.exports = {
                                                             embed.setTitle(`${emotes.accept} Anfrage abgeschickt`)
                                                             embed.setDescription('Herzlichen Glückwunsch!\nEure Bewerbung wurde erfolgreich abgeschickt.\nStellt bitte sicher, dass ihr einen Kanal für Systembenachrichtigungen oder einen für Community Updates habt, damit wir euch bei Updates zu eurer Partnerschaft informieren können. Ansonsten werden diese Informationen in einen zufällig ausgewählten Kanal gesendet.')
                                                             embed.spliceFields(0, 1)
-                                                            message.edit(embed).then(message.delete({ timeout: 30000 }))
+                                                            message.edit(embed).then(msg =>         
+                                                                setTimeout(msg => {
+                                                                    if(!msg.deleted) {msg.delete()}
+                                                                }, 40000, msg)
+                                                            )
                                                             })    
                                                         })    
                                                     })    
@@ -115,7 +117,11 @@ module.exports = {
                                     embed.spliceFields(0, embed.fields.length)
                                     embed.addField('Abgebrochen', 'Die Anfrage wurde erfolgreich abgebrochen.')
                                     message.reactions.removeAll()
-                                    message.edit(embed).then(message => message.delete({ timeout: 10000 }))
+                                    message.edit(embed).then(msg =>         
+                                        setTimeout(msg => {
+                                            if(!msg.deleted) {msg.delete()}
+                                        }, 10000, msg)
+                                    )
                                 })
                             })
                         })
@@ -147,7 +153,11 @@ module.exports = {
                         embed.setColor(color.lime)
                         embed.setTitle(`${emotes.accept} Partnerschaftsanfage zurückgezogen.`)
                         embed.setDescription('Euer Antrag wurde erfolgreich zurückgezogen.')
-                        message.edit(embed).then(msg => msg.delete({timeout: 10000}))
+                        message.edit(embed).then(msg =>         
+                            setTimeout(msg => {
+                                if(!msg.deleted) {msg.delete()}
+                            }, 10000, msg)
+                        )
                     })
                 } else {
                     embeds.error(msg, 'Fehler', 'Ihr habt keine ausstehende Partnerschaftsanfrage.')
@@ -268,7 +278,12 @@ module.exports = {
                                     await message.edit(embed)
                                     try {
                                             guild = await client.guilds.cache.get(args[1])
-                                            serverdata[args[1]].lv = 6
+                                            if(!guild || !serverdata[guild.id]) {
+                                                message.delete()
+                                                embeds.error(msg, 'Fehler', 'Für diesen Server gibt es keine Daten ._.')
+                                                return
+                                            }
+                                            serverdata[guild.id].lv = 6
                                             fs.writeFileSync('./serverdata.json', JSON.stringify(serverdata, null, 2))
                                     } catch (err) {
                                         message.delete()
@@ -293,8 +308,10 @@ module.exports = {
                                     embed.setColor(color.lime)
                                     embed.setTitle('Antrag abgelehnt')
                                     embed.setDescription(`Der Antrag von ${guild.name} wurde erfolgreich abgelehnt.`)
-                                    await message.edit(embed)
-                                    message.delete({timeout: 10000})
+                                    await message.edit(embed)      
+                                    setTimeout(msg => {
+                                        if(!msg.deleted) {msg.delete()}
+                                    }, 10000, message)
                                     return
                                 })
                             } else {
@@ -377,7 +394,11 @@ module.exports = {
                             embed.setColor(color.red)
                             embed.setTitle('404')
                             embed.setDescription('Der Server wurde nicht gefunden.\nDie Kündigung wird abgebrochen.')
-                            message.edit(embed).then(msg => msg.delete({timeout: 10000})).then(() => {return})
+                            message.edit(embed).then(msg =>         
+                                setTimeout(msg => {
+                                    if(!msg.deleted) {msg.delete()}
+                                }, 10000, msg).then(() => {return})
+                            )
                         }
                     })
                 } else {
@@ -402,7 +423,11 @@ module.exports = {
                     .setColor(color.normal)
                     .setTitle(`${emotes.partnerlogo} KeksBot Partner`)
                     .setDescription(`Eine KeksBot Partnerschaft bringt einige Vorteile mit sich.\nBeispielsweise erhöht sich das KeksLimit eines Partnerservers von ${config.maxlv5} Keksen pro Minute auf ${config.maxPartner}.\nAußerdem wird es in naher Zukunft diverse Partner Only Commands geben [WIP].\nDer Owner eines Partnerservers erhält neben dem Partner Abzeichen die Partnerrolle auf dem [KeksBot Support Server](https://discord.gg/g8AkYzWRCK) und somit Zugriff auf (mehr oder weniger) geheime Leaks. Zusätzlich erhöht sich das Nutzer-KeksLimit von Besitzern eines Partnerservers von den üblichen ${config.max} Keksen pro Minute auf ${config.maxP}. Weitere Vorteile sind aktuell in Planung.\n\nUm Partner werden zu können, verwende \`partner apply\`.Dies erstellt eine Einladung und sendet sie mit anderen Informationen über den Server (KeksBot Level und EP, Owner und Mitglieder) an das KeksBot Team. Wir werden diese Daten nicht weitergeben. Die Einladung ist nötig, da wir stichprobenartig überprüfen, ob der Server den KeksBot Regeln, Discord ToS und den deutschen Gesetzen entspricht. Sollte dies nicht der Fall sein, werden wir die Anfrage unverzüglich ablehnen. Sollte uns auffallen, dass ein Partnerserver gegen die eben genannten Vorlagen widerspricht, werden wir die Partnerschaft annulieren und den Server von der Botnutzung ausschließen. Sofern notwendig, werden wir den Fall ans Discord Trust and Safety Team weitergeben. Das KeksBot Team kann jegliche Anfragen ohne Begründung ablehnen und Partnerschaften auflösen. Sollte dies passieren, fragt bitte das ausführende Teammitglied nach dem Grund und pingt nicht wie wild die Supporter. Die können überhaupt nichts mit Partnerschaften machen und werden euch hierbei nicht helfen können.\nUm Partner zu werden braucht ihr ${config.mPartnerNeed} Mitglieder ${temp} und ${config.Partner} Erfahrungspunkte ${temp_}.`)
-                msg.channel.send(embed).then(message => message.delete({timeout: 90000}))
+                msg.channel.send(embed).then(msg =>         
+                    setTimeout(msg => {
+                        if(!msg.deleted) {msg.delete()}
+                    }, 90000, msg)
+                )
         } else {
             const info = new discord.MessageEmbed()
                 .setColor(color.normal)
@@ -426,7 +451,7 @@ module.exports = {
             msg.channel.send(info).then(message => {
                 message.react('1️⃣').then(r1 => {
                     message.react('2️⃣').then(r2 => {
-                        message.react('3️⃣').then(r3 => {
+                        message.react('3️⃣').then(async r3 => {
                             const filteri = (reaction, user) => reaction.emoji.name === r1.emoji.name && user.id == msg.author.id
                             const filtera = (reaction, user) => reaction.emoji.name === r2.emoji.name && user.id == msg.author.id
                             const filterc = (reaction, user) => reaction.emoji.name === r3.emoji.name && user.id == msg.author.id
@@ -447,7 +472,8 @@ module.exports = {
                                 message.edit(cancel)
                                 r.users.remove(r.users.cache.filter(u => u.id === msg.author.id).first())
                             })
-                            setTimeout(infocancel, 60000, message)
+                            await delay(60000)
+                            if(!message.deleted) message.delete()
                         })
                     })
                 })

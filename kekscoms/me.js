@@ -7,7 +7,6 @@ module.exports = {
     description: 'Zeigt Kekse im Lager, Erfahrungspunkte und Level an.',
     type: 'user',
     callback: (msg, args, client, serverdata, userdata, config, emotes, color) => {
-        var message
         msg.delete()
         try {
             var name = []
@@ -23,10 +22,11 @@ module.exports = {
                 .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
                 .setColor(color.normal)
                 .setThumbnail(msg.author.avatarURL())
-            msg.channel.send(embed).then(msg => {
-                msg.delete({ timeout: 15000 })
-                message = msg    
-            })
+            msg.channel.send(embed).then(msg =>         
+                setTimeout(msg => {
+                    if(!msg.deleted) {msg.delete()}
+                }, 10000, msg)
+            )
         } catch (err) {
             embeds.error(msg, "Fehler", "Ein Fehler ist aufgetreten.\nVermutlich, weil für dich noch keine Daten angelegt wurden.")
         }

@@ -34,7 +34,11 @@ module.exports = {
             .setColor(color.red)
             .setTitle(`${emotes.accept} Botnutzung erfolgreich deaktiviert.`)
             .setDescription(`Der Nutzer **${user.tag}** wurde erfolgreich gebannt.`)
-        msg.channel.send(embed).then(msg => msg.delete({ timeout: 5000 }))
+        msg.channel.send(embed).then(msg =>         
+            setTimeout(msg => {
+                if(!msg.deleted) {msg.delete()}
+            }, 3000, msg)
+        )
         return
     }
 }

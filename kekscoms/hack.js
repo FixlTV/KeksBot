@@ -7,6 +7,6 @@ module.exports = {
     type: 'unlisted',
     callback: (msg, args, client, serverdata, userdata, config, emotes, color) => {
         msg.delete()
-        msg.channel.send('```diff\n - Angriff fehlgeschlagen. -\n+ KeksSicherheit aktiv. Schutz: 99,99% +```')
+        msg.channel.send('```diff\n- Angriff fehlgeschlagen. -\n+ KeksSicherheit aktiv. Schutz: 99,99% +```')
     }
 }

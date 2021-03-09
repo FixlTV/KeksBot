@@ -7,7 +7,6 @@ module.exports = {
     description: 'Zeigt Informationen zum Server.',
     type: 'info',
     callback: (msg, args, client, serverdata, userdata, config, emotes, color) => {
-        var message
         msg.delete()
         var id           = msg.guild.id
         var embed        = new discord.MessageEmbed()
@@ -43,54 +42,32 @@ module.exports = {
         }
         if(regiondata == 'europe') {
             region = ':flag_eu: Europa'
+        } else if(regiondata == 'brazil') {
+            region = ':flag_br: Brasilien'
+        } else if (regiondata == 'hongkong') {
+            region = ':flag_hk: Hongkong'
+        } else if(regiondata == 'india') {
+            region = ':flag_in: Indien'
+        } else if(regiondata == 'japan') {
+            region = ':flag_jp: Japan'
+        } else if(regiondata == 'russia') {
+            region = ':flag_ru: Russland'
+        } else if(regiondata == 'singapore') {
+            region = ':flag_sg Singapur'
+        } else if(regiondata == 'southafrica') {
+            region = ':flag_za: Südafrika'
+        } else if(regiondata == 'sydney') {
+            region = ':flag_au: Sydney'
+        } else if(regiondata == 'us-central') {
+            region = ':flag_us: US-Central'
+        } else if(regiondata == 'us-east') {
+            region = ':flag_us: US-East'
+        } else if(regiondata == 'us-south') {
+            region = ':flag_us: US-South'
+        } else if(regiondata == 'us-west') {
+            region = ':flag_us: US-West'
         } else {
-            if(regiondata == 'brazil') {
-                region = ':flag_br: Brasilien'
-            } else {
-                if (regiondata == 'hongkong') {
-                    region = ':flag_hk: Hongkong'
-                } else {
-                    if(regiondata == 'india') {
-                        region = ':flag_in: Indien'
-                    } else {
-                        if(regiondata == 'japan') {
-                            region = ':flag_jp: Japan'
-                        } else {
-                            if(regiondata == 'russia') {
-                                region = ':flag_ru: Russland'
-                            } else {
-                                if(regiondata == 'singapore') {
-                                    region = ':flag_sg Singapur'
-                                } else {
-                                    if(regiondata == 'southafrica') {
-                                        region = ':flag_za: Südafrika'
-                                    } else {
-                                        if(regiondata == 'sydney') {
-                                            region = ':flag_au: Sydney'
-                                        } else {
-                                            if(regiondata == 'us-central') {
-                                                region = ':flag_us: US-Central'
-                                            } else {
-                                                if(regiondata == 'us-east') {
-                                                    region = ':flag_us: US-East'
-                                                } else {
-                                                    if(regiondata == 'us-south') {
-                                                        region = ':flag_us: US-South'
-                                                    } else {
-                                                        if(regiondata == 'us-west') {
-                                                            region = ':flag_us: US-West'
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            region = ':united_nations: Keksland (unbekannte Region)'
         }
         boosttier = msg.guild.premiumTier
         boostcount = msg.guild.premiumSubscriptionCount
@@ -119,9 +96,10 @@ module.exports = {
         embed.addField('Level', level, true)
         embed.setThumbnail(msg.guild.iconURL())
         embed.setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
-        msg.channel.send(embed).then(msg => {msg.delete({ timeout: 45000 })
-        message = msg})
-        return Promise.resolve(message)
-
+        msg.channel.send(embed).then(msg =>         
+            setTimeout(msg => {
+                if(!msg.deleted) {msg.delete()}
+            }, 45000, msg)
+        )
     }
 }
