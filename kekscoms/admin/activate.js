@@ -10,7 +10,8 @@ module.exports = {
     type: 'admin',
     callback: (msg, args, client, serverdata, userdata, config, emotes, color) => {
         msg.delete()
-        type = msg.content.split(' ')[1].toLowerCase()
+        if(!args[0]) args.push('')
+        type = args[0].toLowerCase()
         if(type == 'cookies' || type == 'kekse' || type == 'main') {
             if(serverdata[msg.guild.id]) {
                 embeds.error(msg, "Aktivierung unmöglich", "Das KeksSystem ist bereits aktiv.")
