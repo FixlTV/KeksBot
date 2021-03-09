@@ -1,5 +1,5 @@
 const fs = require('fs')
-const embeds = require('../embeds')
+const embeds = require('../../embeds')
 const discord = require('discord.js')
 
 module.exports = {
