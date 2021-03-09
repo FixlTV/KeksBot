@@ -1,4 +1,4 @@
-node-modules/
+node_modules/
 config.json
 userdata.json
 data.json
