@@ -152,7 +152,7 @@ client.on('guildCreate', (g) => {
         fs.writeFileSync('serverdata.json',JSON.stringify(serverdata, null, 2))
     }
     embed = new discord.MessageEmbed()
-        .setColor(0xf1c40f)
+        .setColor(color.yellow)
         .setTitle(`${emotes.pinging} Daten werden angelegt...`)
         .setDescription('Vielen Dank für die Einladung.\nAlle zur Nutzung erforderlichen Daten werden angelegt.\nDies kann einige Zeit dauern.')
     g.systemChannel.send(embed).then(resultmsg => {
@@ -165,7 +165,7 @@ client.on('guildCreate', (g) => {
         serverdata[g.id].prefix = '-'
         fs.writeFileSync('serverdata.json',JSON.stringify(serverdata, null, 2))
         embed = new discord.MessageEmbed()
-            .setColor(0x2ecc71)
+            .setColor(color.lime)
             .setTitle(`${emotes}`)
             .setDescription('Das KeksSystem wurde erfolgreich aktiviert.\nBenutzt ``-help`` um die Funktionen dieses Bots kennen zu lernen.\nMit ``-prefix`` kann man den Prefix ändern.\n**Viel Spaß beim Kekse essen!**')
         resultmsg.edit('',embed)
@@ -178,7 +178,7 @@ client.on('guildCreate', (g) => {
         console.log('----------------------')
         console.log(g.id)
         embed = new discord.MessageEmbed()
-            .setColor(0xff0000)
+            .setColor(color.red)
             .setTitle('<:denied:775004095056052225> Fehler')
             .setDescription('Beim Anlegen der Daten ist ein Fehler aufgetreten.\nBitte gib ``-activate`` ein, um das System manuell zu aktivieren.\nWir entschuldigen uns für diese Unannehmlichkeiten.')
         resultmsg.edit('',embed).then(msg => msg.delete({ timeout: 10000 }))
