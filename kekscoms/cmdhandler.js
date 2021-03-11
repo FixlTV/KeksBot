@@ -111,7 +111,7 @@ module.exports = (client, commandOptions) => {
         if(serverdata[msg.guild.id]) {
             prefix = serverdata[msg.guild.id].prefix
             if(serverdata[msg.guild.id].color) {
-                if(serverdata[msg.guild.id].color === 'role') color.normal = msg.guild.me.displayHexColor()
+                if(serverdata[msg.guild.id].color === 'role') color.normal = msg.guild.me.displayHexColor
                 else color.normal = serverdata[msg.guild.id].color
             }
         }

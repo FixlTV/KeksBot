@@ -9,7 +9,7 @@ module.exports = {
     maxArgs: 1,
     description: 'Sammelt Kekse ein. Geht nur einmal pro Minute.',
     type: 'cookie',
-    callback: (msg, args, client, serverdata, userdata, config, color) => {
+    callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
         const VIPs = require('../VIP.json')
         var xmessage
         msg.delete()
@@ -30,7 +30,7 @@ module.exports = {
         }
         if(msg.guild.id in serverdata) {
             if(!isNaN(args.join(' '))) {
-                if(args.join[0] > 0) {
+                if(args[0] > 0) {
                     args = Number(args[0])
                     if(VIPs[msg.author.id] == 1) { //if user is VIP
                     if(args > config.maxVIP - userdata[id].thismin) {
@@ -83,7 +83,6 @@ module.exports = {
                     fs.writeFileSync('./userdata.json',JSON.stringify(userdata, null, 2))
                     fs.writeFileSync('./serverdata.json', JSON.stringify(serverdata, null, 2))
                     if(args != 0) {
-                        embeds.cookie(msg, args, userdata[id].cookies)
                         var embed = new discord.MessageEmbed()
                             .setColor(color.normal)
                             .setTitle(`${emotes.cookie} Kekse ausgeliefert.`)

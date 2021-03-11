@@ -13,7 +13,7 @@ module.exports = {
     error(msg, title, text) {
         var message
         var embed = new discord.MessageEmbed()
-            .setAuthor(msg.author.tag, msg.author.avatarURL({dynamic: true}))
+            .setFooter(msg.author.tag, msg.author.avatarURL({dynamic: true}))
             .setColor(color.red)
             .setTitle(`${emotes.denied} ${title}`)
             .setDescription(text)
@@ -25,7 +25,7 @@ module.exports = {
     needperms(msg, permission) {
         var message
         var embed = new discord.MessageEmbed()
-            .setAuthor(msg.author.tag, msg.author.avatarURL({dynamic: true}))
+            .setFooter(msg.author.tag, msg.author.avatarURL({dynamic: true}))
             .setColor(color.red)
             .setTitle(`${emotes.denied} Zugriff verweigert!`)
             .setDescription(`Um diesen Befehl auszuführen, benötigst du \`\`${permission}\`\`.`)
@@ -37,7 +37,7 @@ module.exports = {
     success(msg, title, text) {
         var message
         var embed = new discord.MessageEmbed()
-            .setAuthor(msg.author.tag, msg.author.avatarURL({dynamic: true}))
+            .setFooter(msg.author.tag, msg.author.avatarURL({dynamic: true}))
             .setColor(color.lime)
             .setTitle(`${emotes.accept} ${title}`)
             .setDescription(text)
@@ -49,6 +49,7 @@ module.exports = {
     syntaxerror(msg, syntax) {
         var message
         var embed = new discord.MessageEmbed()
+            .setFooter(msg.author.tag, msg.author.avatarURL({dynamic: true}))
             .setColor(color.red)
             .setTitle(`${emotes.denied} Syntaxfehler`)
             .setDescription(`Bitte verwende diese Syntax:\n\`${syntax}\``)
