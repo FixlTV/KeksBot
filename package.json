@@ -16,6 +16,7 @@
     "delay": "^5.0.0",
     "discord.js": "^12.5.1",
     "fs": "^0.0.1-security",
+    "mathjs": "^9.3.0",
     "systeminformation": "^5.6.1"
   }
 }
