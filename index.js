@@ -209,7 +209,7 @@ client.on('guildDelete', async (g) => {
 })
 
 client.on('guildMemberAdd', (member) => {
-    if(member.guild.id !== 775001585541185546n) return
+    if(member.guild.id !== '775001585541185546') return
     const userdata = require('./userdata.json')
     const VIP      = require('./VIP.json')
     if(userdata[member.id]) {

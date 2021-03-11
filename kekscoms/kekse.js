@@ -30,7 +30,8 @@ module.exports = {
         }
         if(msg.guild.id in serverdata) {
             if(!isNaN(args.join(' '))) {
-                if(args.join('') > 0) {
+                if(args.join[0] > 0) {
+                    args = Number(args[0])
                     if(VIPs[msg.author.id] == 1) { //if user is VIP
                     if(args > config.maxVIP - userdata[id].thismin) {
                         args = config.maxVIP - userdata[id].thismin
@@ -83,6 +84,12 @@ module.exports = {
                     fs.writeFileSync('./serverdata.json', JSON.stringify(serverdata, null, 2))
                     if(args != 0) {
                         embeds.cookie(msg, args, userdata[id].cookies)
+                        var embed = new discord.MessageEmbed()
+                            .setColor(color.normal)
+                            .setTitle(`${emotes.cookie} Kekse ausgeliefert.`)
+                            .setDescription(`${args} Kekse wurden in deinem Lager zwischengespeichert.\nDu hast aktuell ${userdata[id].cookies} Kekse.`)
+                            .setFooter(`© KeksBot ${config.version}`, msg.author.avatarURL())
+                        msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 }).catch())
                     } else {
                         embeds.error(msg, "Keksfehler", "Aufgrund des KeksLimits können dir diese Minute keine Kekse mehr ausgeliefert werden.")
                     }

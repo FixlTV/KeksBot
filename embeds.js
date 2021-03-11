@@ -46,18 +46,6 @@ module.exports = {
         })
         return Promise.resolve(message)
     },
-    cookie(msg, args, data) {
-        var message
-        var embed = new discord.MessageEmbed()
-            .setColor(color.normal)
-            .setTitle(`${emotes.cookie} Kekse ausgeliefert.`)
-            .setDescription(`${args} Kekse wurden in deinem Lager zwischengespeichert.\nDu hast aktuell ${data} Kekse.`)
-            .setFooter(`© KeksBot ${config.version}`, msg.author.avatarURL())
-        msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 }).catch()).then((msg) => {
-            message = msg
-        })
-        return Promise.resolve(message)
-    },
     syntaxerror(msg, syntax) {
         var message
         var embed = new discord.MessageEmbed()
