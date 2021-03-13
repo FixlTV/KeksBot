@@ -22,7 +22,7 @@ module.exports = {
             var embed = new discord.MessageEmbed()
                 .setTitle(name.join(' '))
                 .addField('Erfahrungspunkte', serverdata[msg.guild.id].xp, true)
-                .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                 .setColor(color.normal)
                 .setThumbnail(msg.guild.iconURL())
             if(level > 5) {

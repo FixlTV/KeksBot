@@ -41,7 +41,7 @@ if(msg.author.id in userdata) {
                             .setColor(color.normal)
                             .setTitle("Level Up!")
                             .setDescription(`<@${msg.author.id}> hat **Level 2** erreicht!\nHerzlichen Glückwunsch!`)
-                            .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                            .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                             .setThumbnail(msg.author.avatarURL())
                         msg.channel.send('',embed)
                     }
@@ -53,7 +53,7 @@ if(msg.author.id in userdata) {
                                 .setColor(color.normal)
                                 .setTitle("Level Up!")
                                 .setDescription(`<@${msg.author.id}> hat **Level 3** erreicht!\nHerzlichen Glückwunsch!`)
-                                .setFooter(`© KeksBot ${config.version}`,client.user.avatarURL())
+                                .setFooter(`KeksBot ${config.version}`,client.user.avatarURL())
                                 .setThumbnail(msg.author.avatarURL())
                             msg.channel.send('',embed)
                         }
@@ -65,7 +65,7 @@ if(msg.author.id in userdata) {
                                     .setColor(color.normal)
                                     .setTitle("Level Up!")
                                     .setDescription(`<@${msg.author.id}> hat **Level 4** erreicht!\nHerzlichen Glückwunsch!`)
-                                    .setFooter(`© KeksBot ${config.version}`,avatar)
+                                    .setFooter(`KeksBot ${config.version}`,avatar)
                                     .setThumbnail(msg.author.avatarURL())
                                 msg.channel.send('',embed)
                             }
@@ -77,7 +77,7 @@ if(msg.author.id in userdata) {
                                         .setColor(color.normal)
                                         .setTitle("Level Up!")
                                         .setDescription(`<@${msg.author.id}> hat **Level 5** erreicht!\nHerzlichen Glückwunsch!`)
-                                        .setFooter(`© KeksBot ${config.version}`,avatar)
+                                        .setFooter(`KeksBot ${config.version}`,avatar)
                                         .setThumbnail(msg.author.avatarURL())
                                     msg.channel.send('',embed)
                                 }
@@ -106,7 +106,7 @@ if(msg.author.id in userdata) {
                             .setColor(color.normal)
                             .setTitle("Level Up!")
                             .setDescription(`<@${msg.author.id}> hat **Level 2** erreicht!\nHerzlichen Glückwunsch!`)
-                            .setFooter(`© KeksBot ${config.version}`,avatar)
+                            .setFooter(`KeksBot ${config.version}`,avatar)
                             .setThumbnail(msg.author.avatarURL())
                         msg.channel.send(embed)
                     }
@@ -118,7 +118,7 @@ if(msg.author.id in userdata) {
                                 .setColor(color.normal)
                                 .setTitle("Level Up!")
                                 .setDescription(`<@${msg.author.id}> hat **Level 3** erreicht!\nHerzlichen Glückwunsch!`)
-                                .setFooter(`© KeksBot ${config.version}`,avatar)
+                                .setFooter(`KeksBot ${config.version}`,avatar)
                                 .setThumbnail(msg.author.avatarURL())
                             msg.channel.send('',embed)
                         }
@@ -130,7 +130,7 @@ if(msg.author.id in userdata) {
                                     .setColor(color.normal)
                                     .setTitle("Level Up!")
                                     .setDescription(`<@${msg.author.id}> hat **Level 4** erreicht!\nHerzlichen Glückwunsch!`)
-                                    .setFooter(`© KeksBot ${config.version}`,avatar)
+                                    .setFooter(`KeksBot ${config.version}`,avatar)
                                     .setThumbnail(msg.author.avatarURL())
                                 msg.channel.send('',embed)
                             }
@@ -142,7 +142,7 @@ if(msg.author.id in userdata) {
                                         .setColor(color.normal)
                                         .setTitle("Level Up!")
                                         .setDescription(`<@${msg.author.id}> hat **Level 5** erreicht!\nHerzlichen Glückwunsch!`)
-                                        .setFooter(`© KeksBot ${config.version}`,avatar)
+                                        .setFooter(`KeksBot ${config.version}`,avatar)
                                         .setThumbnail(msg.author.avatarURL())
                                     msg.channel.send('',embed)
                                 }

@@ -20,7 +20,7 @@ module.exports = {
             .setAuthor('KeksRechner', 'https://cdn.discordapp.com/attachments/780008420785782784/819559623962656838/KeksRechner.png')
             .addField('Eingabe', `\`\`\`css\n${args.join(' ')}\`\`\``)
             .addField('Ausgabe', `\`\`\`css\n${resp}\`\`\``)
-            .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+            .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
         
         var message = await msg.channel.send(embed)
         await delay(15000)

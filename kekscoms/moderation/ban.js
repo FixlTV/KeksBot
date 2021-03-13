@@ -32,7 +32,7 @@ module.exports = {
                 .setColor(color.yellow)
                 .setTitle(`${emotes.pinging} ${member.user.tag} wird gebannt...`)
                 .setDescription('Dies kann einige Zeit dauern')
-                .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
             var message = await msg.channel.send(embed)
     
             if(!(msg.guild.owner.id == msg.author.id) && msg.member.roles.highest.comparePositionTo(member.roles.highest) <= 0) {
@@ -55,7 +55,7 @@ module.exports = {
                 .setColor(color.yellow)
                 .setTitle(`${emotes.pinging} ${user.tag} wird gebannt...`)
                 .setDescription('Dies kann einige Zeit dauern')
-                .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
             var message = await msg.channel.send(embed)
             args.shift()
             await msg.guild.members.ban(user.id, {reason: args.join(' '), days: 7}).catch(async err => {

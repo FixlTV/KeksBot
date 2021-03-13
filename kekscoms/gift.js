@@ -37,7 +37,7 @@ module.exports = {
                 .setColor(color.yellow)
                 .setTitle(`${emotes.pinging} Überweisung wird getätigt...`)
                 .setDescription('Dies kann einige Zeit dauern...')
-                .setFooter(`© KeksBot ${config.version}`,client.user.avatarURL())
+                .setFooter(`KeksBot ${config.version}`,client.user.avatarURL())
             msg.channel.send(embed).then(async (resultmsg) => {
                 userdata[msg.author.id].cookies = userdata[msg.author.id].cookies - count
                 userdata[user.id].cookies = userdata[user.id].cookies + count
@@ -48,7 +48,7 @@ module.exports = {
                         .setTitle('Keksgeschenk erhalten!')
                         .setDescription(`**${msg.author.tag}** hat dir **${count}** Kekse geschenkt.`)
                         .setThumbnail(msg.author.avatarURL())
-                        .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                        .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                     user.createDM()
                         .then(channel => {
                             channel.send(dmembed).catch(`${user.tag} hat DMs nicht aktiviert.`)

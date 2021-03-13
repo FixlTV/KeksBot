@@ -29,7 +29,7 @@ module.exports = {
             .setDescription(`Hier sind ein paar Informationen über **${member}**`)
             .setThumbnail(member.user.avatarURL({ dynamic: true }))
             .setAuthor(msg.author.tag, msg.author.avatarURL({ dynamic: true }))
-            .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+            .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
             .addField('ID', member.id, true)
             .addField('Discriminator', member.user.discriminator, true)
             .addField('Alter', `${member.user.createdAt.getDate()}.${member.user.createdAt.getMonth()+1}.${member.user.createdAt.getFullYear()} ${member.user.createdAt.getHours()}:${member.user.createdAt.getMinutes()}:${member.user.createdAt.getSeconds()}`, true)

@@ -37,7 +37,7 @@ module.exports = async (msg, args, client, serverdata) => {
             temp_.push(`<#${id}>`)
         })
         if(temp_.length == 0) temp_.push('Es werden keine KeksBoxen generiert.')
-        var embed = new discord.MessageEmbed().setColor(color.lightblue).setTitle('KeksBoxen Spawnverhalten geändert').setDescription('Die Daten wurden erfolgreich überschrieben.').setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+        var embed = new discord.MessageEmbed().setColor(color.lightblue).setTitle('KeksBoxen Spawnverhalten geändert').setDescription('Die Daten wurden erfolgreich überschrieben.').setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
         if(temp == 0) {
             return embeds.error(msg, 'Nicht der Keks nachdem du gesucht hast', 'Irgendwas ist wohl schief gelaufen.')
         } else if(temp == 1) {
@@ -63,7 +63,7 @@ module.exports = async (msg, args, client, serverdata) => {
                 .setTitle('KeksBoxen Whitelist')
                 .setDescription('Aktuell werden in diesen Kanälen KeksBoxen generiert:')
                 .addField(`Anzahl: ${serverdata[msg.guild.id].cwl.length}`, temp.join(', '))
-                .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
             var message = await msg.channel.send(embed)
             await delay(15000)
             if(!message.deleted) message.delete().catch()
@@ -72,7 +72,7 @@ module.exports = async (msg, args, client, serverdata) => {
                 .setColor(color.lightblue)
                 .setTitle('KeksBoxen Whitelist')
                 .setDescription(`Aktuell werden keine KeksBoxen generiert.\nVerwende \`${serverdata[msg.guild.id].prefix}claimwhitelist <#channel> [#channel] [#channel] ...\`, um KeksBoxen zu aktivieren.`)
-                .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
             var message = await msg.channel.send(embed)
             await delay(15000)
             if(!message.deleted) message.delete().catch()

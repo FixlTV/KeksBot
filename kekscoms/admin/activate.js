@@ -46,7 +46,7 @@ module.exports = {
                         .setDescription('Hier sind alle Befehle, mit denen sich die KeksBot Add-ons aktivieren lassen.')
                         .addField('KeksBot Main', '`activate main`\nAktiviert die Standart KeksBot Funktionen. Ohne die geht gar nichts.')
                         .addField('KeksBot Randompings', '`activate randomping`\nAktiviert das Randomping Add-on.\nAus Performancegründen ist diese Funktion aktuell ausschließlich für Partner.\nBei einem @anyone in einer Nachricht, wird ein zufälliges Mitglied des Servers gepingt.')
-                        .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                        .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                     msg.channel.send(embed).then(msg => msg.delete({ timeout: 30000 }))
                 }
             }

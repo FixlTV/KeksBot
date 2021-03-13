@@ -19,7 +19,7 @@ module.exports = {
                 .addField('Gelagert', userdata[msg.author.id].cookies, true)
                 .addField('Erfahrungspunkte', userdata[msg.author.id].xp, true)
                 .addField('Level', userdata[msg.author.id].lv, true)
-                .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                 .setColor(color.normal)
                 .setThumbnail(msg.author.avatarURL())
             msg.channel.send(embed).then(msg =>         

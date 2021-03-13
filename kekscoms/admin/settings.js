@@ -49,7 +49,7 @@ module.exports = {
                     .addField('KeksBox', 'Lege Kanäle fest, in denen KeksBoxen erstellt werden können.', true)
                     .addField('Prefix', 'Ändere den Bot Prefix.', true)
                     .addField('Color', 'Ändert die Farbe von den meisten Embeds.', true)
-                    .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                    .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                 var message = await msg.channel.send(embed)
                 await delay(60000)
                 if(!message.deleted) message.delete()

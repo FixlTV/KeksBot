@@ -13,7 +13,7 @@ module.exports = {
                 .setColor(color.yellow)
                 .setTitle(`${emotes.pinging} Pinging...`)
                 .setDescription('Ich berechne gerade den Ping.\nDies kann einige Zeit dauern...')
-                .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
             msg.channel.send('',embed).then(resultmsg => {
                 var ping = resultmsg.createdTimestamp - msg.createdTimestamp
                 embed.setTitle(`${emotes.ping} Pong!`)

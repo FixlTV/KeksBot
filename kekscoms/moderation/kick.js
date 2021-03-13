@@ -28,7 +28,7 @@ module.exports = {
             .setColor(color.yellow)
             .setTitle(`${emotes.pinging} ${member.user.tag} wird gekickt...`)
             .setDescription('Dies kann einige Zeit dauern')
-            .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+            .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
         var message = await msg.channel.send(embed)
 
         if(!(msg.guild.owner.id == msg.author.id) && msg.member.roles.highest.comparePositionTo(member.roles.highest) <= 0) {

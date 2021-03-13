@@ -87,7 +87,7 @@ module.exports = {
                             .setColor(color.normal)
                             .setTitle(`${emotes.cookie} Kekse ausgeliefert.`)
                             .setDescription(`${args} Kekse wurden in deinem Lager zwischengespeichert.\nDu hast aktuell ${userdata[id].cookies} Kekse.`)
-                            .setFooter(`© KeksBot ${config.version}`, msg.author.avatarURL())
+                            .setFooter(`KeksBot ${config.version}`, msg.author.avatarURL())
                         msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 }).catch())
                     } else {
                         embeds.error(msg, "Keksfehler", "Aufgrund des KeksLimits können dir diese Minute keine Kekse mehr ausgeliefert werden.")

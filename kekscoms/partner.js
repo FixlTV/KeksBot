@@ -37,7 +37,7 @@ module.exports = {
                             .setTitle(`${emotes.partnerlogo} KeksBot Partnerschaft`)
                             .setDescription('Du bist gerade dabei, eine Partnerschaft mit dem KeksBot zu beantragen.\nBitte beachte, dass durch die Anfrage eine Einladung zum Server an das KeksBot Team geschickt wird.\nWir überprüfen stichprobenartig die Server, um eine Partnerschaft mit einem Server, der gegen unsere Richtlinien, die Discord ToS oder die Gesetze der Bundesrepublik Deutschland widerspricht, zu verhindern.\nSollten wir trotzdem herausfinden, dass ein Partnerserver dies tut, werden wir die Partnerschaft unverzüglich beenden, den Besitzer sowie den Server von der Botnutzung ausschließen und den Server, sofern notwendig (bei Verletzung der ToS beziehungsweise Gesetze), dem Trust ans Safety Team von Discord melden. Auch eine strafrechtliche Verfolgung können wir nicht ausschließen.\n\nWenn du die Anfrage absenden willst, lies die oben genannten Aspekte bitte sorgfältig durch und reagiere unter dieser Nachricht.')
                             .setThumbnail(bild)
-                            .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                            .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                         msg.channel.send(embed).then(message => {
                             message.react('775004072465399848').then(r => {
                                 message.react('775004095056052225')
@@ -198,7 +198,7 @@ module.exports = {
                                                     .setColor(color.normal)
                                                     .setTitle(`${emotes.partnerserver} KeksBot Partnerschaft`)
                                                     .setDescription('Euer Partnerschaftsantrag wurde soeben angenommen.\nHerzlichen Glückwunsch!')
-                                                    .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                                                    .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                                                 if(guild.systemChannel) {
                                                     var channelx = guild.systemChannel
                                                 } else if(guild.publicUpdatesChannel) {
@@ -215,7 +215,7 @@ module.exports = {
                                                             .setThumbnail(guild.iconURL({dynamic: true}))
                                                             .setDescription(`Der Server **${guild.name}** von <@${guild.ownerID}> ist nun Partner! Herzlichen Glückwunsch!`)
                                                             .addField('Serverinfos', `Mitglieder: ${guild.memberCount}\nDavon Nutzer: ${g.members.cache.filter(member => !member.user.bot).size}\nDavon Bots: ${g.members.cache.filter(member => member.user.bot).size}\nErfahrungspunkte: ${serverdata[gid].xp}\nID: ${g.id}`)
-                                                            .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                                                            .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                                                         client.channels.fetch('782307664528277536').then(channely => {
                                                             channely.send(embedy).then(async m => {
                                                                 embed.setDescription('Vergebe Rolle...')
@@ -433,19 +433,19 @@ module.exports = {
                 .setColor(color.normal)
                 .setTitle('Partner | Info')
                 .setDescription('Informationen zu KeksBot Partnerschaften.\nWir empfehlen, sie vor einer Bewerbung gründlich zu lesen.')
-                .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                 .setThumbnail(bild)
             const apply = new discord.MessageEmbed()
                 .setColor(color.normal)
                 .setTitle('Partner | Apply')
                 .setDescription('Sendet eine Bewerbung an das KeksBot Team.\nDies ist die einzige Möglichkeit, Partner zu werden.\n**ACHTUNG:** Diese Funktion erstellt eine Einladung und sendet sie an die KeksBot Mods. Es kann sein, dass ein Teammitglied den Server überprüft, um KeksBot Regelverstöße und/oder Verstöße gegen die Discord ToS/deutschen Gesetze zu verhindern.')
-                .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                 .setThumbnail(bild)
             const cancel = new discord.MessageEmbed()
                 .setColor(color.normal)
                 .setTitle('Partner | Cancel')
                 .setDescription('Zieht den Antrag zurück.\nEinfach so.')
-                .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                 .setThumbnail(bild)
 
             msg.channel.send(info).then(message => {

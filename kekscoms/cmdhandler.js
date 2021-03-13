@@ -116,8 +116,15 @@ module.exports = (client, commandOptions) => {
             }
         }
 
-        if(serverdata[msg.guild.id] && serverdata[msg.guild.id].ic) {
-            if(serverdata[msg.guild.id].ic.includes(msg.channel.id)) return
+        if(serverdata[msg.guild.id]) {
+            if(serverdata[msg.guild.id].ic && serverdata[msg.guild.id].ic.includes(msg.channel.id)) return
+            if(serverdata[msg.guild.id].ir) {
+                var temp = false
+                serverdata[msg.guild.id].ir.forEach(role => {
+                    if(msg.member.roles.cache.has(role)) temp = true
+                })
+                if(temp) return
+            }
         }
 
         var text = msg.content

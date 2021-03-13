@@ -56,7 +56,7 @@ module.exports = {
             .setTitle(`${msg.author.username}'s Abzeichen`)
             .setDescription(temp.join(' '))
             .setThumbnail(msg.author.avatarURL())
-            .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+            .setFooter(` ${config.version}`, client.user.avatarURL())
         msg.channel.send(embed).then(msg =>         
             setTimeout(msg => {
                 if(!msg.deleted) {msg.delete()}

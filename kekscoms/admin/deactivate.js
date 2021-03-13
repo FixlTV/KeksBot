@@ -51,7 +51,7 @@ module.exports = {
                 .addField('~~Main~~', 'Die normalen KeksBot Funktionen.\nDie Aktivierung ist nur nötig, wenn die automatische Aktivierung bei Serverbeitritt fehlgeschlagen ist.\n**Dieses System kann NICHT deaktiviert werden!**', true)
                 .addField('@anyone', `Das Randomping Add-On.\nWenn eine Nachricht \`@anyone\`, \`@someone\`, oder \`@random\` enthält, wird ein zufälliger Nutzer gepingt.${anyone}`, true)
                 .addField('Moderation', `Die KeksBot Moderationsfeatures.\n**Diese Funktion ist aktuell noch in der Alpha Phase und nicht zur allgemeinen Nutzung zugelassen.**${mod}`, true)
-                .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+                .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
             msg.channel.send(embed).then(msg =>         
                 setTimeout(msg => {
                     if(!msg.deleted) {msg.delete()}

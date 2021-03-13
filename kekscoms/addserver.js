@@ -42,7 +42,7 @@ module.exports = {
                                     .setColor(0x00b99b)
                                     .setTitle("Level Up!")
                                     .setDescription(`${msg.guild.name} hat gerade **Level 2** erreicht.\nHerzlichen Glückwunsch!`)
-                                    .setFooter(`© KeksBot ${config.version}`,client.user.avatarURL())
+                                    .setFooter(`KeksBot ${config.version}`,client.user.avatarURL())
                                     .setThumbnail(msg.guild.iconURL({dynamic: true}))
                                 msg.channel.send('',embed).then(resultmsg => resultmsg.pin({ reason: 'KeksBot LevelUp'})).then(message => message.channel.bulkDelete(1))
                             }
@@ -55,7 +55,7 @@ module.exports = {
                                         .setColor(0x00b99b)
                                         .setTitle("Level Up!")
                                         .setDescription(`${msg.guild.name} hat gerade **Level 3** erreicht.\nHerzlichen Glückwunsch!`)
-                                        .setFooter(`© KeksBot ${config.version}`,client.user.avatarURL())
+                                        .setFooter(`KeksBot ${config.version}`,client.user.avatarURL())
                                         .setThumbnail(msg.guild.iconURL({dynamic: true}))
                                     msg.channel.send('',embed).then(resultmsg => resultmsg.pin({ reason: 'KeksBot LevelUp'})).then(msg => msg.channel.bulkDelete(1))
                                 }
@@ -68,7 +68,7 @@ module.exports = {
                                             .setColor(0x00b99b)
                                             .setTitle("Level Up!")
                                             .setDescription(`${msg.guild.name} hat gerade **Level 4** erreicht.\nHerzlichen Glückwunsch!`)
-                                            .setFooter(`© KeksBot ${config.version}`,client.user.avatarURL())
+                                            .setFooter(`KeksBot ${config.version}`,client.user.avatarURL())
                                             .setThumbnail(msg.guild.iconURL({dynamic: true}))
                                         msg.channel.send('',embed).then(resultmsg => resultmsg.pin({ reason: 'KeksBot LevelUp'})).then(msg => msg.channel.bulkDelete(1))
                                     }
@@ -81,7 +81,7 @@ module.exports = {
                                                 .setColor(0x00b99b)
                                                 .setTitle("Level Up!")
                                                 .setDescription(`${msg.guild.name} hat gerade **Level 5** erreicht.\nHerzlichen Glückwunsch!`)
-                                                .setFooter(`© KeksBot ${config.version}`,client.user.avatarURL())
+                                                .setFooter(`KeksBot ${config.version}`,client.user.avatarURL())
                                                 .setThumbnail(msg.guild.iconURL({dynamic: true}))
                                             msg.channel.send('',embed).then(resultmsg => resultmsg.pin({ reason: 'KeksBot LevelUp'})).then(msg => msg.channel.bulkDelete(1))
                                         }
@@ -96,7 +96,7 @@ module.exports = {
                                                     .setDescription(`Wow. Nach so vielen Keksen möchten wir uns erstmal bei euch bedanken!\nDanke, dass ihr den KeksBot verwendet. Es ist uns eine Ehre, euch schon so lange begeliten zu dürfen.\n
 Als kleines Dankeschön möchten wir euch zu unserem Partnerprogramm einladen!\nEiner der vielen Vorteile eines Partnerservers ist ein auf ${config.maxPartner} erhöhtes Keks Limit pro Minute.\n
 Außerdem erhält der Besitzer dieses Servers das Partner-Abzeichen (${emotes.partner}) und die Partner Rolle auf dem KeksBot Support Server.`)
-                                                    .setFooter(`© KeksBot ${config.version}`,client.user.avatarURL())
+                                                    .setFooter(`KeksBot ${config.version}`,client.user.avatarURL())
                                                     .setThumbnail(msg.guild.iconURL({dynamic: true}))
                                                 msg.channel.send('',embed).then(resultmsg => resultmsg.pin({ reason: 'KeksBot//PARTNER'})).then(msg => msg.channel.bulkDelete(1))
                                             }
@@ -132,7 +132,7 @@ Außerdem erhält der Besitzer dieses Servers das Partner-Abzeichen (${emotes.pa
                                             .setColor(0x00b99b)
                                             .setTitle("Level Up!")
                                             .setDescription(`${msg.guild.name} hat gerade **Level 2** erreicht.\nHerzlichen Glückwunsch!`)
-                                            .setFooter(`© KeksBot ${config.version}`,client.user.avatarURL())
+                                            .setFooter(`KeksBot ${config.version}`,client.user.avatarURL())
                                             .setThumbnail(msg.guild.iconURL({dynamic: true}))
                                         msg.channel.send('',embed).then(resultmsg => resultmsg.pin({ reason: 'KeksBot LevelUp'})).then(msg => msg.channel.bulkDelete(1))
                                     }
@@ -145,7 +145,7 @@ Außerdem erhält der Besitzer dieses Servers das Partner-Abzeichen (${emotes.pa
                                                 .setColor(0x00b99b)
                                                 .setTitle("Level Up!")
                                                 .setDescription(`${msg.guild.name} hat gerade **Level 3** erreicht.\nHerzlichen Glückwunsch!`)
-                                                .setFooter(`© KeksBot ${config.version}`,client.user.avatarURL())
+                                                .setFooter(`KeksBot ${config.version}`,client.user.avatarURL())
                                                 .setThumbnail(msg.guild.iconURL({dynamic: true}))
                                             msg.channel.send('',embed).then(resultmsg => resultmsg.pin({ reason: 'KeksBot LevelUp'})).then(msg => msg.channel.bulkDelete(1))
                                         }
@@ -158,7 +158,7 @@ Außerdem erhält der Besitzer dieses Servers das Partner-Abzeichen (${emotes.pa
                                                     .setColor(0x00b99b)
                                                     .setTitle("Level Up!")
                                                     .setDescription(`${msg.guild.name} hat gerade **Level 4** erreicht.\nHerzlichen Glückwunsch!`)
-                                                    .setFooter(`© KeksBot ${config.version}`,client.user.avatarURL())
+                                                    .setFooter(`KeksBot ${config.version}`,client.user.avatarURL())
                                                     .setThumbnail(msg.guild.iconURL({dynamic: true}))
                                                 msg.channel.send('',embed).then(resultmsg => resultmsg.pin({ reason: 'KeksBot LevelUp'})).then(msg => msg.channel.bulkDelete(1))
                                             }
@@ -171,7 +171,7 @@ Außerdem erhält der Besitzer dieses Servers das Partner-Abzeichen (${emotes.pa
                                                         .setColor(0x00b99b)
                                                         .setTitle("Level Up!")
                                                         .setDescription(`${msg.guild.name} hat gerade **Level 5** erreicht.\nHerzlichen Glückwunsch!`)
-                                                        .setFooter(`© KeksBot ${config.version}`,client.user.avatarURL())
+                                                        .setFooter(`KeksBot ${config.version}`,client.user.avatarURL())
                                                         .setThumbnail(msg.guild.iconURL({dynamic: true}))
                                                     msg.channel.send('',embed).then(resultmsg => resultmsg.pin({ reason: 'KeksBot LevelUp'})).then(msg => msg.channel.bulkDelete(1))
                                                 }
@@ -186,7 +186,7 @@ Außerdem erhält der Besitzer dieses Servers das Partner-Abzeichen (${emotes.pa
                                                             .setDescription(`Wow. Nach so vielen Keksen möchten wir uns erstmal bei euch bedanken!\nDanke, dass ihr den KeksBot verwendet. Es ist uns eine Ehre, euch schon so lange begeliten zu dürfen.\n
 Als kleines Dankeschön möchten wir euch zu unserem Partnerprogramm einladen!\nEiner der vielen Vorteile eines Partnerservers ist ein auf ${config.maxPartner} erhöhtes Keks Limit pro Minute.\n
 Außerdem erhält der Besitzer dieses Servers das Partner-Abzeichen (${emotes.partner}) und die Partner Rolle auf dem KeksBot Support Server.`)
-                                                            .setFooter(`© KeksBot ${config.version}`,client.user.avatarURL())
+                                                            .setFooter(`KeksBot ${config.version}`,client.user.avatarURL())
                                                             .setThumbnail(msg.guild.iconURL({dynamic: true}))
                                                         msg.channel.send('',embed).then(resultmsg => resultmsg.pin({ reason: 'KeksBot//PARTNER'})).then(msg => msg.channel.bulkDelete(1))
                                                     }

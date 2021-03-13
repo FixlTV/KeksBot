@@ -71,7 +71,7 @@ module.exports = async (msg, args, client, serverdata) => {
             .setTitle('Aktuell ignoriert')
             .addField('Kanäle', `${cs.join(', ')}`, true)
             .addField('Rollen', `${rs.join(', ')}`, true)
-            .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+            .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
         var message = await msg.channel.send(embed)
         await delay(15000)
         if(!message.deleted) message.delete()
@@ -81,7 +81,7 @@ module.exports = async (msg, args, client, serverdata) => {
         .setColor(color.lightblue)
         .setTitle('Daten überschrieben')
         .setDescription('Die Daten für ignorierte Kanäle und Rollen wurden erfolgreich geändert.')
-        .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+        .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
     if(temp == 1) {
         embed.addField('Entfernte Kanäle', rc.join(', '), true)
     } else if(temp == 2) {

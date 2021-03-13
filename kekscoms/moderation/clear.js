@@ -29,7 +29,7 @@ module.exports = {
             .setColor(color.yellow)
             .setTitle(`${emotes.pinging} Nachrichten werden gelöscht...`)
             .setDescription('Dies kann einige Zeit dauern...')
-            .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
+            .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
         if(count > 100) {count = 100}
         var messages = await msg.channel.messages.fetch({ limit: 100 })
         var message = await msg.channel.send(embed)
