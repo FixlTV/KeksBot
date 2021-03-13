@@ -6,6 +6,7 @@ const delay = require('delay')
 const claim = require('../../subcommands/cmdtype.settings.claim')
 const prefix = require('../../subcommands/cmdtype.settings.prefix')
 const fcolor = require('../../subcommands/cmdtype.settings.color')
+const kbspawn = require('../../subcommands/cmdtype.settings.kbspawn')
 
 module.exports = {
     commands: ['settings', 'config'],
@@ -41,6 +42,11 @@ module.exports = {
                 args.shift()
                 fcolor(msg, args, client, serverdata, color)
                 break
+            case 'kbspawn':
+            case 'keksbox-spawn':
+                if(!msg.member.hasPermission('MANAGE_GUILD')) return embeds.needperms(msg, 'MANAGE_GUILD')
+                args.shift()
+                kbspawn(msg, args, client, serverdata)
             default:
                 var embed = new discord.MessageEmbed()
                     .setColor(color.lightblue)

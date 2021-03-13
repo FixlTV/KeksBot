@@ -100,7 +100,9 @@ client.on('message', async (msg) => {
     if(!serverdata[msg.guild.id]) return
     //Paketbox
     if((msg.author.bot == false) && (!msg.content.startsWith(serverdata[msg.guild.id].prefix)) && (serverdata[msg.guild.id].gift != 1)) {
-        var x = Math.round(Math.random() * 100)
+        var count = 100
+        if(serverdata[msg.guild.id].kbq) count = serverdata[msg.guild.id].kbq
+        var x = Math.floor(Math.random() * count)
         if(x == 1) {
             serverdata[msg.guild.id].gift = 1
             fs.writeFileSync('serverdata.json', JSON.stringify(serverdata, null, 2))
