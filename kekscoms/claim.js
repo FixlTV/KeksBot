@@ -4,7 +4,7 @@ const discord = require('discord.js')
 
 module.exports = {
     commands: ['claim', 'claimbox', 'c'],
-    description: 'Claimt ein Keks Paket.',
+    description: 'Claimt eine vorhandene KeksBox.',
     type: 'user',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
         msg.delete().catch()
@@ -22,7 +22,9 @@ module.exports = {
         }
         if(serverdata[msg.guild.id].gift) {
             var temp = serverdata[msg.guild.id].gift
-            var x = Math.round(Math.random() * 1000)
+            var multiplier = 100
+            if(serverdata[msg.guild.id].kbq) multiplier = serverdata[msg.guild.id].kbq
+            var x = Math.round(Math.random() * 6 * multiplier) + Math.round(Math.random() * 5 * multiplier)
             userdata[msg.author.id].cookies = userdata[msg.author.id].cookies + x
             delete serverdata[msg.guild.id].gift
             fs.writeFileSync('./userdata.json', JSON.stringify(userdata, null, 2))

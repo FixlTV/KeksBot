@@ -44,9 +44,11 @@ module.exports = {
                 break
             case 'kbspawn':
             case 'keksbox-spawn':
+            case 'keksboxen-spawn':
                 if(!msg.member.hasPermission('MANAGE_GUILD')) return embeds.needperms(msg, 'MANAGE_GUILD')
                 args.shift()
                 kbspawn(msg, args, client, serverdata)
+                break
             default:
                 var embed = new discord.MessageEmbed()
                     .setColor(color.lightblue)
@@ -54,7 +56,8 @@ module.exports = {
                     .addField('Ignore', 'Lege Kanäle oder Rollen fest, in denen oder für die der Bot nicht funktioniert.', true)
                     .addField('KeksBox', 'Lege Kanäle fest, in denen KeksBoxen erstellt werden können.', true)
                     .addField('Prefix', 'Ändere den Bot Prefix.', true)
-                    .addField('Color', 'Ändert die Farbe von den meisten Embeds.', true)
+                    .addField('Color', 'Ändere die Farbe von den meisten Embeds.', true)
+                    .addField('KekxBox-Spawn', 'Passe an, wie oft KeksBoxen auftauchen sollen', true)
                     .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                 var message = await msg.channel.send(embed)
                 await delay(60000)
