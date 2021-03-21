@@ -1,6 +1,7 @@
 const fs = require('fs')
 const embeds = require('../embeds')
 const discord = require('discord.js')
+const searchmembers = require('../subcommands/searchmembers')
 
 module.exports = {
     commands: 'give',
@@ -11,7 +12,7 @@ module.exports = {
     description: 'Gibt jemandem Kekse',
     type: 'unlisted',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
-        var count = args[1]
+        var count
         var user
         if(args[2]) {
             var reason = [...args]
@@ -19,23 +20,15 @@ module.exports = {
             reason.shift()
         }
         msg.delete()
-        if(msg.mentions.members.first()) {
-            user = msg.mentions.members.first()
-        } else if(msg.guild.members.cache.find(u => u.user.username == args[0]) != undefined) {
-            user = msg.guild.members.cache.find(u => u.user.username == args[0])
-        } else if(msg.guild.members.cache.find(u => u.nickname == args[0]) != undefined) {
-            user = msg.guild.members.cache.find(u => u.nickname == args[0])
-        } else {
-            try {
-                user = await cmsg.guild.members.fetch(args[0])
-            } catch (err) {}
-        }
+        var object = await searchmembers(msg, args, args.join(' '))
+        user = object[0][0].user
+        count = object[1].trim().split(' ')[0]
         if(user == undefined) {
-            embeds.error(msg, 'Syntaxfehler', `Bitte gib einen Nutzer an:\n${serverdata[msg.guild.id].prefix}give **<@Nutzer \|\| Nutzername \|\| Nickname>** <Zahl> [Begründung]`)
+            embeds.error(msg, 'Syntaxfehler', `Bitte gib einen Nutzer an:\n${serverdata[msg.guild.id].prefix}give **<@Nutzer | Nutzername | Nickname>** <Zahl> [Begründung]`)
             return
         }
         if(isNaN(count)) {
-            embeds.error(msg, 'Syntaxfehler', `Bitte gib eine Zahl an:\n${serverdata[msg.guild.id].prefix}gift <@Nutzer> **<Zahl>** [Begründung]`)
+            embeds.error(msg, 'Syntaxfehler', `Bitte gib eine Zahl an:\n${serverdata[msg.guild.id].prefix}gift <@Nutzer | Nutzername | Nickname> **<Zahl>** [Begründung]`)
             return
         }
         count = Number(count)

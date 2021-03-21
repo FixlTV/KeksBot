@@ -9,6 +9,7 @@ module.exports = {
     description: 'Löscht alle deine Daten',
     type: 'user',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
+        msg.delete()
         const filter = (m) => (m.content.toLowerCase() === 'ja','nein') && m.author.id === msg.author.id
         var embed = new discord.MessageEmbed().setColor(color.normal).setTitle('Daten löschen?').setDescription('**ACHTUNG**: Wenn du jetzt fortfährst werden deine gesamten Daten aus dem System gelöscht.\nSolltest du Partner sein, beachte bitte, dass die Daten erst gelöscht werden können, wenn alle Partnerschaften aufgelöst wurden.').setFooter('Zum Fortfahren, antworte mit "Ja".')
         var message = await msg.channel.send(embed)

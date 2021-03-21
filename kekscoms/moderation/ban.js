@@ -24,6 +24,7 @@ module.exports = {
         }
         var member = msg.mentions.members.first()
         if(member) {
+            user = member.user
             if(!member.bannable) {
                 embeds.error(msg, 'Fehler', `Die Rollen von ${member.user} sind zu hoch.`)
                 return
