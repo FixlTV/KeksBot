@@ -5,6 +5,7 @@ const config  = require('./config.json')
 const copyright = `© KeksBot ${config.version}`
 const loadcmds  = require('./kekscoms/cmdloader')
 const emotes = require('./emotes.json')
+const automod = require('./automod/automod')
 
 const color = {
     red: 0xff0000,
@@ -47,6 +48,7 @@ client.on('ready', () => { //Main
 client.on('ready', async () => { //Status
     client.setMaxListeners(0)
     loadcmds(client)
+    automod(client)
     int = await setInterval(function () {
         let statuses = [
             {

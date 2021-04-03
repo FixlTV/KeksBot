@@ -7,6 +7,7 @@ const claim = require('../../subcommands/cmdtype.settings.claim')
 const prefix = require('../../subcommands/cmdtype.settings.prefix')
 const fcolor = require('../../subcommands/cmdtype.settings.color')
 const kbspawn = require('../../subcommands/cmdtype.settings.kbspawn')
+const automod = require('../../subcommands/cmdtype.settings.automod')
 
 module.exports = {
     commands: ['settings', 'config'],
@@ -49,6 +50,9 @@ module.exports = {
                 args.shift()
                 kbspawn(msg, args, client, serverdata)
                 break
+            case 'automod':
+                automod(msg, args, client, serverdata)
+                break
             default:
                 var embed = new discord.MessageEmbed()
                     .setColor(color.lightblue)
@@ -58,6 +62,7 @@ module.exports = {
                     .addField('Prefix', 'Ändere den Bot Prefix.', true)
                     .addField('Color', 'Ändere die Farbe von den meisten Embeds.', true)
                     .addField('KekxBox-Spawn', 'Passe an, wie oft KeksBoxen auftauchen sollen', true)
+                    .addField('Automod', 'Wende den Automod an. [WIP]', true)
                     .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                 var message = await msg.channel.send(embed)
                 await delay(60000)

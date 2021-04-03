@@ -138,15 +138,6 @@ module.exports = (client, commandOptions) => {
             if(text.split(' ')[0].toLowerCase() === alias.toLowerCase()) {
                 //Ein Befehl wurde detektiert.
 
-                //Überprüfe Permissions
-                for(const permission of permissions) {
-                    if(!msg.member.hasPermission(permission)) {
-                        msg.delete()
-                        embeds.needperms(msg, permission)
-                        return
-                    }
-                }
-
                 //Überprüfe Addons
                 if(addon) {
                     let addons = {
@@ -159,6 +150,15 @@ module.exports = (client, commandOptions) => {
                         }
                     } else {
                         console.log(`Unbekanntes Plugin ${addon} benötigt!`)
+                    }
+                }
+
+                //Überprüfe Permissions
+                for(const permission of permissions) {
+                    if(!msg.member.hasPermission(permission)) {
+                        msg.delete()
+                        embeds.needperms(msg, permission)
+                        return
                     }
                 }
 
