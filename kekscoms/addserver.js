@@ -10,7 +10,7 @@ module.exports = {
     description: 'Fügt Kekse dem Server hinzu.',
     type: 'cookie',
     callback: (msg, args, client, serverdata, userdata, config, emotes, color) => {
-        msg.delete()
+        msg.delete().catch()
         if (msg.guild.id in serverdata) {
             if(msg.author.id in userdata) {
             } else {

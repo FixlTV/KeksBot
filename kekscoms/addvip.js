@@ -16,7 +16,7 @@ module.exports = {
             const VIPs = require('../VIP.json')
             VIPs[args] = 1
             fs.writeFileSync('./VIP.json',JSON.stringify(VIPs, null, 2))
-            msg.delete()
+            msg.delete().catch()
             embeds.success(msg, 'Daten gespeichert!', `<@${args}> wurde als VIP registriert.`)
             console.log(`${msg.author.username}: ${args} ist nun VIP.`)
             try {

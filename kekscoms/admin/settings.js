@@ -16,7 +16,7 @@ module.exports = {
     expectedArgs: '[Einstellung] [Optionen]',
     type: 'admin',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
-        msg.delete()
+        msg.delete().catch()
         if(!serverdata[msg.guild.id]) return embeds.error(msg, 'Fehler', 'Für diesen Server sind keine Daten angelgt.\nUm diese Funktion zu nutzen, gib bitte `-activate main` ein.')
         if(!args[0]) args.push('')
         switch(args[0].toLowerCase()) {

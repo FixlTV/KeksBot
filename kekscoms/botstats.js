@@ -18,7 +18,7 @@ module.exports = {
         msg.channel.send(embedx).then(resultmsg => {
             si.cpu().then(cpu => {
                 si.cpuTemperature().then(cpuTemperature => {
-                    si.cpuCurrentspeed().then(cpuCurrentspeed => {
+                    si.cpuCurrentSpeed().then(cpuCurrentspeed => {
                         var embed = new discord.MessageEmbed()
                             .setColor(color.normal)
                             .setTitle('Aktuelle Serverauslastung')
