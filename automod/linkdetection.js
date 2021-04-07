@@ -5,7 +5,7 @@ const check = require('check-links')
 
 
 module.exports = async (msg, serverdata) => {
-    var text = msg.content.replace(/`+[.+]`+/, '')
+    var text = msg.content.replace(/`+[.]`+/, '')
     var links = linkify.find(text, 'url')
     //if(msg.member.hasPermission('MANAGE_MESSAGES')) return
     var temp = false
