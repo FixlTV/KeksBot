@@ -1,6 +1,7 @@
 const discord = require('discord.js')
 const emotes = require('./emotes.json')
 const config = require('./config.json')
+const delay = require('delay')
 const color = {
     red: 0xff0000,
     lightblue: 0x3498db,
@@ -10,52 +11,96 @@ const color = {
 }
 
 module.exports = {
-    error(msg, title, text) {
-        var message
+    /**
+     * 
+     * @param {discord.Message} msg 
+     * @param {String} title 
+     * @param {String} text 
+     * @param {boolean} edit 
+     * @param {boolean} keep 
+     * @returns discord.Message
+     */
+    async error(msg, title, text, edit, keep) {
         var embed = new discord.MessageEmbed()
             .setFooter(msg.author.tag, msg.author.avatarURL({dynamic: true}))
             .setColor(color.red)
             .setTitle(`${emotes.denied} ${title}`)
             .setDescription(text)
-        msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 }).catch()).then((msg) => {
-            message = msg
-        })
+        if(!edit) {
+            embed.setFooter(msg.author.tag, msg.author.avatarURL({dynamic: true}))
+            var message = await msg.channel.send(embed)
+        }
+        else var message = await msg.edit(embed).catch()
+        await delay(7500)
+        if(!keep && message.deletable) message.delete().catch()
         return Promise.resolve(message)
     },
-    needperms(msg, permission) {
-        var message
+    /**
+     * 
+     * @param {discord.Message} msg 
+     * @param {discord.PermissionString} permission 
+     * @param {boolean} edit 
+     * @param {boolean} keep 
+     * @returns discord.Message
+     */
+    async needperms(msg, permission, edit, keep) {
         var embed = new discord.MessageEmbed()
             .setFooter(msg.author.tag, msg.author.avatarURL({dynamic: true}))
             .setColor(color.red)
             .setTitle(`${emotes.denied} Zugriff verweigert!`)
             .setDescription(`Um diesen Befehl auszuführen, benötigst du \`\`${permission}\`\`.`)
-        msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 }).catch()).then((msg) => {
-            message = msg
-        })
+        if(!edit) {
+            embed.setFooter(msg.author.tag, msg.author.avatarURL({dynamic: true}))
+            var message = await msg.channel.send(embed)
+        }
+        else var message = await msg.edit(embed).catch()
+        await delay(7500)
+        if(!keep && message.deletable) message.delete().catch()
         return Promise.resolve(message)
     },
-    success(msg, title, text) {
-        var message
+    /**
+     * 
+     * @param {discord.Message} msg 
+     * @param {String} title 
+     * @param {String} text 
+     * @param {boolean} edit 
+     * @param {boolean} keep 
+     * @returns discord.Message
+     */
+    async success(msg, title, text, edit, keep) {
         var embed = new discord.MessageEmbed()
-            .setFooter(msg.author.tag, msg.author.avatarURL({dynamic: true}))
             .setColor(color.lime)
             .setTitle(`${emotes.accept} ${title}`)
             .setDescription(text)
-        msg.channel.send('',embed).then(msg => msg.delete({ timeout: 7500 }).catch()).then((msg) => {
-            message = msg
-        })
+        if(!edit) {
+            embed.setFooter(msg.author.tag, msg.author.avatarURL({dynamic: true}))
+            var message = await msg.channel.send(embed)
+        }
+        else var message = await msg.edit(embed).catch()
+        await delay(7500)
+        if(!keep && message.deletable) message.delete().catch()
         return Promise.resolve(message)
     },
-    syntaxerror(msg, syntax) {
-        var message
+    /**
+     * 
+     * @param {discord.Message} msg 
+     * @param {String} syntax 
+     * @param {boolean} edit 
+     * @param {boolean} keep 
+     * @returns discord.Message
+     */
+    async syntaxerror(msg, syntax, edit, keep) {
         var embed = new discord.MessageEmbed()
-            .setFooter(msg.author.tag, msg.author.avatarURL({dynamic: true}))
             .setColor(color.red)
             .setTitle(`${emotes.denied} Syntaxfehler`)
             .setDescription(`Bitte verwende diese Syntax:\n\`${syntax}\``)
-        msg.channel.send(embed).then(msg => msg.delete({ timeout: 7500 }).catch()).then(msg => {
-            message = msg
-        })
+        if(!edit) {
+            embed.setFooter(msg.author.tag, msg.author.avatarURL({dynamic: true}))
+            var message = await msg.channel.send(embed)
+        }
+        else var message = await msg.edit(embed).catch()
+        await delay(7500)
+        if(!keep && message.deletable) message.delete().catch()
         return Promise.resolve(message)
     }
 }

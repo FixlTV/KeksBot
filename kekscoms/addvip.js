@@ -1,40 +1,39 @@
-const fs = require('fs')
+const fs = require('fs').promises
 const embeds = require('../embeds')
 const discord = require('discord.js')
+const searchmember = require('../subcommands/searchmembers')
 
 module.exports = {
     commands: ['addvip', 'vipadd'],
-    expectedArgs: '<User ID>',
+    expectedArgs: '<@Nutzer>',
     minArgs: 1,
-    maxArgs: 1,
     permission: '',
     modonly: 1,
     description: 'Macht jemanden zum VIP',
     type: 'unlisted',
-    callback: (msg, args, client, serverdata, userdata, config, color) => {
-        if(!isNaN(args)) { 
-            const VIPs = require('../VIP.json')
-            VIPs[args] = 1
-            fs.writeFileSync('./VIP.json',JSON.stringify(VIPs, null, 2))
-            msg.delete().catch()
-            embeds.success(msg, 'Daten gespeichert!', `<@${args}> wurde als VIP registriert.`)
-            console.log(`${msg.author.username}: ${args} ist nun VIP.`)
-            try {
-                client.guilds.fetch('775001585541185546').then(guild => {
-                    try {
-                        client.users.fetch(args).then(user => {
-                        guild.members.fetch(user).then(member => {
-                            let role = guild.roles.cache.find(r => r.name === 'VIP')
-                            member.roles.add(role)
-                        })})
-                    } catch (err) {
-                        console.log(err)
-                    }
-                })
-            } catch (err) {console.log(err)}
-        } else {
-            msg.delete()
-            embeds.error(msg, "Fehler", `\`${args.join(' ')}\` ist keine gültige ID.`)
+    callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
+        msg.delete().catch()
+        var VIP = require('../VIP.json')
+        var embed = new discord.MessageEmbed()
+            .setColor(color.yellow)
+            .setTitle(`${emotes.pinging} Anfrage wird verarbeitet`)
+            .setDescription('Dies kann einige Zeit dauern.')
+            .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
+        var message = await msg.channel.send(embed)
+        var result = await searchmember(msg, args, args.join(' '))
+        if(!result[0]) return embeds.error(message, 'Fehler', 'Es wurde kein Nutzer gefunden.\nBitte stelle sicher, dass er auf diesem Server ist.', true)
+        member = result[0][0]
+        if(VIP[member.id]) {
+            return embeds.error(message, 'Fehler', `**${member.user.tag}** ist schon VIP.`, true, false)
         }
+        VIP[member.id] = 1
+        await fs.writeFile('VIP.json', JSON.stringify(VIP, null, 4))
+        var guild = await client.guilds.fetch('775001585541185546')
+        if(guild.members.cache.has(member.id)) {
+            let guildmember = guild.member(member.user)
+            let role = guild.roles.cache.find(r => r.name === 'VIP')
+            await guildmember.roles.add(role).catch()
+        }
+        return embeds.success(message, 'Daten geändert', `**${member.user.tag}** ist jetzt VIP. Yaaaayyy`, true, false)
     }
 }

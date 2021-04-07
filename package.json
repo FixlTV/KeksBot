@@ -7,16 +7,18 @@
     "start": "node index"
   },
   "author": "Clyde",
-  "license": "Creative Commons Zero v1.0 Universal",
+  "license": "CC0-1.0",
   "bugs": {
     "url": "https://github.com/FixlTV/KeksBot/issues"
   },
   "homepage": "https://github.com/FixlTV/KeksBot",
   "dependencies": {
     "axios": "^0.21.1",
+    "check-links": "^1.1.8",
     "delay": "^5.0.0",
     "discord.js": "^12.5.1",
     "fs": "^0.0.1-security",
+    "link-check": "4.5.4",
     "linkifyjs": "^3.0.0-beta.3",
     "mathjs": "^9.3.0",
     "systeminformation": "^5.6.1"

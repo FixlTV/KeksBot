@@ -1,3 +1,13 @@
+const discord = require('discord.js')
+
+/**
+ * 
+ * @param {discord.Message} msg 
+ * @param {[String]} args 
+ * @param {String} text 
+ * @returns [[discord.GuildMember], String]
+ */
+
 module.exports = async (msg, args, text) => {
     var members = new Array()
     if(msg.mentions.members.size > 0) {

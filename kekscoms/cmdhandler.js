@@ -192,36 +192,10 @@ module.exports = (client, commandOptions) => {
                     embeds.syntaxerror(msg, `${prefix}${alias} ${expectedArgs}`)
                     return
                 }
-	
+                
 				console.log(`${msg.author.tag}: ${alias} | ${args} | ${msg.content}`)
                 //Führt den Command aus
-                callback(msg, args, client, serverdata, userdata, config, emotes, color, embeds).catch(async err => {
-                    var embed = new discord.MessageEmbed()
-                        .setColor(color.normal)
-                        .setTitle('Oh Oh')
-                        .setDescription('Beim Ausführen dieses Commands ist ein Fehler aufgetreten.\nEr wurde daher abgebrochen.\nDer Fehler wurde aufgezeichnet.')
-                        .setFooter(msg.author.tag, msg.author.avatarURL())
-                    var message = await msg.channel.send(embed)
-                    var date = new Date().toString()
-                    var errormessage = `Nutzer: ${msg.author.tag} | ${msg.author.id}\nServer: ${msg.guild.name} | ${msg.guild.id}\nDatum: ${date}\nAusgeführter Command: ${alias}\nInhalt der Nachricht: ${msg.content}\n\n----------\n\nFehler:\n${err}`
-                    var file = `./errors/${alias}-${date}.txt`
-                    await fs.writeFile(file, errormessage)
-                    var channel = await client.channels.fetch('801406480309289002')
-                    var embed = new discord.MessageEmbed()
-                        .setColor(color.red)
-                        .setTitle('Fehler')
-                        .setDescription('Ein unbekannter Fehler ist aufgetreten:')
-                        .addField('Nutzer', `${msg.author.tag} | ${msg.author.id}`, true)
-                        .addField('Server', `${msg.guild.name} | ${msg.guild.id}`, true)
-                        .addField('Datum', date, true)
-                        .addField('Command', alias, true)
-                        .addField('Nachrichteninhalt', msg.content, true)
-                    var attachment = new discord.MessageAttachment()
-                        .setFile(file)
-                    channel.send(embed, attachment)
-                    await delay(15000)
-                    if(!message.deleted) message.delete().catch()
-                })
+                callback(msg, args, client, serverdata, userdata, config, emotes, color, embeds)
                 delete text
                 delete args
                 return

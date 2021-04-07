@@ -14,6 +14,7 @@ const color = {
 }
 
 module.exports = async (msg, args, client, serverdata) => {
+    const emotes = require('../emotes.json')
     var guildid = msg.guild.id
     if(!args[1]) args[1] = ''
     if(!serverdata[guildid].amconfig) serverdata[guildid].amconfig = {}
@@ -51,57 +52,41 @@ module.exports = async (msg, args, client, serverdata) => {
             switch(args[3].toLowerCase()) {
                 case 'a':
                 case 'add': 
-                    if(!args[4]) return embeds.error(msg, 'Syntaxfehler', `\`${serverdata[guildid].prefix}settings links whitelist add <Link> [Link...]\`\nBitte gib mindestens einen Link an.`)
+                    if(!args[4]) return embeds.error(msg, 'Fehler', 'Bitte gib mindestens einen Link an.\n`' + serverdata[guildid].prefix + 'settings automod links whitelist add <Link 1> [Link 2] [Link 3] [Link n]`')
                     var links = args.slice(4)
-                    var linkjson = linkify.find(links.join(' '), 'url')
-                    linkjson.forEach(url => {
-                        links.forEach(link => {
-                            if(url.href.includes(link)) links[links.indexOf(link)] = url.href
+                    var validlink = linkify.find(links.join(' '))
+                    var addedlinks = []
+                    validlink.forEach(url => {
+                        url = url.href.split('/').slice(0, 3).join('/')
+                        links.forEach((link, index) => {
+                            if(url.includes(link) && !serverdata[guildid].amconfig.links.linkwl.includes(url.replace('www.', '').replace('https:', 'http:'))) {
+                                serverdata[guildid].amconfig.links.linkwl.push(url.replace('www.', '').replace('https:', 'http:'))
+                                addedlinks.push(url.replace('www.', '').replace('https:', 'http:'))
+                            }
                         })
                     })
-                    links.forEach(link => {
-                        var index = links.indexOf(link)
-                        if(link) {
-                            link = link.split('/').slice(0, 3).join('/').replace('www.','').split('//')
-                            link[0] = link[0].replace('https', 'http')
-                            link = link.join('//')
-                            if(!serverdata[guildid].amconfig.links.linkwl.includes(link)) {
-                                serverdata[guildid].amconfig.links.linkwl.push(link)
-                                links[index] = link
-                            } else {
-                                links.splice(index, 1)
-                            }
-                        } else links.splice(index, 1)
-                    })
+                    if(addedlinks.length == 0) return embeds.error(msg, 'Fehler', 'Alle angegebenen Links sind bereits auf der Whitelist')
                     await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
-                    if(links.length == 0) return embeds.error(msg, 'Keine Links hinzugefügt', 'Alle angegebenen Links sind bereits erlaubt.')
-                    embeds.success(msg, 'Links hinzugefügt', `Folgende Links sind nun auf der Whitelist:\n${links.join('\n')}`)  
+                    return embeds.success(msg, 'Whitelist geändert', 'Die Whitelist wurde erweitert:\n' + addedlinks.join('\n'))
                     break
                 case 'r':
                 case 'remove':
-                    if(!args[4]) return embeds.error(msg, 'Syntaxfehler', `\`${serverdata[guildid].prefix}settings links whitelist remove <Link> [Link...]\`\nBitte gib mindestens einen Link an.`)
+                    if(!args[4]) return embeds.error(msg, 'Fehler', 'Bitte gib mindestens einen Link an.\n`' + serverdata[guildid].prefix + 'settings automod links whitelist add <Link 1> [Link 2] [Link 3] [Link n]`')
                     var links = args.slice(4)
-                    var linkjson = linkify.find(links.join(' '), 'url')
-                    linkjson.forEach(url => {
-                        links.forEach(link => {
-                            if(url.href && url.href.includes(link)) links[links.indexOf(link)] = url.href
+                    var validlink = linkify.find(links.join(' '))
+                    var removedlinks = []
+                    validlink.forEach(url => {
+                        url = url.href.split('/').slice(0, 3).join('/')
+                        links.forEach((link, index) => {
+                            if(url.includes(link) && serverdata[guildid].amconfig.links.linkwl.includes(url.replace('www.', '').replace('https:', 'http:'))) {
+                                serverdata[guildid].amconfig.links.linkwl.splice(serverdata[guildid].amconfig.links.linkwl.indexOf(url.replace('www.', '').replace('https:', 'http:')), 1)
+                                removedlinks.push(url.replace('www.', '').replace('https:', 'http:'))
+                            }
                         })
-                    })
-                    var temp = []
-                    links.forEach(link => {
-                        var index = links.indexOf(link)
-                        link = link.href.split('/').slice(0, 3).join('/').replace('www.','').split('//')
-                        link[0] = link[0].replace('https', 'http')
-                        link = link.join('//')
-                        if(serverdata[guildid].amconfig.links.linkwl.includes(link)) {
-                            serverdata[guildid].amconfig.links.linkwl.splice(index, 1)
-                            links.splice(index, 1)
-                            temp.push(link)
-                        }
                     })
                     await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
                     if(links.length == 0) return embeds.error(msg, 'Keine Links entfernt', 'Alle angegebenen Links sind bereits verboten.')
-                    return embeds.success(msg, 'Links entfernt', `Folgende Links sind nun nicht mehr auf der Whitelist:\n${temp.join('\n')}`)
+                    return embeds.success(msg, 'Links entfernt', `Folgende Links sind nun nicht mehr auf der Whitelist:\n${removedlinks.join('\n')}`)
                 case 'l':
                 case 'list':
                     if(serverdata[guildid].amconfig.links.linkwl.length <= 10) {
@@ -133,7 +118,8 @@ module.exports = async (msg, args, client, serverdata) => {
                             .setDescription(`Dies ist eine Liste aller erlaubten Links:\n${links.join('\n')}`)
                             .setFooter(`KeksBot ${config.version} | Zeige Einträge ${page * 10 + 1} bis ${page * 10 + 10}`)
                         var message = await msg.channel.send(embed)
-                        const collector = message.createReactionCollector((user) => user.id == msg.author.id, { time: 180000 })
+                        const filter = (user) => user.id == msg.author.id
+                        const collector = await message.createReactionCollector(filter, { time: 180000 })
                         links = serverdata[guildid].amconfig.links.linkwl
                         collector.on('collect', async r => {
                             console.log(1)
