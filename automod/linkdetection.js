@@ -5,7 +5,7 @@ const check = require('check-links')
 
 
 module.exports = async (msg, serverdata) => {
-    var text = msg.content.replace(/`+[.]`+/, '')
+    var text = msg.content.replace(/\`{3}([\S\s]*?)\`{3}/g, '')
     var links = linkify.find(text, 'url')
     //if(msg.member.hasPermission('MANAGE_MESSAGES')) return
     var temp = false
@@ -18,7 +18,6 @@ module.exports = async (msg, serverdata) => {
     links.forEach(async link => {
         const valid = await check([link.href]) 
         var result = valid[link.href]
-        console.log(link.href + ': ' + result)
         if(result.status === 'alive') {
             var url = link.href.split('/').slice(0, 3).join('/').replace('www.','').split('//')
             url[0] = url[0].replace('https', 'http')

@@ -9,7 +9,7 @@ module.exports = {
     modonly: 1,
     description: 'Entzieht einem Nutzer den VIP Status.',
     type: 'unlisted',
-    callback: (msg, args, client, serverdata, userdata, config, color) => {
+    callback: async (msg, args, client, serverdata, userdata, config, color) => {
         msg.delete().catch()
         var VIP = require('../VIP.json')
         var embed = new discord.MessageEmbed()
