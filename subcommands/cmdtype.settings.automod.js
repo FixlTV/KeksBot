@@ -99,18 +99,18 @@ module.exports = async (msg, args, client, serverdata) => {
                         await delay(20000)
                         if(!message.deleted) message.delete().catch()
                     } else {
-                        const changePage = async (m, links, page, modifier) => {
-                            if(page > 0 && page < Math.floor((links.length - 1) / 10) + 1) page = page + modifier
-                            links = links.slice(page * 10, page * 10 +10)
+                        const changePage = async (m, links, pageN, modifier) => {
+                            if((pageN == 0 && modifier == 1) || (pageN == Math.floor((links.length - 1) / 10) && modifier == -1) || (0 < pageN < Math.floor((links.length - 1) / 10))) pageN = pageN + modifier
+                            links = links.slice(pageN * 10, pageN * 10 +10)
                             var embed = new discord.MessageEmbed()
                                 .setColor(color.lightblue)
-                                .setTitle(`Link Whitelist | Seite ${page + 1}`)
+                                .setTitle(`Link Whitelist | Seite ${pageN + 1}`)
                                 .setDescription(`Dies ist eine Liste aller erlaubten Links:\n${links.join('\n')}`)
-                                .setFooter(`KeksBot ${config.version} | Zeige Einträge ${page * 10 + 1} bis ${page * 10 + 10}`)
+                                .setFooter(`KeksBot ${config.version} | Zeige Einträge ${pageN * 10 + 1} bis ${pageN * 10 + 10}`)
                             await m.edit(embed)
-                            return page
+                            return pageN
                         }
-                        var page = 0
+                        let page = 0
                         var links = serverdata[guildid].amconfig.links.linkwl.slice(page * 10, page * 10 + 10)
                         var embed = new discord.MessageEmbed()
                             .setColor(color.lightblue)
@@ -118,27 +118,26 @@ module.exports = async (msg, args, client, serverdata) => {
                             .setDescription(`Dies ist eine Liste aller erlaubten Links:\n${links.join('\n')}`)
                             .setFooter(`KeksBot ${config.version} | Zeige Einträge ${page * 10 + 1} bis ${page * 10 + 10}`)
                         var message = await msg.channel.send(embed)
-                        const filter = (user) => user.id == msg.author.id
-                        const collector = await message.createReactionCollector(filter, { time: 180000 })
+                        const filter = (reaction, user) => user.id === msg.author.id
                         links = serverdata[guildid].amconfig.links.linkwl
+                        const collector = await message.createReactionCollector(filter, { time: 180000 })
                         collector.on('collect', async r => {
-                            console.log(1)
                             switch(r.emoji.name) {
                                 case '◀': 
-                                    r.users.remove(r.users.cache.filter(u => u.id != client.user.id))
                                     page = await changePage(message, links, page, -1)
+                                    r.users.remove(msg.author)
                                     break
                                 case '▶':
-                                    r.users.remove(r.users.cache.filter(u => u.id != client.user.id))
                                     page = await changePage(message, links, page, 1)
+                                    r.users.remove(msg.author)
                                     break
                                 case '⏪':
-                                    r.users.remove(r.users.cache.filter(u => u.id != client.user.id))
                                     page = await changePage(message, links, 0, 0)
+                                    r.users.remove(msg.author)
                                     break
                                 case '⏩':
-                                    r.users.remove(r.users.cache.filter(u => u.id != client.user.id))
-                                    page = await changePage(message, links, Math.floor((links.length - 1) / 10) + 1, 0)
+                                    page = await changePage(message, links, Math.floor((links.length - 1) / 10), 0)
+                                    r.users.remove(msg.author)
                                     break
                                 case '⏹': 
                                     await r.message.reactions.removeAll()
@@ -146,7 +145,7 @@ module.exports = async (msg, args, client, serverdata) => {
                                     if(!message.deleted) message.delete().catch()
                                     break
                                 default: 
-                                    r.users.remove(r.users.cache.filter(u => u.id != client.user.id))
+                                    r.users.remove(msg.author)
                             }
                         })
                         await message.react('⏪')
