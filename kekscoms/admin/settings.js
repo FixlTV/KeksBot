@@ -51,6 +51,7 @@ module.exports = {
                 kbspawn(msg, args, client, serverdata)
                 break
             case 'automod':
+            case 'am':
                 automod(msg, args, client, serverdata)
                 break
             default:

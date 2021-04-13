@@ -160,8 +160,23 @@ module.exports = async (msg, args, client, serverdata) => {
                         if(!message.deleted) message.delete().catch()
                     }
                     return
-                default: 
+                default:
                     var embed = new discord.MessageEmbed()
+                        .setColor(color.lightblue)
+                        .setAuthor('Linkerkennung | Erlaubte Links')
+                        .setDescription(`\`${serverdata[msg.guild.id].prefix}settings automod links whitelist\`\n\n\`add <Link 1> [Link 2] [Link 3] ... [Link n]\`\nFüge neue Links zur Whitelist hinzu.\n\n\`remove <Link 1> [Link 2] [Link 3] ... [Link n]\`\nEntferne Links von der Whitelist.\n\n\`list\`\nZeige alle erlaubten Links an.`)
+                        .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
+                    message = await msg.channel.send(embed)
+                    await delay(30000)
+                    if(!message.deleted) message.delete().catch()
+                    return
+            }
+        } else if(['role', 'roles', 'r'].includes(args[2])) {
+            if(!args[3]) args[3] = ''
+            switch(args[3].toLowerCase()) {
+                case 'add':
+                case 'a': 
+                    if(!args[4]) return embeds.error(msg, 'Fehler', `Gib mindestens die ID einer Rolle an.\n\`${serverdata[guildid].prefix}settings automod links roles add <Role ID 1> [Role ID 2] [Role ID 3] ... [Role ID n]\``)
             }
         }
     } else { //Startseite
