@@ -12,6 +12,10 @@
     "url": "https://github.com/FixlTV/KeksBot/issues"
   },
   "homepage": "https://github.com/FixlTV/KeksBot",
+  "repository": {
+    "url": "https://github.com/FixlTV/KeksBot",
+    "type": "github"
+  },
   "dependencies": {
     "axios": "^0.21.1",
     "check-links": "^1.1.8",

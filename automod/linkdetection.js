@@ -10,7 +10,7 @@ module.exports = async (msg, serverdata) => {
     //if(msg.member.hasPermission('MANAGE_MESSAGES')) return
     var temp = false
     serverdata.amconfig.links.rolewl.forEach(role => {
-        if(msg.member.roles.has(role)) temp = true
+        if(msg.member.roles.cache.has(role)) temp = true
     })
     if(temp) return
     if(serverdata.amconfig.links.channelwl.includes(msg.channel.id)) return
