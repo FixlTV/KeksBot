@@ -9,7 +9,6 @@ module.exports = {
     permissions: 'BAN_MEMBERS',
     description: 'Bannt Leute',
     type: 'mod',
-    addon: 'mod',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color, embeds) => {
         msg.delete()
         if(!msg.guild.me.hasPermission('BAN_MEMBERS')) {

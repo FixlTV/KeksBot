@@ -141,9 +141,7 @@ module.exports = (client, commandOptions) => {
 
                 //Überprüfe Addons
                 if(addon) {
-                    let addons = {
-                        'mod': 'Moderation'
-                    }
+                    let addons = {}
                     if(addons[addon]) {
                         if(!serverdata[msg.guild.id][addon]) {
                             embeds.error(msg, 'Add-On benötigt!', `Für diesen Command muss das **${addons[addon]}** Add-On aktiv sein.`)

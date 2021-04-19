@@ -9,7 +9,6 @@ module.exports = {
     permissions: 'KICK_MEMBERS',
     description: 'Kickt Leute',
     type: 'mod',
-    addon: 'mod',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color, embeds) => {
         msg.delete()
         if(!msg.guild.me.hasPermission('KICK_MEMBERS')) {

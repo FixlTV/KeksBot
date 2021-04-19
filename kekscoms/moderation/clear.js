@@ -9,7 +9,6 @@ module.exports = {
     permissions: 'MANAGE_MESSAGES',
     description: 'Löscht bis zu 100 Nachrichten.',
     type: 'mod',
-    addon: 'mod',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color, embeds) => {
         msg.delete()
         if(!msg.guild.me.hasPermission('MANAGE_MESSAGES')) {

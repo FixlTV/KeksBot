@@ -29,14 +29,6 @@ module.exports = {
                 fs.writeFileSync('../serverdata.json', JSON.stringify(serverdata, null, 2))
                 embeds.success(msg, 'Add-On deaktiviert.', 'Das `@anyone` Plugin wurde erfolgreich deaktiviert.\nEs ist nun nicht mehr aktiv.')
                 return
-            case 'mod':
-            case 'moderation':
-                if(!serverdata[msg.guild.id].mod) {
-                    embeds.error(msg, 'Fehler', 'Das `Moderation` Plugin ist nicht aktiv.')
-                    return
-                }
-                embeds.error(msg, 'Deaktivierung unmöglich.', 'Dieses Add-On lässt sich nicht deaktivieren.')
-                return
             default: 
             var anyone = ''
             var mod = ''

@@ -88,7 +88,7 @@ module.exports = {
         const filterh = (reaction, user) => reaction.emoji.name === '🏡' && user.id == msg.author.id
         const filteri = (reaction, user) => reaction.emoji.name === 'ℹ️' && user.id == msg.author.id
         const filteru = (reaction, user) => reaction.emoji.name === '👥' && user.id == msg.author.id
-        const filterc = (reaction, user) => reaction.emoji.id === '776460440477630465' && user.id == msg.author.id
+        const filterc = (reaction, user) => reaction.emoji.id === emotes.cookie.split(':')[2].replace('>','') && user.id == msg.author.id
         const filtera = (reaction, user) => reaction.emoji.name === '⚙️' && user.id == msg.author.id
         const filterx = (reaction, user) => reaction.emoji.id === '775004095056052225' && user.id == msg.author.id
         const filterm = (reaction, user) => reaction.emoji.name === '🔨' && user.id == msg.author.id
@@ -133,10 +133,8 @@ module.exports = {
         await message.react('🏡').catch(err => {return})
         await message.react('ℹ️').catch(err => {return})
         await message.react('👥').catch(err => {return})
-        await message.react('776460440477630465').catch(err => {return})
-        if(serverdata[msg.guild.id].mod == 1) {
-            await message.react('🔨').catch(err => {return})
-        }
+        await message.react(emotes.cookie.split(':')[2].replace('>','')).catch(err => {return})
+        await message.react('🔨').catch(err => {return})
         await message.react('⚙️').catch(err => {return})
         await message.react('775004095056052225').catch(err => {return})
 
