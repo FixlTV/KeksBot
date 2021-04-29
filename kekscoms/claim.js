@@ -37,17 +37,13 @@ module.exports = {
                 if(channel.messages.cache.has(temp)) {
                     try {
                         var message = await channel.messages.fetch(temp)
-                        if(!message) {
-                        } else {
-                            if(message.deleted) {
-                            } else {
-                                message.delete()
-                                break
-                            }
+                        if(message && !message.deleted) {
+                            message.delete().catch()
+                            break
                         }
                     } catch (err) {
                         console.log(`${err}, ERROR DETECTED!`)
-                    }      
+                    }
                 }
             }
         } catch (err) {console.error(err)}
