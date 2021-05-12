@@ -42,6 +42,17 @@ module.exports = async (msg, args, client, serverdata, color) => {
         var message = await msg.channel.send(embed)
         await delay(15000)
         if(!message.deleted) message.delete().catch()
+    } else if(args[0] && args[0].toLowerCase === 'blurple') {
+        serverdata[msg.guild.id].color = '0x7289DA'
+        await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
+        var embed = new discord.MessageEmbed()
+            .setColor(0x7289DA)
+            .setTitle(`<a:LoveDiscord:834728722338545704> Farbe geändert`)
+            .setDescription('Alles ist jetzt schön blurple!')
+            .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
+        var message = await msg.channel.send(embed)
+        await delay(15000)
+        if(!message.deleted) message.delete().catch()
     } else {
         var embed = new discord.MessageEmbed()
             .setTitle('Farbeinstellungen')
