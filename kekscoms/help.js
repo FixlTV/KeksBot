@@ -22,7 +22,7 @@ module.exports = {
         var embedhome = new discord.MessageEmbed()
             .setColor(color.normal)
             .setTitle(`${emotes.cookie} KeksBot Hilfe`)
-            .setDescription('Willkommen bei der KeksBot Hilfe! Solltest du Fragen oder wünsche haben, tritt einfach dem [Support Server](https://discord.gg/g8AkYzWRCK) bei.\nDieses Hilfemenü ist in Kategorien unterteilt. Um eine Kategorie zu öffnen, reagiere mit dem entsprechenden Emoji.')
+            .setDescription('Willkommen bei der KeksBot Hilfe! Solltest du Fragen oder Wünsche haben, tritt einfach dem [Support Server](https://discord.gg/g8AkYzWRCK) bei.\nDieses Hilfemenü ist in Kategorien unterteilt. Um eine Kategorie zu öffnen, reagiere mit dem entsprechenden Emoji.')
             .addField(':house_with_garden: Home', 'Hier bist du gerade. Enthält keine Befehle.', true)
             .addField(':information_source: Informationsbefehle', 'Befehle, die den Nutzer über diverse Dinge informieren (z.B.: serverinfo)', true)
             .addField(':busts_in_silhouette: Nutzerbefehle', 'Befehle für jeden, die nicht der Information dienen.', true)

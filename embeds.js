@@ -48,7 +48,7 @@ module.exports = {
             .setFooter(msg.author.tag, msg.author.avatarURL({dynamic: true}))
             .setColor(color.red)
             .setTitle(`${emotes.denied} Zugriff verweigert!`)
-            .setDescription(`Um diesen Befehl auszuführen, benötigst du \`\`${permission}\`\`.`)
+            .setDescription(`Um diesen Befehl auszuführen, benötigst du \`${permission}\`.`)
         if(!edit) {
             embed.setFooter(msg.author.tag, msg.author.avatarURL({dynamic: true}))
             var message = await msg.channel.send(embed)

@@ -10,7 +10,7 @@ const discord = require('discord.js')
 
 module.exports = async (msg, args, text) => {
     var members = new Array()
-    if(msg.mentions.members.size > 0) {
+    if(text.trim(' ').startsWith('<@') && msg.mentions.members.size > 0) {
         members = msg.mentions.members.array()
         members.forEach(member => {
             text = text.replace(`<@${member.id}>`, '')
@@ -19,7 +19,7 @@ module.exports = async (msg, args, text) => {
     } else {
         var guildMembers = await msg.guild.members.fetch()
         guildMembers.array().forEach(member => {
-            if(text.toLowerCase().startsWith(member.user.username.toLowerCase()) || text.toLowerCase().startsWith(member.displayName.toLocaleLowerCase()) || (args[0] && member.displayName.toLowerCase().startsWith(args[0].toLowerCase()) && args[0].length > 2) || (args[0] && member.user.username.toLowerCase().startsWith(args[0].toLowerCase()) && args[0].length > 2)) {
+            if(text.toLowerCase().startsWith(member.user.username.toLowerCase()) || text.toLowerCase().startsWith(member.displayName.toLocaleLowerCase())) {
                 members.push(member)
                 if(text.toLowerCase().startsWith(member.user.username.toLowerCase())) {
                     text = text.trim()
@@ -36,21 +36,31 @@ module.exports = async (msg, args, text) => {
                         name = name.substring(1)
                         text = text.substring(1)
                     }
-                } else if(member.displayName.length > 2 && member.displayName.toLowerCase().startsWith(args[0].toLowerCase())) {
-                    var name = member.displayName
-                    while (name.length > 0 && name[0].toLowerCase() === text.charAt(0).toLowerCase()) {
-                        name = name.substring(1)
-                        text = text.substring(1)
-                    }
-                } else if(member.user.username.length > 2 && member.user.username.toLowerCase().startsWith(args[0].toLowerCase())) {
-                    var name = member.user.username
-                    while (name.length > 0 && name[0].toLowerCase() === text.charAt(0).toLowerCase()) {
-                        name = name.substring(1)
-                        text = text.substring(1)
-                    }
                 }
             }
         })
+        if(members.length == 0) {
+            guildMembers.array().forEach(member => {
+                if((args[0] && member.displayName.toLowerCase().startsWith(args[0].toLowerCase()) && args[0].length > 2) || (args[0] && member.user.username.toLowerCase().startsWith(args[0].toLowerCase()) && args[0].length > 2)) {
+                    members.push(member)
+    
+                    if(member.displayName.length > 2 && member.displayName.toLowerCase().startsWith(args[0].toLowerCase())) {
+                        var name = member.displayName
+                        while (name.length > 0 && name[0].toLowerCase() === text.charAt(0).toLowerCase()) {
+                            name = name.substring(1)
+                            text = text.substring(1)
+                        }
+                    } else if(member.user.username.length > 2 && member.user.username.toLowerCase().startsWith(args[0].toLowerCase())) {
+                        var name = member.user.username
+                        while (name.length > 0 && name[0].toLowerCase() === text.charAt(0).toLowerCase()) {
+                            name = name.substring(1)
+                            text = text.substring(1)
+                        }
+                    }
+                }
+    
+            })
+        }
     }
     text = text.trim()
     return [members, text]

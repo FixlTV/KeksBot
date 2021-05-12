@@ -28,10 +28,8 @@ module.exports = {
                 ignore(msg, args, client, serverdata)
                 break
             case 'keksbox':
-                if(!msg.member.hasPermission('MANAGE_CHANNELS')) {
-                    embeds.needperms(msg, 'MANAGE_CHANNELS')
-                    return
-                }
+            case 'kb':
+                if(!msg.member.hasPermission('MANAGE_CHANNELS')) return embeds.needperms(msg, 'MANAGE_CHANNELS')
                 claim(msg, args, client, serverdata)
                 break
             case 'prefix':
@@ -62,7 +60,7 @@ module.exports = {
                     .addField('KeksBox', 'Lege Kanäle fest, in denen KeksBoxen erstellt werden können.', true)
                     .addField('Prefix', 'Ändere den Bot Prefix.', true)
                     .addField('Color', 'Ändere die Farbe von den meisten Embeds.', true)
-                    .addField('KekxBox-Spawn', 'Passe an, wie oft KeksBoxen auftauchen sollen', true)
+                    .addField('KeksBox-Spawn', 'Passe an, wie oft KeksBoxen auftauchen sollen', true)
                     .addField('Automod', 'Wende den Automod an. [WIP]', true)
                     .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                 var message = await msg.channel.send(embed)

@@ -111,20 +111,20 @@ client.on('message', async (msg) => {
                 var embed = new discord.MessageEmbed()
                     .setColor(color.normal)
                     .setTitle('Huch!')
-                    .setDescription(`Ein Paket voller Keksen erscheint! Los, Pikachu!\nGib \`\`${serverdata[msg.guild.id].prefix}claim\`\` ein, um es einzusammeln.`)
+                    .setDescription(`Ein Paket voller Keksen erscheint! Los, Pikachu!\nGib \`${serverdata[msg.guild.id].prefix}claim\` ein, um es einzusammeln.`)
                     .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
             } else {
                 if(y == 2) {
                     var embed = new discord.MessageEmbed()
                         .setColor(color.normal)
                         .setTitle('Die Lieferung ist da!')
-                        .setDescription(`Ein leckeres Kekspaket ist gerade angekommen.\nGib \`\`${serverdata[msg.guild.id].prefix}claim\`\` ein, um es einzusammeln.`)
+                        .setDescription(`Ein leckeres Kekspaket ist gerade angekommen.\nGib \`${serverdata[msg.guild.id].prefix}claim\` ein, um es einzusammeln.`)
                         .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
                 } else {
                     var embed = new discord.MessageEmbed()
                         .setColor(color.normal)
                         .setTitle('Legga')
-                        .setDescription(`Legga Keeeeeeekseeeeee!\nGib \`\`${serverdata[msg.guild.id].prefix}claim\`\` ein, um es einzusammeln.`)
+                        .setDescription(`Legga Keeeeeeekseeeeee!\nGib \`${serverdata[msg.guild.id].prefix}claim\` ein, um es einzusammeln.`)
                         .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
                 }
             }
