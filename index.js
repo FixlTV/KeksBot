@@ -106,8 +106,6 @@ client.on('message', async (msg) => {
         if(serverdata[msg.guild.id].kbq) count = serverdata[msg.guild.id].kbq
         var x = Math.floor(Math.random() * count)
         if(x == 1) {
-            serverdata[msg.guild.id].gift = msg.id
-            fs.writeFileSync('serverdata.json', JSON.stringify(serverdata, null, 2))
             var y = Math.floor(Math.random() * (4 - 1)) + 1
             if(y == 1) {
                 var embed = new discord.MessageEmbed()
@@ -130,7 +128,9 @@ client.on('message', async (msg) => {
                         .setFooter(`© KeksBot ${config.version}`, client.user.avatarURL())
                 }
             }
-            msg.channel.send(embed)
+            var message = await msg.channel.send(embed)
+            serverdata[msg.guild.id].gift = message.id
+            fs.writeFileSync('serverdata.json', JSON.stringify(serverdata, null, 2))
         }
     }
     //@anyone

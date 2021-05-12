@@ -10,7 +10,7 @@ module.exports = {
     description: 'Löscht bis zu 100 Nachrichten.',
     type: 'mod',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color, embeds) => {
-        msg.delete()
+        await msg.delete()
         if(!msg.guild.me.hasPermission('MANAGE_MESSAGES')) {
             embeds.error(msg, 'Keine Berechtigung', 'Ich kann keine Nachrichten löschen.')
             return

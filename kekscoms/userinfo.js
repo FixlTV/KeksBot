@@ -32,7 +32,7 @@ module.exports = {
             .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
             .addField('ID', member.id, true)
             .addField('Discriminator', member.user.discriminator, true)
-            .addField('Alter', `${member.user.createdAt.getDate()}.${member.user.createdAt.getMonth()+1}.${member.user.createdAt.getFullYear()} ${member.user.createdAt.getHours()}:${member.user.createdAt.getMinutes()}:${member.user.createdAt.getSeconds()}`, true)
+            .addField('Erstellungsdatum', `${member.user.createdAt.getDate()}.${member.user.createdAt.getMonth()+1}.${member.user.createdAt.getFullYear()} ${member.user.createdAt.getHours()}:${member.user.createdAt.getMinutes()}:${member.user.createdAt.getSeconds()}`, true)
             .addField('Serverbeitritt', `${member.joinedAt.getDate()}.${member.joinedAt.getMonth()+1}.${member.joinedAt.getFullYear()} ${member.joinedAt.getHours()}:${member.joinedAt.getMinutes()}:${member.joinedAt.getSeconds()}`, true)
             .addField('Rollen', roles.join(' '))
             if(userdata[member.id]) {

@@ -22,8 +22,7 @@ module.exports = {
         }
         if(serverdata[msg.guild.id].gift) {
             var temp = serverdata[msg.guild.id].gift
-            var multiplier = 100
-            if(serverdata[msg.guild.id].kbq) multiplier = serverdata[msg.guild.id].kbq
+            var multiplier = serverdata[msg.guild.id].kbq || 100
             var x = Math.round(Math.random() * 6 * multiplier) + Math.round(Math.random() * 5 * multiplier)
             userdata[msg.author.id].cookies = userdata[msg.author.id].cookies + x
             delete serverdata[msg.guild.id].gift
@@ -31,21 +30,17 @@ module.exports = {
             fs.writeFileSync('./serverdata.json', JSON.stringify(serverdata, null, 2))
             embeds.success(msg, "Paket eingesammelt", `${msg.author.username} hat das Paket aufgesammelt.\nDarin waren ${x} Kekse.`)
             try {
-            var channels = msg.guild.channels.cache.filter(c => c.type == 'text').array()
-            for(const index in channels) {
-                var channel = channels[index]
+            var channels = msg.guild.channels.cache.filter(c => c.type === 'text').array()
+            channels.forEach(async channel => {
+                await channel.messages.fetch()
                 if(channel.messages.cache.has(temp)) {
-                    try {
-                        var message = await channel.messages.fetch(temp)
-                        if(message && !message.deleted) {
-                            message.delete().catch()
-                            break
-                        }
-                    } catch (err) {
-                        console.log(`${err}, ERROR DETECTED!`)
+                    var message = channel.messages.cache.get(temp)
+                    if(message && !message.deleted) {
+                        await message.delete()
+                        return
                     }
                 }
-            }
+            })
         } catch (err) {console.error(err)}
         } else {
             embeds.error(msg, "Fehler", "Hier gibt es nichts zu claimen.")

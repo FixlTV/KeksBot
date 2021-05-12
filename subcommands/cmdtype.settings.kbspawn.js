@@ -13,7 +13,6 @@ const color = {
 const config = require('../config.json')
 
 module.exports = async (msg, args, client, serverdata) => {
-    msg.delete()
     var count
     if(args[0]) count = args[0].replace(',', '.')
     if(count) {
@@ -33,10 +32,10 @@ Dies definiert die ungefähre Nachrichtenanzahl zwischen den KeksBoxen.')
             var percentage = 1/Number(count)*100
             return embeds.success(msg, 'Rate geändert', `Die KeksBox Spawnrate wurde auf ${percentage}% (ungefähr eine KeksBox pro ${count} Nachrichten) gesetzt.`)
         } else if(count.endsWith('%')) {
-            if(isNaN(count.replace('%', null))) return embeds.error(msg, 'Syntaxfehler', `${count.replace('%', null)} ist keine gültige Prozentzahl.`)
-            count = Number(count.replace('%', null))
+            if(isNaN(count.replace('%', ''))) return embeds.error(msg, 'Syntaxfehler', `${count.replace('%', '')} ist keine gültige Prozentzahl.`)
+            count = Number(count.replace('%', ''))
             var number = 100/count
-            if(number > 20 || number < 10000) return embeds.error(msg, 'Fehler', 
+            if(number < 20 || number > 10000) return embeds.error(msg, 'Fehler', 
             'Bitte gib einen Wert zwischen 5% und 0,01% an\n\
 Dies definiert die Spawnwahrscheinlichkeit von KeksBoxen.')
             serverdata[msg.guild.id].kbq = number
