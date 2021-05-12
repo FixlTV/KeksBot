@@ -106,6 +106,7 @@ client.on('message', async (msg) => {
         if(serverdata[msg.guild.id].kbq) count = serverdata[msg.guild.id].kbq
         var x = Math.floor(Math.random() * count)
         if(x == 1) {
+            if(serverdata[msg.guild.id].cwl && !serverdata[msg.guild.id].cwl.includes(msg.channel.id)) return
             var y = Math.floor(Math.random() * (4 - 1)) + 1
             if(y == 1) {
                 var embed = new discord.MessageEmbed()
