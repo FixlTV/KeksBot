@@ -1,15 +1,15 @@
 const fs = require('fs')
-const embeds = require('../embeds')
+const embeds = require('../../embeds')
 const discord = require('discord.js')
 
 module.exports = {
     commands: ['bugreport', 'bug'],
     type: 'user',
-    description: 'Melde Bugs ans Team.\nBitte versuche, den Bug möglichst genau zu beschreiben, damit wir in schnell fixen können.',
+    description: 'Melde Bugs ans Team.\nBitte versuche, den Bug möglichst genau zu beschreiben, damit wir ihn schnell fixen können.',
     expectedArgs: '<Bug>',
     minArgs: 1,
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
-        const data = require('../data.json')
+        const data = require('../../data.json')
         var embed = new discord.MessageEmbed()
             .setAuthor(msg.member.displayName, msg.author.avatarURL())
             .setColor(color.yellow)
