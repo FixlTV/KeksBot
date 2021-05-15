@@ -341,6 +341,23 @@ module.exports = async (msg, args, client, serverdata) => {
                     await delay(30000)
                     if(!message.deleted) message.delete().catch()
             }
+        } else if(['channel', 'channels', 'c'].includes(args[2].toLowerCase())) {
+            if(!serverdata[guildid].amconfig.links) {
+                serverdata[guildid].amconfig.links = {
+                    on: true,
+                    linkwl: [],
+                    channelwl: [],
+                    rolewl: []
+                }
+            }
+            if(!args[3]) args[3] = ''
+            
+            switch(args[3].toLowerCase()) {
+                case 'add':
+                case 'a':
+                    
+            }
+
         } else {
             var embed = new discord.MessageEmbed()
                 .setColor(color.lightblue)
