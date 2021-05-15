@@ -1,6 +1,7 @@
 const fs = require('fs').promises
 const embeds = require('../embeds')
 const discord = require('discord.js')
+const searchmember = require('../subcommands/searchmembers')
 
 module.exports = {
     commands: ['removevip', 'rmvvip', 'vipremove', 'viprmv'],
@@ -9,7 +10,7 @@ module.exports = {
     modonly: 1,
     description: 'Entzieht einem Nutzer den VIP Status.',
     type: 'unlisted',
-    callback: async (msg, args, client, serverdata, userdata, config, color) => {
+    callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
         msg.delete().catch()
         var VIP = require('../VIP.json')
         var embed = new discord.MessageEmbed()
@@ -21,7 +22,7 @@ module.exports = {
         var result = await searchmember(msg, args, args.join(' '))
         if(!result[0][0]) return embeds.error(message, 'Fehler', 'Es wurde kein Nutzer gefunden.\nBitte stelle sicher, dass er auf diesem Server ist.', true)
         member = result[0][0]
-        if(!member || member.id) return embeds.error(message, 'Unbekannter Nutzer', `Der Nutzer ${args.join(' ')} konnte nicht gefunden werden.`, true)
+        if(!member || !member.id) return embeds.error(message, 'Unbekannter Nutzer', `Der Nutzer ${args.join(' ')} konnte nicht gefunden werden.`, true)
         if(!VIP[member.id]) {
             return embeds.error(message, 'Fehler', `**${member.user.tag}** ist kein VIP.`, true, false)
         }
