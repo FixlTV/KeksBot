@@ -57,7 +57,7 @@ module.exports = async (msg, args, client, serverdata) => {
         } else if(['whitelist', 'wl'].includes(args[2].toLowerCase())) {
             if(!serverdata[guildid].amconfig.links) {
                 serverdata[guildid].amconfig.links = {
-                    on: true,
+                    on: false,
                     linkwl: [],
                     channelwl: [],
                     rolewl: []
@@ -191,7 +191,7 @@ module.exports = async (msg, args, client, serverdata) => {
         } else if(['role', 'roles', 'r'].includes(args[2].toLowerCase())) {
             if(!serverdata[guildid].amconfig.links) {
                 serverdata[guildid].amconfig.links = {
-                    on: true,
+                    on: false,
                     linkwl: [],
                     channelwl: [],
                     rolewl: []
@@ -341,6 +341,30 @@ module.exports = async (msg, args, client, serverdata) => {
                     await delay(30000)
                     if(!message.deleted) message.delete().catch()
             }
+        } else if(['channel', 'channels', 'c'].includes(args[2].toLowerCase())) {
+            if(!serverdata[guildid].amconfig.links) {
+                serverdata[guildid].amconfig.links = {
+                    on: false,
+                    linkwl: [],
+                    channelwl: [],
+                    rolewl: []
+                }
+            }
+            if(!args[3]) args[3] = ''
+            
+            switch(args[3].toLowerCase()) {
+                case 'add':
+                case 'a':
+                    if(!args[4]) return embeds.error(msg, 'Fehler', `Gib mindestens einen Kanal oder eine Channel ID an.\n\`${serverdata[guildid].prefix}settings automod links channels add <Channel ID 1> [Channel ID 2] [Channel ID 3] ... [Channel ID n]\``)
+                    var channels = []
+                    if(msg.mentions.channels && msg.mentions.channels.first()) msg.mentions.channels.filter(c => c.type === 'text').array().forEach(c => channels.push(c.id))
+                    await msg.guild.channels.fetch()
+                    args.slice(4).forEach(id => {
+                        if(msg.guild.channels.filter(c => c.type === 'text').has(id)) channels.push(id)
+                    })
+                    
+            }
+
         } else {
             var embed = new discord.MessageEmbed()
                 .setColor(color.lightblue)

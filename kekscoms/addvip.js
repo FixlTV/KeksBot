@@ -21,9 +21,9 @@ module.exports = {
             .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
         var message = await msg.channel.send(embed)
         var result = await searchmember(msg, args, args.join(' '))
-        if(!result[0]) return embeds.error(message, 'Fehler', 'Es wurde kein Nutzer gefunden.\nBitte stelle sicher, dass er auf diesem Server ist.', true)
+        if(!result[0] || !result[0][0]) return embeds.error(message, 'Fehler', 'Es wurde kein Nutzer gefunden.\nBitte stelle sicher, dass er auf diesem Server ist.', true)
         member = result[0][0]
-        if(!member || member.id) return embeds.error(message, 'Unbekannter Nutzer', `Der Nutzer ${args.join(' ')} konnte nicht gefunden werden.`, true)
+        if(!member || !member.id) return embeds.error(message, 'Unbekannter Nutzer', `Der Nutzer ${args.join(' ')} konnte nicht gefunden werden.`, true)
         if(VIP[member.id]) {
             return embeds.error(message, 'Fehler', `**${member.user.tag}** ist schon VIP.`, true, false)
         }

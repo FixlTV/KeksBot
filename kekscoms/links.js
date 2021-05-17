@@ -6,6 +6,7 @@ module.exports = {
     description: 'Zeigt tolle Links an.',
     commands: ['links', 'invite', 'support'],
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color, embeds) => {
+        msg.delete()
         var embed = new MessageEmbed()
             .setColor(color.normal)
             .setTitle(`${emotes.cookie} KeksBot Links`)
