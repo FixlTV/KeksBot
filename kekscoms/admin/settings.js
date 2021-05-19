@@ -56,7 +56,7 @@ module.exports = {
             case 'colors':
                 if(!msg.member.hasPermission('MANAGE_GUILD')) return embeds.needperms(msg, 'MANAGE_GUILD')
                 args.shift()
-                colors(msg, args, client, serverdata)
+                colors(msg, args, client, serverdata, color)
                 break
             default:
                 var embed = new discord.MessageEmbed()
