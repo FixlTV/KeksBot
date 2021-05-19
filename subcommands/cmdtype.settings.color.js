@@ -57,8 +57,8 @@ module.exports = async (msg, args, client, serverdata, color) => {
         var embed = new discord.MessageEmbed()
             .setTitle('Farbeinstellungen')
             .setDescription('Hier kannst du die Farbe von Embeds ändern.\nBenutze `' + serverdata[msg.guild.id].prefix + 'settings color <role | reset | HEX Colorcode>`, um \
-                die Farbe zu ändern:\n · `role`: Ändert die Farbe zur Rollenfarbe des Bots. Diese wird automatisch geändert.\n · `reset`: Setzt die Farbe zurück. Es wird die \
-                Standardfarbe (#00b99b) verwendet.\n · `HEX Colorcode`: Ändert die Farbe zu der Angegebenen.\n\n\⬅ Das ist die aktuelle Farbe.')
+die Farbe zu ändern:\n · `role`: Ändert die Farbe zur Rollenfarbe des Bots. Diese wird automatisch geändert.\n · `reset`: Setzt die Farbe zurück. Es wird die \
+Standardfarbe (#00b99b) verwendet.\n · `HEX Colorcode`: Ändert die Farbe zu der Angegebenen.\n\n\⬅ Das ist die aktuelle Farbe.')
             .setColor(color.normal)
             .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
         var message = await msg.channel.send(embed)

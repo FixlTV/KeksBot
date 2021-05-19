@@ -214,12 +214,12 @@ module.exports = async (msg, args, client, serverdata) => {
                         if(serverdata[msg.guild.id].amconfig.links.rolewl.includes(role)) return false
                         else return true
                     })
-                    roles.forEach(role => serverdata[guildid].amconfig.links.rolewl.push(role))
                     if(roles.length == 0) return embeds.error(msg, 'Fehler', 'Alle angegebenen Rollen sind können bereits Links senden.')
-                    if(roles.length == 1) return embeds.success(msg, 'Rollenberechtigung hinzugefügt', `Alle Nutzer mit der <@&${roles}> Rolle können nun Link senden.`)
+                    roles.forEach(role => serverdata[guildid].amconfig.links.rolewl.push(role))
                     await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
+                    if(roles.length == 1) return embeds.success(msg, 'Rollenberechtigung hinzugefügt', `Alle Nutzer mit der <@&${roles}> Rolle können nun Link senden.`)
                     roles.forEach(role => {role = '<@&' + role +'>'})
-                    embeds.success(msg, 'Rollenberechtigungen hinzugefügt', `Nutzer mit mindestens einer dieser Rollen können jetzt Links, die nicht auf der Whitelist stehen, senden: ${roles.join('\n')}`)
+                    embeds.success(msg, 'Rollenberechtigungen hinzugefügt', `Nutzer mit mindestens einer dieser Rollen können jetzt Links, die nicht auf der Whitelist stehen, senden: ${roles.join(',\n')}`)
                     break
                 case 'r':
                 case 'remove':
@@ -351,7 +351,6 @@ module.exports = async (msg, args, client, serverdata) => {
                 }
             }
             if(!args[3]) args[3] = ''
-            
             switch(args[3].toLowerCase()) {
                 case 'add':
                 case 'a':
@@ -362,7 +361,45 @@ module.exports = async (msg, args, client, serverdata) => {
                     args.slice(4).forEach(id => {
                         if(msg.guild.channels.filter(c => c.type === 'text').has(id)) channels.push(id)
                     })
-                    
+                    if(channels.length == 0) return embeds.error(msg, 'Fehler', `Gib mindestens einen Textkanal an.\n\`${serverdata[msg.guild.id].prefix}settings automod links channels add <Kanal 1> [Kanal 2] [Kanal 3] ... [Kanal n]\``)
+                    channels.filter(c => {
+                        if(serverdata[msg.guild.id].amconfig.links.channelwl.includes(c)) return false
+                        else return true
+                    })
+                    if(channels.length == 0) return embeds.error(msg, 'Fehler', 'Alle angegebenen Kanäle sind bereits von der Linkerkennung ausgeschlossen.')
+                    channels.forEach(c => serverdata[guildid].amconfig.links.channels.rolewl.push(c))
+                    await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
+                    if(channels.length == 1) return embeds.success(msg, 'Kanal hinzugefügt', `In <#${roles[0]}> können nun Links gesendet werden.`)
+                    channels.forEach(c => {c = `<#${c}>`})
+                    embeds.success(msg, 'Kanäle hinzugefügt', `In diese Kanälen können nun Links gesendet werden:\n${c.join(',\n')}`)
+                    break
+                case 'r':
+                case 'remove':
+                    if(!args[4]) return embeds.error(msg, 'Fehler', `Gib mindestens einen Kanal oder eine Channel ID an.\n\`${serverdata[guildid].prefix}settings automod links channels add <Channel ID 1> [Channel ID 2] [Channel ID 3] ... [Channel ID n]\``)
+                    var channels = []
+                    if(msg.mentions.channels && msg.mentions.channels.first()) msg.mentions.channels.filter(c => c.type === 'text').array().forEach(c => channels.push(c.id))
+                    await msg.guild.channels.fetch()
+                    args.slice(4).forEach(id => {
+                        if(msg.guild.channels.filter(c => c.type === 'text').has(id)) channels.push(id)
+                    })
+                    if(channels.length == 0) return embeds.error(msg, 'Fehler', `Gib mindestens einen Textkanal an.\n\`${serverdata[msg.guild.id].prefix}settings automod links channels add <Kanal 1> [Kanal 2] [Kanal 3] ... [Kanal n]\``)
+                    channels = channels.filter(role => {
+                        if(serverdata[guildid].amconfig.links.channelwl.includes(role)) return true
+                        else return false
+                    })
+                    if(channels.length == 0) return embeds.error(msg, 'Fehler', 'In allen angegebenen Kanälen kann man keine Links senden')
+                    serverdata[guildid].amconfig.links.channelwl = serverdata[guildid].amconfig.links.channelwl.filter(role => {
+                        if(channels.includes(role)) return false
+                        else {
+                            channels.splice(roles.indexOf(role), 1)
+                            return true
+                        }
+                    })
+                    if(channels.length == 0) return embeds.error(msg, 'Fehler', 'In allen angegebenen Kanälen kann man keine Links senden')
+                    await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
+                    if(channels.length == 1) return embeds.success(msg, 'Kanalüberschreibung entfernt', `In <#${channels[0]}> können keine Links mehr gesendet werden.`)
+                    channels.forEach(role => {role = '<#' + role +'>'})
+                    return embeds.success(msg, 'Kanalüberschreibungen entfernt', `In diese Kanäle können keine Links mehr gesendet werden:\n${roles.join(',\n')}`)
             }
 
         } else {
