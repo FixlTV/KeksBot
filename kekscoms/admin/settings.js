@@ -1,13 +1,14 @@
 const fs = require('fs')
 const embeds = require('../../embeds')
 const discord = require('discord.js')
-const ignore = require('../../subcommands/cmdtype.settings.ignore')
+const ignore = require('../../subcommands/settings.ignore')
 const delay = require('delay')
-const claim = require('../../subcommands/cmdtype.settings.claim')
-const prefix = require('../../subcommands/cmdtype.settings.prefix')
-const fcolor = require('../../subcommands/cmdtype.settings.color')
-const kbspawn = require('../../subcommands/cmdtype.settings.kbspawn')
-const automod = require('../../subcommands/cmdtype.settings.automod')
+const claim = require('../../subcommands/settings.claim')
+const prefix = require('../../subcommands/settings.prefix')
+const fcolor = require('../../subcommands/settings.color')
+const kbspawn = require('../../subcommands/settings.kbspawn')
+const automod = require('../../subcommands/settings.automod')
+const colors = require('../../subcommands/settings.colors')
 
 module.exports = {
     commands: ['settings', 'config'],
@@ -52,6 +53,11 @@ module.exports = {
             case 'am':
                 automod(msg, args, client, serverdata)
                 break
+            case 'colors':
+                if(!msg.member.hasPermission('MANAGE_GUILD')) return embeds.needperms(msg, 'MANAGE_GUILD')
+                args.shift()
+                colors(msg, args, client, serverdata)
+                break
             default:
                 var embed = new discord.MessageEmbed()
                     .setColor(color.lightblue)
@@ -59,7 +65,8 @@ module.exports = {
                     .addField('Ignore', 'Lege Kanäle oder Rollen fest, in denen oder für die der Bot nicht funktioniert.', true)
                     .addField('KeksBox', 'Lege Kanäle fest, in denen KeksBoxen erstellt werden können.', true)
                     .addField('Prefix', 'Ändere den Bot Prefix.', true)
-                    .addField('Color', 'Ändere die Farbe von den meisten Embeds.', true)
+                    .addField('Color', 'Ändere die Standardfarbe von Embeds.', true)
+                    .addField('Colors', 'Ändere das Farbschema.', true)
                     .addField('KeksBox-Spawn', 'Passe an, wie oft KeksBoxen auftauchen sollen', true)
                     .addField('Automod', 'Wende den Automod an. [WIP]', true)
                     .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
