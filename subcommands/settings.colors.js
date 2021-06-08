@@ -16,16 +16,41 @@ module.exports = async (msg, args, client, serverdata, color) => {
         .addField(':x: Abbrechen', 'Alles bleibt so, wie es ist. <a:pikadance:780088943718825984>', true)
         .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
     var message = await msg.channel.send(embed)
-    await delay(1000)    //Extra für NT
-    await delay(1000)
-    await delay(1000)
-    await delay(1000)
-    await delay(1000)
-    await delay(1000)
-    await delay(1000)
-    await delay(1000)
-    await delay(1000)
-    await delay(1000)
-    await delay(1000)
+    const filter = (r, u) => u.id === msg.author.id && ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '❌'].includes(r.emoji.name)
+    var collector = await message.createReactionCollector(filter, { time: 120000, max: 1 })
+
+    collector.on('collect', async r => {
+        message.reactions.removeAll().catch()
+        switch(r.emoji.name) {
+            case '1️⃣':
+                if(serverdata[msg.guild.id].theme) delete serverdata[msg.guild.id].theme
+                await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
+                return embeds.success(message, 'Farben geändert', 'Die Farbänderung wurde erfolgreich übernommen und ab jetzt angewandt.', true)
+            case '2️⃣':
+                serverdata[msg.guild.id].theme = { red: '0x7C2718', yellow: '0x7F7200', lime: '0x177A33' }
+                await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
+                return embeds.success(message, 'Farben geändert', 'Das dunkle Design wird nun verwendet.', true)
+            case '3️⃣':
+                serverdata[msg.guild.id].theme = { red: '0x303030', yellow: '0x6B6B6B', lime: '0xAFAFAF' }
+                await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
+                return embeds.success(message, 'Farben geändert', 'Das graue Design wird nun verwendet.', true)
+            case '4️⃣':
+                serverdata[msg.guild.id].theme = { red: '0xED4245', yellow: '0xFEE75C', lime: '0x57F287' }
+                await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
+                return embeds.success(message, 'Farben geändert', 'Das [Discord 2021 Design](https://discord.com/branding) wird nun verwendet.\n**Protipp**: Benutze `' + serverdata[msg.guild.id].prefix + 'settings color blurple`, um das Design zu perfektionieren.', true)
+            case '❌':
+                return message.delete()
+        }
+    })
+
+    if(!message.deleted) await message.react('1️⃣').catch()
+    if(!message.deleted) await message.react('2️⃣').catch()
+    if(!message.deleted) await message.react('3️⃣').catch()
+    if(!message.deleted) await message.react('4️⃣').catch()
+    if(!message.deleted) await message.react('❌').catch()
+    if(!message.deleted) await delay(120000)
+    if(!message.deleted) message.reactions.removeAll().catch(); else return
+    await delay(20000)
     if(!message.deleted) message.delete().catch()
+    return
 }

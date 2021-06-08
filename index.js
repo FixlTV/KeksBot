@@ -3,9 +3,11 @@ const client  = new discord.Client
 const fs      = require('fs')
 const config  = require('./config.json')
 const copyright = `© KeksBot ${config.version}`
-const loadcmds  = require('./kekscoms/cmdloader')
+const loadcmds  = require('./commands/cmdloader')
 const emotes = require('./emotes.json')
 const automod = require('./automod/automod')
+const commandhandler = require('./commandhandler')
+const delay = require('delay')
 
 const color = {
     red: 0xff0000,
@@ -46,9 +48,11 @@ client.on('ready', () => { //Main
     }, 10000)
 })
 client.on('ready', async () => { //Status
+    commandhandler(client)
+    await delay(5000000)
     client.setMaxListeners(0)
-    loadcmds(client)
-    automod(client)
+    // loadcmds(client)
+    // automod(client)
     int = await setInterval(function () {
         let statuses = [
             {
