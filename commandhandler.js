@@ -80,23 +80,26 @@ module.exports = async (client) => {
             if(stat.isDirectory()) {
                 readCommands(path.join(dir, file))
             } else {
-                var command = require(path.join(__dirname, dir, file))
-                command.path = path.join(__dirname, dir, file)
-                if(typeof command.permissions === 'string') {
-                    command.permissions = [command.permissions]
+                if(file.endsWith('.js') && !file.startsWith('subcmd' || 'subcommand')) {
+                    var command = require(path.join(__dirname, dir, file))
+                    command.path = path.join(__dirname, dir, file)
+                    if(typeof command.permissions === 'string') {
+                        command.permissions = [command.permissions]
+                    }
+                    if(command.name) {
+                        console.log(`[${client.user.username}]: ${command.name} wird geladen...`)
+                        if(command.permissions) validatePermissions(command, command.permissions)
+                        client.commands.set(command.name, command)
+                    }
+                    if(!command.name && command.commands) {
+                        if(typeof command.commands === 'string') command.commands = [command.commands]
+                        command.name = command.commands.shift()
+                        console.log(`[${client.user.username}]: ${command.name} wird geladen...`)
+                        if(command.permissions) validatePermissions(command, command.permissions)
+                        client.commands.set(command.name, command)
+                    }
                 }
-                if(command.name) {
-                    console.log(`[${client.user.username}]: ${command.name} wird geladen...`)
-                    if(command.permissions) validatePermissions(command, command.permissions)
-                    client.commands.set(command.name, command)
-                }
-                if(!command.name && command.commands) {
-                    if(typeof command.commands === 'string') command.commands = [command.commands]
-                    command.name = command.commands.shift()
-                    console.log(`[${client.user.username}]: ${command.name} wird geladen...`)
-                    if(command.permissions) validatePermissions(command, command.permissions)
-                    client.commands.set(command.name, command)
-                }
+
             }
         }
     }
@@ -108,7 +111,8 @@ module.exports = async (client) => {
         const serverdata = require('./serverdata.json')
         const userdata = require('./userdata.json')
         const emotes = require('./emotes.json')
-        const prefix = serverdata[msg.guild.id].prefix || require('./config.json').prefix
+        if(serverdata[msg.guild.id]) var prefix = serverdata[msg.guild.id].prefix 
+        else var prefix = config.prefix
         if(msg.content.toLowerCase().startsWith(prefix.toLowerCase())) text = msg.content.substring(prefix.length)
         else if(msg.content.startsWith('<@774885703929561089>')) text = msg.content.substring(21)
         else if(msg.content.startsWith('<@!774885703929561089>')) text = msg.content.substring(22)
@@ -123,9 +127,11 @@ module.exports = async (client) => {
         if(userdata[msg.author.id] && userdata[msg.author.id].banned) return
 
         if(command.permissions) {
-            msg.delete().catch()
-            command.permissions.forEach(p => {
-                if(!msg.member.permissions.has(p)) return embeds.needperms(p)
+            command.permissions.forEach(async p => {
+                if(!msg.member.permissions.has(p)) {
+                    await msg.delete().catch()
+                    return embeds.needperms(p)
+                }
             })
         }
 

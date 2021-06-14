@@ -3,7 +3,6 @@ const client  = new discord.Client
 const fs      = require('fs')
 const config  = require('./config.json')
 const copyright = `© KeksBot ${config.version}`
-const loadcmds  = require('./commands/cmdloader')
 const emotes = require('./emotes.json')
 const automod = require('./automod/automod')
 const commandhandler = require('./commandhandler')
@@ -48,8 +47,7 @@ client.on('ready', () => { //Main
     }, 10000)
 })
 client.on('ready', async () => { //Status
-    commandhandler(client)
-    await delay(5000000)
+    await commandhandler(client)
     client.setMaxListeners(0)
     // loadcmds(client)
     // automod(client)

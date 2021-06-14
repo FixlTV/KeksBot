@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Home",
+        "id": "home",
+        "description": "Hier bist du gerade. Diese Seite zeigt alle Informationen über die einzelnen Kategorien an.",
+        "emote": "🏡"
+    },
+    {
+        "name": "Informationsbefehle",
+        "emote": "ℹ",
+        "id": "info",
+        "description": "Befehle, die den Nutzer über diverse Dinge informieren (z.B.: serverinfo)"
+    },
+    {
+        "name": "Nutzerbefehle",
+        "emote": "👥",
+        "id": "user",
+        "description": "Befehle für jeden, die nicht der Information dienen."
+    },
+    {
+        "name": "Keks Befehle",
+        "emote": "<:cookie:776460440477630465>",
+        "id": "cookie",
+        "description": "Diese Befehle geben dir Kekse. Oder auch nicht."
+    }, 
+    {
+        "name": "Moderationsbefehle",
+        "emote": "🔨",
+        "id": "mod",
+        "description": "Diese Befehle, helfen den Server sauber zu halten."
+    },
+    {
+        "name": "Einstellungen",
+        "emote": "⚙",
+        "id": "admin",
+        "description": "Befehle, die einzelne Funktionen des Bots anpassen."
+    }
+]
