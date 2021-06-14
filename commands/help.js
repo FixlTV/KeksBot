@@ -12,13 +12,13 @@ module.exports = {
         msg.delete().catch()
         var prefix = config.prefix
         if(serverdata[msg.guild.id]) prefix = serverdata[msg.guild.id].prefix
-        if(args[0]) {
-            var command = client.commands.get(commandName) || client.commands.find(cmd => cmd.commands && cmd.commands.includes(commandName))
-            if(command) {
+        // if(args[0]) {
+        //     var command = client.commands.get(commandName) || client.commands.find(cmd => cmd.commands && cmd.commands.includes(commandName))
+        //     if(command) {
 
-                return
-            }
-        }
+        //         return
+        //     }
+        // }
         const categories = require('./help.categories.json')
         const embed = {}
         var emotearray = ['denied']
