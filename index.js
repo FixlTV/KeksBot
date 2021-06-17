@@ -48,6 +48,7 @@ client.on('ready', () => { //Main
 })
 client.on('ready', async () => { //Status
     await commandhandler(client)
+    automod(client)
     client.setMaxListeners(0)
     // loadcmds(client)
     // automod(client)

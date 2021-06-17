@@ -196,7 +196,7 @@ module.exports = async (client) => {
         setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount)
         
         if(serverdata[msg.guild.id]) {
-            getcolors(msg, serverdata)
+            var color = getcolors(msg, serverdata)
             if(serverdata[msg.guild.id].color) {
                 if(serverdata[msg.guild.id].color === 'role') color.normal = msg.guild.me.displayHexColor
                 else color.normal = serverdata[msg.guild.id].color
