@@ -46,28 +46,7 @@ const validatePermissions = (command, permissions) => {
     }
 }
 
-const getcolors = (msg, serverdata) => {
-    if(serverdata[msg.guild.id] && serverdata[msg.guild.id].theme) {
-        let  = serverdata[msg.guild.id].theme 
-        const color = {
-            red: red,
-            yellow: yellow,
-            lime: lime,
-            normal: normal,
-            lightblue: lightblue
-        }
-        return color
-    } else {
-        const color = {
-            red: 0xff0000,
-            lightblue: 0x3498db,
-            lime: 0x2ecc71,
-            yellow: 0xf1c40f,
-            normal: 0x00b99b
-        }
-        return color
-    }
-}
+const getcolors = require('./subcommands/getcolor')
 
 module.exports = async (client) => {
     client.commands = new discord.Collection()
@@ -129,29 +108,29 @@ module.exports = async (client) => {
         if(command.permissions) {
             command.permissions.forEach(async p => {
                 if(!msg.member.permissions.has(p)) {
-                    await msg.delete().catch()
+                    if(!message.deleted) await msg.delete().catch()
                     return embeds.needperms(p)
                 }
             })
         }
 
         if(command.modonly && !config.mods.includes(msg.author.id)) {
-            msg.delete().catch()
+            if(!message.deleted) msg.delete().catch()
             return embeds.needperms(msg, 'KeksBot-Moderator')
         }
 
         if(command.devonly && !config.devs.includes(msg.author.id)) {
-            msg.delete().catch()
+            if(!message.deleted) msg.delete().catch()
             return embeds.needperms(msg, 'KeksBot-Developer')
         }
 
         if(command.minArgs && command.minArgs < args.length) {
-            msg.delete().catch()
+            if(!message.deleted) msg.delete().catch()
             return embeds.error(msg, 'Syntaxfehler', `Du hast zu wenig Argumente angegeben.\nBitte verwende diese Syntax:\n\`${prefix}${command.name} ${command.expectedArgs}\``)
         }
 
         if(command.maxArgs && command.maxArgs > args.length) {
-            msg.delete().catch()
+            if(!message.deleted) msg.delete().catch()
             return embeds.error(msg, 'Syntaxfehler', `Du hast zu viele Argumente angegeben.\nBitte verwende diese Syntax:\n\`${prefix}${command.name} ${command.expectedArgs}\``)
         }
 
@@ -170,7 +149,7 @@ module.exports = async (client) => {
         
             if(now < expirationTime) {
                 const timeLeft = (expirationTime - now) / 1000
-                msg.delete().catch()
+                if(!message.deleted) msg.delete().catch()
                 const hours = Math.floor(timeLeft / 1000 * 60 * 60)
                 const minutes = Math.floor((timeLeft - hours * 1000 * 60 * 60) / 1000 * 60)
                 const seconds = Math.floor((timeLeft - hours * 1000 * 60 * 60 - minutes * 1000 * 60) / 1000)
@@ -221,7 +200,7 @@ module.exports = async (client) => {
 
         try {
             console.log(`${msg.author.tag}: ${command.name} | ${args} | ${msg.content}`)
-            command.callback(msg, args, client, serverdata, userdata, config, emotes, color, embeds)
+            await command.callback(msg, args, client, serverdata, userdata, config, emotes, color, embeds)
         } catch (err) {
             console.log(`Beim Ausführen von ${command.name} durch ${msg.author.tag} ist ein Fehler aufgetreten:\n${err}\n----------------------------`)
             embeds.error(msg, 'Oh oh', `Beim Ausführen des ${command.name} Commands ist ein unbekannter Fehler aufgetreten D:\nBitte probiere es später erneut.`)
