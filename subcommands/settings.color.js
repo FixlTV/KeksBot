@@ -43,16 +43,71 @@ module.exports = async (msg, args, client, serverdata, color) => {
         await delay(15000)
         if(!message.deleted) message.delete().catch()
     } else if(args[0] && args[0].toLowerCase() === 'blurple') {
-        serverdata[msg.guild.id].color = '0x7289DA'
-        await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
-        var embed = new discord.MessageEmbed()
-            .setColor(0x7289DA)
-            .setTitle(`<a:LoveDiscord:834728722338545704> Farbe geändert`)
-            .setDescription('Alles ist jetzt schön blurple!')
+        let embed = new discord.MessageEmbed()
+            .setColor(color.lightblue)
+            .setTitle('Farbauswahl')
+            .setDescription('Welches blurple willst du?')
             .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
         var message = await msg.channel.send(embed)
-        await delay(15000)
-        if(!message.deleted) message.delete().catch()
+        message.react('1️⃣')
+        message.react('2️⃣')
+        message.react('❌')
+        let filter = (r, u) => u.id === msg.author.id && ['1️⃣', '2️⃣', '❌'].includes(r.emoji.name)
+        let collector = await message.createReactionCollector(filter, {time: 60000})
+        collector.on('collect', async r => {
+            let emote = r.emoji.name
+            r.users.remove(msg.author.id)
+            switch(emote) {
+                case '1️⃣': 
+                    if(embed.color == 0x7289DA) {
+                        serverdata[msg.guild.id].color = '0x7289DA'
+                        await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
+                        var new_embed = new discord.MessageEmbed()
+                            .setColor(0x7289DA)
+                            .setTitle(`<a:LoveDiscord:834728722338545704> Farbe geändert`)
+                            .setDescription('Alles ist jetzt schön blurple!')
+                            .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
+                        message.reactions.removeAll().catch()
+                        if(!message.deleted) await message.edit(new_embed).catch()
+                        await delay(10000)
+                        if(!message.deleted) return message.delete().catch()
+                    } else {
+                        embed.setColor(0x7289DA).setDescription('Um die Auswahl zu speichern, klicke erneut auf die Reaktion.')
+                        if(!message.deleted) message.edit(embed).catch()
+                    }
+                    break
+                case '2️⃣':
+                    if(embed.color == 0x5865F2) {
+                        serverdata[msg.guild.id].color = '0x5865F2'
+                        await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
+                        var new_embed = new discord.MessageEmbed()
+                            .setColor(0x5865F2)
+                            .setTitle(`<a:LoveDiscord:834728722338545704> Farbe geändert`)
+                            .setDescription('Alles ist jetzt schön blurple!')
+                            .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
+                        message.reactions.removeAll().catch()
+                        if(!message.deleted) await message.edit(new_embed).catch()
+                        await delay(10000)
+                        if(!message.deleted) return message.delete().catch()
+                    } else {
+                        embed.setColor(0x5865F2).setDescription('Um die Auswahl zu speichern, klicke erneut auf die Reaktion.')
+                        if(!message.deleted) message.edit(embed).catch()
+                    }
+                    break
+                case '❌':
+                    return message.delete().catch()
+            }
+        })
+        // serverdata[msg.guild.id].color = '0x7289DA'
+        // await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
+        // var embed = new discord.MessageEmbed()
+        //     .setColor(0x7289DA)
+        //     .setTitle(`<a:LoveDiscord:834728722338545704> Farbe geändert`)
+        //     .setDescription('Alles ist jetzt schön blurple!')
+        //     .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
+        // var message = await msg.channel.send(embed)
+        // await delay(15000)
+        // if(!message.deleted) message.delete().catch()
     } else {
         var embed = new discord.MessageEmbed()
             .setTitle('Farbeinstellungen')

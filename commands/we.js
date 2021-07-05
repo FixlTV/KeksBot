@@ -24,7 +24,7 @@ module.exports = {
                 .addField('Erfahrungspunkte', serverdata[msg.guild.id].xp, true)
                 .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                 .setColor(color.normal)
-                .setThumbnail(msg.guild.iconURL())
+                .setThumbnail(msg.guild.iconURL({dynamic: true}))
             if(level > 5) {
                 level = 5
             }

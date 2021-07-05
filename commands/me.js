@@ -21,7 +21,7 @@ module.exports = {
                 .addField('Level', userdata[msg.author.id].lv, true)
                 .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
                 .setColor(color.normal)
-                .setThumbnail(msg.author.avatarURL())
+                .setThumbnail(msg.author.avatarURL({dynamic: true}))
             msg.channel.send(embed).then(msg =>         
                 setTimeout(msg => {
                     if(!msg.deleted) {msg.delete()}

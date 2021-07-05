@@ -27,7 +27,9 @@ module.exports = async (client) => {
     console.log(`[${client.user.username}]: Events geladen.`)
 
     events.forEach(event => {
-        if(event.once) client.once(event.event, async (...args) => event.on(...args, client))
-        else client.on(event.event, async (...args) => event.on(...args, client))
+        if(event.event !== 'ready') {
+            if(event.once) {client.once(event.event, (...args) => event.on(...args, client))}
+            else {client.on(event.event, (...args) => event.on(...args, client))}
+        } else event.on(client)
     })
 }

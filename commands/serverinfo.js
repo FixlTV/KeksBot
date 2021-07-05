@@ -94,7 +94,7 @@ module.exports = {
         }
         embed.addField('Erfahrugspunkte', serverdata[id].xp, true)
         embed.addField('Level', level, true)
-        embed.setThumbnail(msg.guild.iconURL())
+        embed.setThumbnail(msg.guild.iconURL({dynamic: true}))
         embed.setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
         msg.channel.send(embed).then(msg =>         
             setTimeout(msg => {

@@ -1,5 +1,7 @@
 const config = require('../config.json')
 const getColor = require('../subcommands/getcolor')
+const discord = require('discord.js')
+const delay = require('delay')
 
 module.exports = {
     name: 'Mention',
@@ -7,7 +9,7 @@ module.exports = {
     async on(msg, client) {
         const serverdata = require('../serverdata.json')
         const color = getColor(msg, serverdata)
-        if(msg.author.bot == false && msg.system && (msg.content == '<@!774885703929561089>' || msg.content === '<@774885703929561089>')) {
+        if(msg.author.bot == false && !msg.system && (msg.content == '<@!774885703929561089>' || msg.content === '<@774885703929561089>')) {
             var embed = new discord.MessageEmbed()
                 .setColor(color.normal)
             if(serverdata[msg.guild.id]) {
