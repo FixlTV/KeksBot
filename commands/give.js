@@ -10,7 +10,7 @@ module.exports = {
     permission: '',
     modonly: 1,
     description: 'Gibt jemandem Kekse',
-    type: 'unlisted',
+    type: 'modonly',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
         var count
         var user

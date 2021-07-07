@@ -9,7 +9,7 @@ module.exports = {
     minArgs: 1,
     modonly: 1,
     description: 'Entzieht einem Nutzer den VIP Status.',
-    type: 'unlisted',
+    type: 'modonly',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
         msg.delete().catch()
         var VIP = require('../VIP.json')

@@ -34,5 +34,11 @@
         "emote": "⚙",
         "id": "admin",
         "description": "Befehle, die einzelne Funktionen des Bots anpassen."
+    },
+    {
+        "name": "KeksBot Team",
+        "emote": "<:hug:862339733137129503>",
+        "id": "modonly",
+        "description": "Befehle, die nur wirklich kuhle Leute benutzen können."
     }
 ]

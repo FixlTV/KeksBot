@@ -6,7 +6,7 @@ module.exports = {
     commands: ['shutdown', 'stop', 'destroy', 'kill'],
     modonly: 1,
     description: 'Schaltet den Bot aus. Nur im Notfall einsetzen!',
-    type: 'unlisted',
+    type: 'modonly',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
         if(config.mods.includes(msg.author.id)) {
             msg.delete()

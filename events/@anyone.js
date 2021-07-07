@@ -1,7 +1,11 @@
+var running = true
+
 module.exports = {
     name: '@anyone',
     event: 'message',
     async on(msg, client) {
+        if(!running) return
+        if(!msg) running = false
         if(!msg.guild || msg.author.sytem || msg.author.bot) return
         const serverdata = require('../serverdata.json')
         if(!serverdata[msg.guild.id]) return

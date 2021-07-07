@@ -7,7 +7,7 @@ module.exports = {
     commands: ['botstats'],
     modonly: 1,
     description: 'Zeigt Serverauslastung an [WIP]',
-    type: 'unlisted', 
+    type: 'modonly', 
     callback: (msg, args, client, serverdata, userdata, config, emotes, color) => {
         msg.delete()
         var used = process.memoryUsage()

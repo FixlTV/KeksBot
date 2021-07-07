@@ -10,7 +10,7 @@ module.exports = {
     permission: '',
     modonly: 1,
     description: 'Macht jemanden zum VIP',
-    type: 'unlisted',
+    type: 'modonly',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
         msg.delete().catch()
         var VIP = require('../VIP.json')

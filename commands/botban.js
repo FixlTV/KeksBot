@@ -9,7 +9,7 @@ module.exports = {
     maxArgs: 1,
     modonly: 1,
     description: 'Deaktiviert Commands für einen Nutzer',
-    type: 'unlisted',
+    type: 'modonly',
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
         var user
         try{

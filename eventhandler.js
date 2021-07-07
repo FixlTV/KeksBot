@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 
-module.exports = async (client) => {
-    const events = []
+module.exports = async (client, ready) => {
+    client.events = []
     const readEvents = dir => {
         const files = fs.readdirSync(path.join(__dirname, dir))
         for(const file of files) {
@@ -17,19 +17,19 @@ module.exports = async (client) => {
                     if(event.name && event.on && event.event) {
                         console.log(`[${client.user.username}]: Event ${event.name} (${event.event}) wird geladen...`)
                     }
-                    if(event.on) events.push(event)
+                    if(event.on) client.events.push(event)
                 }
             }
         }
     }
-    console.log(`[${client.user.username}]: Events werden geladen.`)
+    if(ready) console.log(`[${client.user.username}]: Events werden geladen.`)
     readEvents('./events')
-    console.log(`[${client.user.username}]: Events geladen.`)
+    if(ready) console.log(`[${client.user.username}]: Events geladen.`)
 
-    events.forEach(event => {
+    client.events.forEach(event => {
         if(event.event !== 'ready') {
             if(event.once) {client.once(event.event, (...args) => event.on(...args, client))}
             else {client.on(event.event, (...args) => event.on(...args, client))}
-        } else event.on(client)
+        } else if(ready) event.on(client)
     })
 }

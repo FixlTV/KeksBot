@@ -7,7 +7,7 @@ module.exports = {
     expectedArgs: '<Code>',
     minArgs: 1,
     modonly: 1,
-    type: 'unlisted',
+    type: 'modonly',
     callback: async (msg, args, client, serverdata, userdata, config, color) => {
         msg.delete()
         try {
