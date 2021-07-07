@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-module.exports = async (client, ready) => {
+module.exports = async (client, reload) => {
     client.events = []
     const readEvents = dir => {
         const files = fs.readdirSync(path.join(__dirname, dir))
@@ -22,14 +22,14 @@ module.exports = async (client, ready) => {
             }
         }
     }
-    if(ready) console.log(`[${client.user.username}]: Events werden geladen.`)
+    if(!reload) console.log(`[${client.user.username}]: Events werden geladen.`)
     readEvents('./events')
-    if(ready) console.log(`[${client.user.username}]: Events geladen.`)
+    if(!reload) console.log(`[${client.user.username}]: Events geladen.`)
 
     client.events.forEach(event => {
         if(event.event !== 'ready') {
             if(event.once) {client.once(event.event, (...args) => event.on(...args, client))}
             else {client.on(event.event, (...args) => event.on(...args, client))}
-        } else if(ready) event.on(client)
+        } else if(!reload) event.on(client)
     })
 }
