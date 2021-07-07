@@ -118,7 +118,7 @@ module.exports = {
             } catch (err) {
                 console.log('----------------------')
                 console.log('Fehler beim Reload von' + cmd.name+ ':')
-                console.error
+                console.error(err)
                 console.log('----------------------')
                 return embeds.error(message, 'Unbekannter Fehler', 'Ein Fehler ist aufgetreten: \n```js\n   ' + err.message.slice(0, 3500) + '```', true)
             }

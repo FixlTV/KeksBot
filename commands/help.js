@@ -94,7 +94,7 @@ module.exports = {
 
         for(var key in categories) {
             var data = categories[key]
-            if(data.id !== 'modonly' && (config.mods.includes(msg.author.id) || config.devs.includes(msg.author.id))) await message.react(data.emote).catch()
+            if(data. id !== 'modonly' || (data.id === 'modonly' && (config.mods.includes(msg.author.id) || config.devs.includes(msg.author.id)))) message.react(data.emote).catch()
         }
         await message.react(emotes.denied)
 
