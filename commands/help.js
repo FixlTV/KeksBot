@@ -94,7 +94,7 @@ module.exports = {
 
         for(var key in categories) {
             var data = categories[key]
-            await message.react(data.emote).catch()
+            if(data.id !== 'modonly') await message.react(data.emote).catch()
         }
         await message.react(emotes.denied)
 
