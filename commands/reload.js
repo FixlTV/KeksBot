@@ -108,7 +108,7 @@ module.exports = {
             var message = await msg.channel.send(embed)
             delete require.cache[require.resolve(cmd.path)]
             try {
-                const newCmd = require(cmd.path)
+                var newCmd = require(cmd.path)
                 newCmd.path = cmd.path
                 if(typeof newCmd.permissions === 'string') newCmd.permissions = [newCmd.permissions]
                 if(newCmd.permissions) validatePermissions(newCmd, newCmd.permissions)
@@ -117,7 +117,7 @@ module.exports = {
                 client.commands.set(newCmd.name, newCmd)
             } catch (err) {
                 console.log('----------------------')
-                console.log('Fehler beim Reload von' + newCmd.name+ ':')
+                console.log('Fehler beim Reload von' + cmd.name+ ':')
                 console.error
                 console.log('----------------------')
                 return embeds.error(message, 'Unbekannter Fehler', 'Ein Fehler ist aufgetreten: \n```js\n   ' + err.message.slice(0, 3500) + '```', true)
