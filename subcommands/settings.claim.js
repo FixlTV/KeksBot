@@ -71,7 +71,7 @@ module.exports = async (msg, args, client, serverdata) => {
             var embed = new discord.MessageEmbed()
                 .setColor(color.lightblue)
                 .setTitle('KeksBoxen Whitelist')
-                .setDescription(`Aktuell werden keine KeksBoxen generiert.\nVerwende \`${serverdata[msg.guild.id].prefix}claimwhitelist <#channel> [#channel] [#channel] ...\`, um KeksBoxen zu aktivieren.`)
+                .setDescription(`Aktuell werden keine KeksBoxen generiert.\nVerwende \`${serverdata[msg.guild.id].prefix}settings claimwhitelist <#channel> [#channel] [#channel] ...\`, um KeksBoxen zu aktivieren.`)
                 .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
             var message = await msg.channel.send(embed)
             await delay(15000)
