@@ -4,14 +4,6 @@ const fs = require('fs').promises
 const embeds = require('../embeds')
 const config = require('../config.json')
 
-const color = {
-    red: 0xff0000,
-    lightblue: 0x3498db,
-    lime: 0x2ecc71,
-    yellow: 0xf1c40f,
-    normal: 0x00b99b
-}
-
 /**
  * Hallo Person, die diese Datei anschaut.
  * Du hast gerade ein Easter Egg gefunden.
@@ -20,6 +12,7 @@ const color = {
  */
 
 module.exports = async (msg, args, client, serverdata) => {
+    var color = require('./getcolor')(msg, serverdata)
     const emotes = require('../emotes.json')
     var guildid = msg.guild.id
     if(!args[1]) args[1] = ''

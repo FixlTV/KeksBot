@@ -5,18 +5,19 @@ const embeds = require('../../embeds')
 const fs = require('fs').promises
 
 module.exports = async (msg, args, serverdata, color) => {
+    var client = msg.client
     if(args[3].toLowerCase() === 'everywhere') {
         if(serverdata[msg.guild.id].amconfig.dlinks.invite == 1) {
             serverdata[msg.guild.id].amconfig.dlinks.invite = 2
-            await fs.writeFile('serverdata.json', JSON.stringify(serverdatam, null, 2))
+            await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
             return await embeds.success(msg, 'Änderungen gespeichert', 'Discord Einladungen werden nun unabhängig von Nutzer, Kanal und Rollen gelöscht.')
         } else if(serverdata[msg.guild.id].amconfig.dlinks.invite == 2) {
             serverdata[msg.guild.id].amconfig.dlinks.invite = 1
-            await fs.writeFile('serverdata.json', JSON.stringify(serverdatam, null, 2))
+            await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
             return await embeds.success(msg, 'Änderungen gespeichert', 'Discord Einladungen werden jetzt nach den vorgegebenen Parametern gelöscht.')
         } else {
             serverdata[msg.guild.id].amconfig.dlinks.invite = 2
-            await fs.writeFile('serverdata.json', JSON.stringify(serverdatam, null, 2))
+            await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
             return await embeds.success(msg, 'Änderungen gespeichert', 'Einladungen zu Discord Servern werden nun immer gelöscht.\nDies betrifft keine Moderatoren.')
         }
     } else {
@@ -54,7 +55,13 @@ module.exports = async (msg, args, serverdata, color) => {
         })
 
         collector.on('end', async () => {
+            if(message.deleted) return
             if(!message.deleted) message.reactions.removeAll().catch()
+            if(serverdata[msg.guild.id].amconfig.dlinks.invite == 1) embed.setDescription('Discord Einladungen werden gelöscht.').setColor(color.lime).setTitle('Discord Einladungen (Aktiv)')
+            else if(serverdata[msg.guild.id].amconfig.dlinks.invite == 2) embed.setDescription('Discord Einladungen werden unabhängig von Nutzer und Kanal gelöscht.').setColor(color.lime).setTitle('Discord Einladungen (Aktiv)')
+            else embed.setDescription('Discord Einladungen werden nicht gelöscht').setColor(color.red).setTitle('Discord Einladungen (Inaktiv)')
+            embed.setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
+            if(!message.deleted) await message.edit(embed)
             await delay(10000)
             if(!message.deleted) message.delete().catch()
         })

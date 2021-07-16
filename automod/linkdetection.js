@@ -7,7 +7,7 @@ const check = require('check-links')
 module.exports = async (msg, serverdata) => {
     var text = msg.content.replace(/\`{3}([\S\s]*?)\`{3}/g, '')
     var links = linkify.find(text, 'url')
-    //if(msg.member.hasPermission('MANAGE_MESSAGES')) return
+    if(msg.member.hasPermission('MANAGE_MESSAGES')) return
     var temp = false
     serverdata.amconfig.links.rolewl.forEach(role => {
         if(msg.member.roles.cache.has(role)) temp = true
@@ -29,7 +29,7 @@ module.exports = async (msg, serverdata) => {
                 })
             }
         } else temp = true
-        if(link.href.split('//')[1].startsWith('discord.gg/') || link.href.split('//')[1].startsWith('www.discord.gg/') || link.href.split('//')[1].startsWith('discord.com/invite/') || link.href.split('//')[1].startsWith('www.discord.com/invite/')) temp = true
+        if(link.href.split('//')[1].includes('discord.gg') || link.href.split('//')[1].includes('discord.com') || link.href.split('//')[1].includes('discordapp.com')) temp = true
         if(temp) links.splice(links.indexOf(link), 1)
     })
     if(links.length > 0) {

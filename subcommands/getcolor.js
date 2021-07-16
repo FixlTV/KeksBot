@@ -1,3 +1,12 @@
+const { Message } = require("discord.js")
+
+/**
+ * 
+ * @param {Message} msg 
+ * @param {JSON} serverdata 
+ * @returns color object
+ */
+
 module.exports = (msg, serverdata) => {
     if(serverdata[msg.guild.id] && serverdata[msg.guild.id].theme) {
         var theme = serverdata[msg.guild.id].theme
