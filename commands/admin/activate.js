@@ -22,7 +22,7 @@ module.exports = {
                     serverdata[msg.guild.id].thismin = 0
                     serverdata[msg.guild.id].lv = 1
                     serverdata[msg.guild.id].xp = 0
-                    serverdata[msg.guild.id].prefix = "-"
+                    serverdata[msg.guild.id].prefix = config.prefix
                     fs.writeFileSync('./serverdata.json',JSON.stringify(serverdata, null, 2))
                     embeds.success(msg, 'System aktiviert!', 'Das **KeksSystem** wurde erfolgreich aktiviert.')
                 } catch (err) {

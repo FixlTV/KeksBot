@@ -12,6 +12,6 @@ module.exports = async (client) => {
         if(!serverdata[msg.guild.id].automod) return
         serverdata = serverdata[msg.guild.id]
         if(!serverdata.prefix) return
-        if(serverdata.amconfig.links.on) linkdetection(msg, serverdata)
+        if(serverdata.amconfig.links && serverdata.amconfig.links.on) linkdetection(msg, serverdata)
     })
 }
