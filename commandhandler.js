@@ -18,12 +18,12 @@ const validatePermissions = (command, permissions) => {
         'PRIORITY_SPEAKER',
         'STREAM',
         'VIEW_CHANNEL',
-        'SEND_MESSAGES',
-        'SEND_TTS_MESSAGES',
-        'MANAGE_MESSAGES',
+        'SEND_msgS',
+        'SEND_TTS_msgS',
+        'MANAGE_msgS',
         'EMBED_LINKS',
         'ATTACH_FILES',
-        'READ_MESSAGE_HISTORY',
+        'READ_msg_HISTORY',
         'MENTION_EVERYONE',
         'USE_EXTERNAL_EMOJIS',
         'VIEW_GUILD_INSIGHTS',
@@ -85,7 +85,7 @@ module.exports = async (client) => {
     readCommands('./commands')
     console.log(`[${client.user.username}]: Commands geladen.`)
 
-    client.on('message', async msg => {
+    client.on('msg', async msg => {
         if(msg.author.bot || msg.author.system || !msg.guild) return
         const serverdata = require('./serverdata.json')
         const userdata = require('./userdata.json')
@@ -108,29 +108,29 @@ module.exports = async (client) => {
         if(command.permissions) {
             command.permissions.forEach(async p => {
                 if(!msg.member.permissions.has(p)) {
-                    if(!message.deleted) await msg.delete().catch()
+                    if(!msg.deleted) await msg.delete().catch()
                     return embeds.needperms(p)
                 }
             })
         }
 
         if(command.modonly && !config.mods.includes(msg.author.id)) {
-            if(!message.deleted) msg.delete().catch()
+            if(!msg.deleted) msg.delete().catch()
             return embeds.needperms(msg, 'KeksBot-Moderator')
         }
 
         if(command.devonly && !config.devs.includes(msg.author.id)) {
-            if(!message.deleted) msg.delete().catch()
+            if(!msg.deleted) msg.delete().catch()
             return embeds.needperms(msg, 'KeksBot-Developer')
         }
 
         if(command.minArgs && command.minArgs < args.length) {
-            if(!message.deleted) msg.delete().catch()
+            if(!msg.deleted) msg.delete().catch()
             return embeds.error(msg, 'Syntaxfehler', `Du hast zu wenig Argumente angegeben.\nBitte verwende diese Syntax:\n\`${prefix}${command.name} ${command.expectedArgs}\``)
         }
 
         if(command.maxArgs && command.maxArgs > args.length) {
-            if(!message.deleted) msg.delete().catch()
+            if(!msg.deleted) msg.delete().catch()
             return embeds.error(msg, 'Syntaxfehler', `Du hast zu viele Argumente angegeben.\nBitte verwende diese Syntax:\n\`${prefix}${command.name} ${command.expectedArgs}\``)
         }
 
@@ -149,7 +149,7 @@ module.exports = async (client) => {
         
             if(now < expirationTime) {
                 const timeLeft = (expirationTime - now) / 1000
-                if(!message.deleted) msg.delete().catch()
+                if(!msg.deleted) msg.delete().catch()
                 const hours = Math.floor(timeLeft / 1000 * 60 * 60)
                 const minutes = Math.floor((timeLeft - hours * 1000 * 60 * 60) / 1000 * 60)
                 const seconds = Math.floor((timeLeft - hours * 1000 * 60 * 60 - minutes * 1000 * 60) / 1000)

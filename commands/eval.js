@@ -11,8 +11,7 @@ module.exports = {
     callback: async (msg, args, client, serverdata, userdata, config, color) => {
         msg.delete()
         try {
-            var commands = args.join(' ').replace('(', ' ').replace(')', ' ').replace('{', ' ').replace('}', ' ').replace('[', ' ').replace(']', ' ').split(' ')
-            if (commands.includes('config.token')) {
+            if (msg.content.includes('config.token')) {
                 embeds.error(msg, 'WARNUNG!', 'Es besteht die Möglichkeit, dass du gerade versucht hast, den Token zu leaken.\nDein Eval wurde daher abgebrochen.')
                 return
             }
