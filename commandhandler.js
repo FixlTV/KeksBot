@@ -85,7 +85,7 @@ module.exports = async (client) => {
     readCommands('./commands')
     console.log(`[${client.user.username}]: Commands geladen.`)
 
-    client.on('msg', async msg => {
+    client.on('message', async msg => {
         if(msg.author.bot || msg.author.system || !msg.guild) return
         const serverdata = require('./serverdata.json')
         const userdata = require('./userdata.json')
@@ -124,12 +124,12 @@ module.exports = async (client) => {
             return embeds.needperms(msg, 'KeksBot-Developer')
         }
 
-        if(command.minArgs && command.minArgs < args.length) {
+        if(command.minArgs && command.minArgs > args.length) {
             if(!msg.deleted) msg.delete().catch()
             return embeds.error(msg, 'Syntaxfehler', `Du hast zu wenig Argumente angegeben.\nBitte verwende diese Syntax:\n\`${prefix}${command.name} ${command.expectedArgs}\``)
         }
 
-        if(command.maxArgs && command.maxArgs > args.length) {
+        if(command.maxArgs && command.maxArgs < args.length) {
             if(!msg.deleted) msg.delete().catch()
             return embeds.error(msg, 'Syntaxfehler', `Du hast zu viele Argumente angegeben.\nBitte verwende diese Syntax:\n\`${prefix}${command.name} ${command.expectedArgs}\``)
         }
@@ -206,6 +206,5 @@ module.exports = async (client) => {
             embeds.error(msg, 'Oh oh', `Beim Ausführen des ${command.name} Commands ist ein unbekannter Fehler aufgetreten D:\nBitte probiere es später erneut.`)
             return
         }
-
     })
 }

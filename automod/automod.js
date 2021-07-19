@@ -1,5 +1,4 @@
 const discord = require('discord.js')
-const linkdetection = require('./linkdetection')
 
 module.exports = async (client) => {
     console.log(`[${client.user.username}]: Automod aktiviert`)
@@ -12,6 +11,7 @@ module.exports = async (client) => {
         if(!serverdata[msg.guild.id].automod) return
         serverdata = serverdata[msg.guild.id]
         if(!serverdata.prefix) return
-        if(serverdata.amconfig.links && serverdata.amconfig.links.on) linkdetection(msg, serverdata)
+        if(serverdata.amconfig.links && serverdata.amconfig.links.on) require('./linkdetection')(msg, serverdata)
+        if(serverdata.amconfig.dlinks) require('./dlinkdetection')(msg, serverdata)
     })
 }

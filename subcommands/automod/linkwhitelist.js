@@ -2,6 +2,8 @@ const embeds = require('../../embeds')
 const discord = require('discord.js')
 const linkify = require('linkifyjs')
 const fs = require('fs').promises
+const config = require('../../config.json')
+const delay = require('delay')
 
 module.exports = async (msg, args, guildid, serverdata, client, color) => {
     switch(args[3].toLowerCase()) {
