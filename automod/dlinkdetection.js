@@ -9,7 +9,7 @@ module.exports = async (msg, serverdata) => {
     // if(msg.member.hasPermission('MANAGE_MESSAGES')) return
     if(!serverdata.amconfig.dlinks) return
     if(serverdata.amconfig.dlinks.invite) {
-        if(serverdata.amconfig.dlinks.invite != 0) {
+        if(serverdata.amconfig.dlinks.invite == 1) {
             let skip = false
             if(serverdata.amconfig.links) {
                 serverdata.amconfig.links.rolewl.forEach(role => {
@@ -18,7 +18,7 @@ module.exports = async (msg, serverdata) => {
                 if(serverdata.amconfig.links.channelwl.includes(msg.channel.id)) skip = true
             }
             if(!skip) {
-                let invites = await msg.guild.fetchInvites()
+                let invites = await msg.guild.fetchInvites().catch(err => {return})
                 let possibleinvites = []
                 links.forEach(link => {
                     if((link.href.replace('www.', '').replace('https://', '').replace('http://', '').startsWith('discord.gg/') || link.href.replace('www.', '').replace('https://', '').replace('http://', '').startsWith('discord.com/invite/')) && !(link.href.endsWith('discord.gg/') || link.href.endsWith('discord.com/invite/'))) possibleinvites.push(link.href)})
@@ -36,7 +36,7 @@ module.exports = async (msg, serverdata) => {
                 })
             }
         } else {
-            let invites = await msg.guild.fetchInvites()
+            let invites = await msg.guild.fetchInvites().catch(err => {return})
             let possibleinvites = []
             links.forEach(link => {
                 if((link.href.replace('www.', '').replace('https://', '').replace('http://', '').startsWith('discord.gg/') || link.href.replace('www.', '').replace('https://', '').replace('http://', '').startsWith('discord.com/invite/')) && !(link.href.endsWith('discord.gg/') || link.href.endsWith('discord.com/invite/'))) possibleinvites.push(link.href)})
