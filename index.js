@@ -10,6 +10,7 @@ console.log(`Starte System am ${date.getDate()}.${date.getMonth() +1}.${date.get
 
 client.once('ready', async () => { //Status
     await client.user.setStatus('idle')
+    client.restarting = 0
     var start = Date.now()
     console.log(`[${client.user.username}]: Client geladen.`)
     console.log(`[${client.user.username}]: System wird gestartet...`)

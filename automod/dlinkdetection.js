@@ -53,5 +53,29 @@ module.exports = async (msg, serverdata) => {
                 }
             })        
         }
+        if(serverdata.amconfig.dmessage) {
+            if(serverdata.amconfig.dmessage == 1) {
+                let skip = false
+                if(serverdata.amconfig.links) {
+                    serverdata.amconfig.links.rolewl.forEach(role => {
+                        if(msg.member.roles.cache.has(role)) skip = true
+                    })
+                    if(serverdata.amconfig.links.channelwl.includes(msg.channel.id)) skip = true
+                }
+                var linkarray = []
+                links.forEach(link => linkarray.push(link.href))
+                var validlinks = []
+                
+                if(!skip) {
+                    var temp = false
+                    links.forEach(link => {
+                        let substring = link.href.split('channels/')[1].split('/')[0]
+                        if(substring == msg.guild.id) temp = true
+                    })
+                }
+            } else {
+                
+            }
+        }
     }
 }

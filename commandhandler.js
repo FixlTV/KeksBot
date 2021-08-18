@@ -105,6 +105,9 @@ module.exports = async (client) => {
 
         if(userdata[msg.author.id] && userdata[msg.author.id].banned) return
 
+        if(client.restarting && client.restarting >= 6000) return
+        if(client.restarting) return embeds.error(msg, 'Neustart eingeleitet', 'Ein Neustart wird gerade initialisiert.\nDer Befehl wurde nicht ausgeführt.')
+
         if(command.permissions) {
             command.permissions.forEach(async p => {
                 if(!msg.member.permissions.has(p)) {
