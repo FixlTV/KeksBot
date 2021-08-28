@@ -44,7 +44,7 @@ module.exports = async (msg, args, client, serverdata) => {
             if(serverdata[guildid].amconfig.links && serverdata[guildid].amconfig.links.on) embed.addField('Linkerkennung', `**Aktiv**\nVerwende \`${serverdata[guildid].prefix}settings automod links\`, um die Erkennung von Links zu deaktivieren oder anzupassen.`, true)
             else embed.addField('Linkentfernung', `**Inaktiv**\nVerwende \`${serverdata[guildid].prefix}settings automod links on\`, um sie zu aktivieren oder \n\`${serverdata[guildid].prefix}settings automod links\`, um sie zu konfigurieren.`, true)
             if(serverdata[guildid].amconfig.dlinks && serverdata[guildid].amconfig.dlinks.on) embed.addField(`Discord Links', '**Aktiv**\nVerwende \`${serverdata[guildid].prefix}settings automod dlinks\`, um die Erkennung von besonderen Discord Links (Einladungen, Nitro Gifts, Nachrichten, Bilder, etc) zu deaktivieren oder anzupassen.`, true)
-            else embed.addField('Discord Links', `**Inaktiv**\nVerwende \`${serverdata[guildid].prefix}settings automod links on\`, um die Erkennung von besonderen Discord Links (Einladungen, Nachrichten, Bilder, etc) zu aktivieren oder \n\`${serverdata[guildid].prefix}settings automod dlinks\`, um sie zu konfigurieren.`, true)
+            else embed.addField('Discord Links', `**Inaktiv**\nVerwende \`${serverdata[guildid].prefix}settings automod links on\`, um die Erkennung von besonderen Discord Links (Einladungen, Nachrichten) zu aktivieren oder \n\`${serverdata[guildid].prefix}settings automod dlinks\`, um sie zu konfigurieren.`, true)
         }
         var message = await msg.channel.send(embed)
         await delay(20000)

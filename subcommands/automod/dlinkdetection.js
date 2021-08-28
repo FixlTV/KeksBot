@@ -18,7 +18,7 @@ module.exports = async (msg, args, serverdata, color) => {
             }
         } else serverdata[msg.guild.id].amconfig.dlinks.on = true
         await fs.writeFile('serverdata.json', JSON.stringify(serverdata, null, 2))
-        return embeds.success(msg, 'Discord Linkerkennung aktivert', `Discord Links werden nun automatisch gelöscht.\nVerwende \`${serverdata[msg.guild.id].prefix}settings automod dlinks\`, um das System anzupassen.\n**Achtung**: Die Linkerkennung löscht nur besondere Discord Links wie Invites, Nitro Gifts und Attachments, die nicht direkt hochgeladen wurden. Um andere Links zu löschen, aktiviere bitte hierfür die Linkerkennung (\`${serverdata[msg.guild.id].prefix}settings automod link\`)`)
+        return embeds.success(msg, 'Discord Linkerkennung aktivert', `Discord Links werden nun automatisch gelöscht.\nVerwende \`${serverdata[msg.guild.id].prefix}settings automod dlinks\`, um das System anzupassen.\n**Achtung**: Die Linkerkennung löscht nur besondere Discord Links wie Invites und Nachrichtenlinks. Um andere Links zu löschen, aktiviere bitte hierfür die Linkerkennung (\`${serverdata[msg.guild.id].prefix}settings automod link\`)`)
     } else if(['off', 'aus'].includes(args[2].toLowerCase())) {
         if(!serverdata[msg.guild.id].amconfig.dlinks) return embeds.error(msg, 'Fehler', 'Die Discord Linkerkennung ist nicht aktiv.')
         serverdata[msg.guild.id].amconfig.dlinks.on = false
@@ -46,17 +46,17 @@ module.exports = async (msg, args, serverdata, color) => {
         }
         if(!args[3]) args[3] = ''
         await require('./dlinkmessage')(msg, args, serverdata, color)
-    } else if(['upload', 'uploads', 'u'].includes(args[2].toLowerCase())) {
-        if(!serverdata[msg.guild.id].amconfig.dlinks) {
-            serverdata[msg.guild.id].amconfig.dlinks = {
-                on: false,
-                invite: 0,
-                message: 0,
-                upload: 0
-            }
-        }
-        if(!args[3]) args[3] = ''
-        await require('./dlinkupload')(msg, args, serverdata, color)
+    // } else if(['upload', 'uploads', 'u'].includes(args[2].toLowerCase())) {
+    //     if(!serverdata[msg.guild.id].amconfig.dlinks) {
+    //         serverdata[msg.guild.id].amconfig.dlinks = {
+    //             on: false,
+    //             invite: 0,
+    //             message: 0,
+    //             upload: 0
+    //         }
+    //     }
+    //     if(!args[3]) args[3] = ''
+    //     await require('./dlinkupload')(msg, args, serverdata, color)
     } else {
         var dinvite = '(Aktiv)'
         var dupload = '(Aktiv)'
@@ -74,9 +74,9 @@ module.exports = async (msg, args, serverdata, color) => {
             .setColor(color.lightblue)
             .setTitle('Discord Linkerkennung')
             .setDescription(`\`${serverdata[msg.guild.id].prefix}settings automod dlinks\`\n\n\`invite\`\nLöscht Einladungen zu anderen Servern. Einladungen zu diesem Server werden ignoriert. ${dinvite}\
-\n\`message\`\nLöscht Links zu Nachrichten, die nicht von diesem Server stammen. ${dmessage}\
-\n\`upload\`\nLöscht Nachrichten mit Links zu Dateien, sodass diese direkt hochgeladen werden müssen. ${dupload}\
-\n\`<option> everywhere\`\nAktiviert die Löschung der ausgewählten Art des Links für alle Nutzer auf dem gesamten Server. Ist diese Option deaktiviert, greifen die gewöhnlichen Linkerkennungseinstellungen (\`${serverdata[msg.guild.id].prefix}settings automod links\`).\n\nModeratoren sind von der Linkerkennung nicht betroffen.`)
+\n\`message\`\nLöscht Links zu Nachrichten, die nicht von diesem Server stammen. ${dmessage}`+
+//\n\`upload\`\nLöscht Nachrichten mit Links zu Dateien, sodass diese direkt hochgeladen werden müssen. ${dupload}\
+`\n\`<option> everywhere\`\nAktiviert die Löschung der ausgewählten Art des Links für alle Nutzer auf dem gesamten Server. Ist diese Option deaktiviert, greifen die gewöhnlichen Linkerkennungseinstellungen (\`${serverdata[msg.guild.id].prefix}settings automod links\`).\n\nModeratoren sind von der Linkerkennung nicht betroffen.`)
             .setFooter(`KeksBot ${config.version}`, client.user.avatarURL())
         var message = await msg.channel.send(embed)
         await delay(30000)

@@ -11,7 +11,6 @@ module.exports = {
     callback: async (msg, args, client, serverdata, userdata, config, emotes, color) => {
         if(config.mods.includes(msg.author.id)) {
             msg.delete()
-            var user = msg.author.id
             require('./sub.restartan')(msg, color, config, 'Neustart', '')
         } else {
             msg.delete()

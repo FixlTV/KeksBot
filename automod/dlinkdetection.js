@@ -6,6 +6,7 @@ const check = require('check-links')
 module.exports = async (msg, serverdata) => {
     var text = msg.content.replace(/\`{3}([\S\s]*?)\`{3}/g, '')
     var links = linkify.find(text, 'url')
+    console.log(0)
     // if(msg.member.hasPermission('MANAGE_MESSAGES')) return
     if(!serverdata.amconfig.dlinks) return
     if(serverdata.amconfig.dlinks.invite) {
@@ -30,7 +31,7 @@ module.exports = async (msg, serverdata) => {
                         if(!invites.has(inv.replace('www.', '').replace('https://', '').replace('http://', '').replace('discord.gg/', '').replace('discord.com/invite/', ''))) illegalinvites.push(inv)
                     }
                     if(illegalinvites.length > 0) {
-                        if(msg.content.startsWith(require('../config.json').prefix)) await delay(500)
+                        if(msg.content.startsWith(require('../config.json').prefix) || msg.content.startsWith(serverdata.prefix)) await delay(500)
                         if(!msg.deleted) return msg.delete({reason: 'AutoMod: Nachricht enthält Servereinladungen.'}).catch()
                     }
                 })
@@ -48,13 +49,13 @@ module.exports = async (msg, serverdata) => {
                     if(!invites.has(inv.replace('www.', '').replace('https://', '').replace('http://', '').replace('discord.gg/', '').replace('discord.com/invite/', ''))) illegalinvites.push(inv)
                 }
                 if(illegalinvites.length > 0) {
-                    if(msg.content.startsWith(require('../config.json').prefix)) await delay(500)
+                    if(msg.content.startsWith(require('../config.json').prefix) || msg.content.startsWith(serverdata.prefix)) await delay(500)
                     if(!msg.deleted) return msg.delete({reason: 'AutoMod: Nachricht enthält Servereinladungen.'}).catch()
                 }
             })        
         }
-        if(serverdata.amconfig.dmessage) {
-            if(serverdata.amconfig.dmessage == 1) {
+        if(serverdata.amconfig.dlinks.message) {
+            if(serverdata.amconfig.dlinks.message == 1) {
                 let skip = false
                 if(serverdata.amconfig.links) {
                     serverdata.amconfig.links.rolewl.forEach(role => {
@@ -62,19 +63,45 @@ module.exports = async (msg, serverdata) => {
                     })
                     if(serverdata.amconfig.links.channelwl.includes(msg.channel.id)) skip = true
                 }
-                var linkarray = []
-                links.forEach(link => linkarray.push(link.href))
-                var validlinks = []
-                
                 if(!skip) {
-                    var temp = false
-                    links.forEach(link => {
-                        let substring = link.href.split('channels/')[1].split('/')[0]
-                        if(substring == msg.guild.id) temp = true
+                    var temp = true
+                    var linkarray = []
+                    links.forEach(link => linkarray.push(link.href))
+                    console.log(linkarray)
+                    linkarray.forEach(async (l) => {
+                        let checked = await check([l])
+                        let result = checked[l]
+                        console.log(result)
+                        if(result.status === 'alive') {
+                            let substring = l.split('channels/')[1].split('/')[0]
+                            console.log(substring)
+                            console.log('775001585541185546')
+                            if(substring !== msg.guild.id) temp = false
+                            if(msg.content.startsWith(require('../config.json').prefix) || msg.content.startsWith(serverdata.prefix)) await delay(500)
+                            if(!msg.deleted) return msg.delete({reason: 'AutoMod: Nachricht enthält Nachrichtenlinks zu anderen Servern.'}).catch()        
+                        }
                     })
+                    if(!temp) return
                 }
             } else {
-                
+                var temp = true
+                var linkarray = []
+                links.forEach(link => linkarray.push(link.href))
+                console.log(linkarray)
+                linkarray.forEach(async (l) => {
+                    let checked = await check([l])
+                    let result = checked[l]
+                    console.log(result)
+                    if(result.status === 'alive') {
+                        let substring = l.split('channels/')[1].split('/')[0]
+                        console.log(substring)
+                        console.log('775001585541185546')
+                        if(substring !== msg.guild.id) temp = false
+                        if(msg.content.startsWith(require('../config.json').prefix) || msg.content.startsWith(serverdata.prefix)) await delay(500)
+                        if(!msg.deleted) return msg.delete({reason: 'AutoMod: Nachricht enthält Nachrichtenlinks zu anderen Servern.'}).catch()        
+                    }
+                })
+                if(!temp) return
             }
         }
     }

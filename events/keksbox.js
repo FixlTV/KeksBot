@@ -13,7 +13,7 @@ module.exports = {
         if(!serverdata[msg.guild.id]) return
         var color = getcolor(msg, serverdata)
         if(!msg.content.startsWith(serverdata[msg.guild.id].prefix) && !serverdata[msg.guild.id].gift) {
-            var count = 1
+            var count = 100
             if(serverdata[msg.guild.id].kbq) count = serverdata[msg.guild.id].kbq
             var x = Math.floor(Math.random() * count)
             if(x == 0) {
