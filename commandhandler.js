@@ -4,6 +4,7 @@ const path = require('path')
 const discord = require('discord.js')
 const delay = require('delay')
 const config = require('./config.json')
+const { Model } = require('mongoose')
 
 const validatePermissions = (command, permissions) => {
     const validPermissions = [
@@ -61,29 +62,30 @@ module.exports = async (client) => {
             } else {
                 if(file.endsWith('.js') && !file.startsWith('subcmd' || 'subcommand')) {
                     var command = require(path.join(__dirname, dir, file))
-                    command.path = path.join(__dirname, dir, file)
-                    if(typeof command.permissions === 'string') {
-                        command.permissions = [command.permissions]
-                    }
-                    if(command.name) {
-                        console.log(`[${client.user.username}]: ${command.name} wird geladen...`)
-                        if(command.permissions) validatePermissions(command, command.permissions)
-                        client.commands.set(command.name, command)
-                    }
-                    if(!command.name && command.commands) {
-                        if(typeof command.commands === 'string') command.commands = [command.commands]
-                        command.name = command.commands.shift()
-                        console.log(`[${client.user.username}]: ${command.name} wird geladen...`)
-                        if(command.permissions) validatePermissions(command, command.permissions)
-                        client.commands.set(command.name, command)
-                    }
+                    if(command.permission) command.defaultPermission = true
+                    client.commands.set(command.name, command)
+                    console.log(`[${client.user.username}]: ${command.name} wurde geladen.`)
                 }
 
             }
         }
     }
-    readCommands('./commands')
-    console.log(`[${client.user.username}]: Commands geladen.`)
+    readCommands('./slashcommands')
+    console.log(`[${client.user.username}]: Commands werden initialisiert.`)
+    let db = await require('./db/database')()
+    /** @type {Model} */
+    let serverdata = require('./schemas/serverdata')()
+    let commandData = {}
+    await client.guilds.fetch()
+    for (const command of commands) {
+        
+    }
+    for (const guild of client.guilds) {
+        let data = await serverdata.findById(data.id)
+        if(data.lang == 'de') {
+            await guild.commands.set()
+        }
+    }
 
     client.on('message', async msg => {
         if(msg.author.bot || msg.author.system || !msg.guild) return

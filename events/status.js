@@ -19,7 +19,7 @@ function changeStatus(client) {
             type: "PLAYING"
         },
         {
-            name: `${config.version}`,
+            name: `Version ${config.version}`,
             type: "PLAYING"
         },
         {

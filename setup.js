@@ -35,10 +35,21 @@ const setup = async () => {
         console.log('')
     })
 
+    var data = await fs.access('data.json').catch(async err => {
+        console.log('data.json wird angelegt...')
+        data = {
+            case: 0,
+            request: 0
+        }
+        await fs.writeFile('data.json', JSON.stringify(data, null, 2))
+        console.log('✅ Datei angelegt.')
+        console.log('')
+    })
+
     //config Setup
     var config = await fs.access('config.json').catch(async err => {
         console.log('config.json wird angelegt...')
-        var config = {
+        config = {
             token: "Hier Token einfügen",
             prefix: "-",
             mods: [],

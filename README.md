@@ -1,4 +1,4 @@
-# Keksbot
+# KeksBot
 Legga Legga Kekse
 
 Hier gibt es viele leckere Kekse. Jetzt mit Discord.JS v13.
