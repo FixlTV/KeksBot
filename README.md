@@ -3,4 +3,4 @@ Legga Legga Kekse
 
 Hier gibt es viele leckere Kekse.
 
-Die userdata, serverdata, vip und config Files sind hier nicht vorhanden wegen Datenschutz und weil keinen die Tokens angehen 🍪
+Dies ist der aktuelle Entwicklungsstand von Version 1.1.3, der letzten stabilen, geplanten KeksBot Version unter Discord.JS v12. Diese Version wird keine weiteren Updates (Bugfixes ausgenommen) mehr erhalten und verliert spätestens 30 Tage nach Release von Version 1.2 komplett den Support.
