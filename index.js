@@ -1,9 +1,10 @@
 const discord = require('discord.js')
-const client  = new discord.Client
+const client  = new discord.Client({ intents: ['GUILDS', 'GUILD_BANS', 'GUILD_MEMBERS', 'GUILD_INVITES', 'GUILD_EMOJIS_AND_STICKERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_VOICE_STATES', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS']})
 const config  = require('./config.json')
 const automod = require('./automod/automod')
 const commandhandler = require('./commandhandler')
 const eventhandler = require('./eventhandler')
+discord.Collection.prototype.array = function() {return [...this.values()]}
 
 var date = new Date()
 console.log(`Starte System am ${date.getDate()}.${date.getMonth() +1}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`)
