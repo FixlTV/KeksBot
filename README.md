@@ -1,8 +1,10 @@
 # Keksbot
 Legga Legga Kekse
 
-Hier gibt es viele leckere Kekse.
+Hier gab es viele leckere Kekse.
 
-Dies ist der aktuelle Entwicklungsstand von Version 1.1.3, der letzten stabilen, geplanten KeksBot Version unter Discord.JS v12. Diese Version wird keine weiteren Updates (Bugfixes ausgenommen) mehr erhalten und verliert spätestens 30 Tage nach Release von Version 1.2 komplett den Support.
+Dies ist der finale Entwicklungsstand von Version 1.1.3, der letzten stabilen Version **ohne** Slash Commands.  
+Diese Version wird nicht mehr unterstützt.
 
-Btw wir sind umgezogen: [Zur Organisation](https://github.com/KeksBot/KeksBot "Drück mich")
+
+[Zu neueren Versionen](https://github.com/KeksBot/KeksBot "Drück mich")
